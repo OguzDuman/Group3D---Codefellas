@@ -17,9 +17,9 @@ CS 319 Project - Pandemic Manager
 - Keeping track of quarantine status of students
 - Seeing the COVID history of student
 - Show missed classes for students
-- Arragne make-up exams for students
+- Arrange make-up exams for students
 - Display/arrange make-up sessions
-- Notifying students that sits near to the infected students
+- Notifying students that sit near the infected students
 - ...
 - This part will be finalised after the requirement analysis
 
