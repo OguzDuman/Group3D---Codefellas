@@ -4,8 +4,8 @@ CS 319 Project - Pandemic Manager
 - Mustafa Oğuz DUMAN 21902051
 - Olcaytu GÜRKAN 21903031
 - Esra GENÇ 21901962
-- Doğa Ece Ersoy 21902487
-- Ammaar Iftikhar 21901257
+- Doğa Ece ERSOY 21902487
+- Ammaar IFTİKHAR 21901257
 
 ****
 **Instructor:** Eray TÜZÜN  
