@@ -13,16 +13,16 @@ CS 319 Project - Pandemic Manager
 ****
 
 #### Features of Pandemic Manager:
-- **Managing HES codes / Vaccine & PCR status:** Both students and instructors can enter/update the HES codes, Vaccine and PCR. Instructors have access to these information for all the students in their class while the students can only access their own.
-- **Keeping track of quarantine status of students:** The system will set a 14-day deadline for a quarantined student and after that deadline notify them to have a PCR test. The quarantine status of a student will also be shown to his/her instructors.
-- **Seeing the COVID history of student:** Students and instructors can see the COVID history of their own.
-- **Show missed classes for students:** Students can see the classes that they have missed during their quarantines.
-- **Arrange make-up exams for students:** If a student misses an exam due to quarantine, the instructor will be notified and will arrange a make-up exam
-- **Display/arrange make-up sessions:** The system will allow instructors to arrange make-up sessions if they have to cancel classes due to quarantine.
-- **Notifying students that sit near the infected students:** The students who sit near an infected students will be recommended to have a test.
-- **See campus access information:** Students will be able to see whether they can acces the campus. Instructors will be able to see the access info of the students in their classes.
-- **Create and join classes:** Instructors will be able to create classes in order to notify their students. Students can enter these classes in order to be able to see anouncements about COVID in their class.
-- **Send weekly reports:** Like the BAIS mails, this system will send a report to students including the weekly number of cases and the number of active cases.
+- **Managing HES codes / Vaccine & PCR status:** Both students and instructors can enter/update the HES codes, Vaccine and PCR. Instructors have access to these information for all the students in their class while the students can only access their own. (Oğuz)
+- **Keeping track of quarantine status of students:** The system will set a 14-day deadline for a quarantined student and after that deadline notify them to have a PCR test. The quarantine status of a student will also be shown to his/her instructors.(Oğuz)
+- **Seeing the COVID history of student:** Students and instructors can see the COVID history of their own.(Ammaar)
+- **Show missed classes for students:** Students can see the classes that they have missed during their quarantines.(Ammaar)
+- **Arrange make-up exams for students:** If a student misses an exam due to quarantine, the instructor will be notified and will arrange a make-up exam (Doğa)
+- **Display/arrange make-up sessions:** The system will allow instructors to arrange make-up sessions if they have to cancel classes due to quarantine. (Doğa)
+- **Notifying students that sit near the infected students:** The students who sit near an infected students will be recommended to have a test. (Olcay)
+- **See campus access information:** Students will be able to see whether they can acces the campus. Instructors will be able to see the access info of the students in their classes. (Olcay)
+- **Create and join classes:** Instructors will be able to create classes in order to notify their students. Students can enter these classes in order to be able to see anouncements about COVID in their class. (Esra)
+- **Send weekly reports:** Like the BAIS mails, this system will send a report to students including the weekly number of cases and the number of active cases. (Esra)
 
 #### User Types:
  - **Student:** Students can enter PCR, HES Codes and Vaccine information. Students can also see their own campus access information and join classes. The weekly reports will be sent to the students.
