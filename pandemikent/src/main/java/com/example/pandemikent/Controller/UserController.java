@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path="/showStudents")
+@RequestMapping(path="/showUsers")
 public class UserController {
     
   @Autowired

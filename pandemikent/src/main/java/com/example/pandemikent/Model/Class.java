@@ -4,33 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 @Entity
+@Table(name="class")
 public class Class {
     
     @Id
-    private String name;
-    private String instructor;
+    @Column
+    private String name = null;
+    @Column
+    private String instructor = null;
     @ElementCollection
-    @CollectionTable(name ="user")
-    @OneToMany
-    @JoinColumn(name="user_id")
-    private List<Integer> users = new ArrayList<Integer>();
+    @CollectionTable(name ="users")
+    // @OneToMany(fetch = FetchType.EAGER, mappedBy = "Class")
+    // @JoinColumn(name="users", updatable = true)
+    private List<Integer> users;
 
     // Constructor
-    public Class(String name, String instructor) {
+    public Class(String name, String instructor, List<Integer> users) {
         this.name = name;
         this.instructor = instructor;
+        this.users = users;
     }
 
+    // Constructor
     public Class() {
         this.name = null;
         this.instructor = null;
+        this.users = new ArrayList<>();
     }
 
     // Functions

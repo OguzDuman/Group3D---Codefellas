@@ -1,5 +1,6 @@
 package com.example.pandemikent.Controller;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import com.example.pandemikent.Model.Class;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +25,7 @@ public class ClassController {
   @PostMapping(path="/add")
   public @ResponseBody String addNewClass (@RequestParam String name, @RequestParam String instructor) {
 
-    Class n = new Class(name, instructor);
+    Class n = new Class(name, instructor, new ArrayList<Integer>());
     classRepository.save(n);
     return "Saved";
   }
@@ -40,15 +42,15 @@ public class ClassController {
     return temp;
   }
 
-//   @PostMapping(path="/addMember")
-//   public @ResponseBody Class addClassMember(@RequestParam String name,
-//                                              @RequestParam int id) {
-//     Class temp = classRepository.findById(name).orElse(null);
-//     if( temp == null)
-//         return null;
-//     temp.addUser(id);
-//     classRepository.save(temp);
+  @PutMapping(path="/addMember")
+  public @ResponseBody Class addClassMember(@RequestParam String name,
+                                             @RequestParam int id) {
+    Class temp = classRepository.findById(name).get();
+    System.out.println(temp);
+    temp.addUser(id);
+    System.out.println(temp);
+    classRepository.save(temp);
     
-//     return temp;
-//   }
+    return temp;
+  }
 }
