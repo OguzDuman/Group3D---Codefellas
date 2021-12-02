@@ -35,12 +35,12 @@ public class ClassController {
     return classRepository.findAll();
   }
 
-  @PostMapping(path="/delete")
-  public @ResponseBody Optional<Class> deleteClass(@RequestParam String name) {
-    Optional<Class> temp = classRepository.findById(name);
-    classRepository.deleteById(name);
-    return temp;
-  }
+  // @PostMapping(path="/delete")
+  // public @ResponseBody Optional<Class> deleteClass(@RequestParam String name) {
+  //   Optional<Class> temp = classRepository.findById(name);
+  //   classRepository.deleteById(name);
+  //   return temp;
+  // }
 
   @PutMapping(path="/addMember")
   public @ResponseBody Class addClassMember(@RequestParam String name,

@@ -1,22 +1,31 @@
 package com.example.pandemikent.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class User {
+@Table(name="user")
+public class UserLogin {
     @Id
-    private int id;
+    @Column(name="username")
     private String  username;
+    @Column(name="password")
     private String  password;
 
+    // Constructors
+    public UserLogin(int id, String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public UserLogin() {
+        this.username = null;
+        this.password = null;
+    }
+
     // Functions
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
     public String getUsername() {
         return username;
     }
@@ -32,19 +41,6 @@ public class User {
     
     @Override
     public String toString() {
-        return "User [, id=" + id + ", password=" + password + ", username=" + username + "]";
+        return "User [ password=" + password + ", username=" + username + "]";
     }
-    public User(int id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-
-    public User() {
-        this.id = 0;
-        this.username = null;
-        this.password = null;
-    }
-
-
 }

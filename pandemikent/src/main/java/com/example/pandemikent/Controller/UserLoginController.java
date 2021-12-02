@@ -1,7 +1,7 @@
 package com.example.pandemikent.Controller;
 
-import com.example.pandemikent.Model.User;
-import com.example.pandemikent.Repo.UserRepository;
+import com.example.pandemikent.Model.UserLogin;
+import com.example.pandemikent.Repo.UserLoginRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,25 +12,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path="/showUsers")
-public class UserController {
+@RequestMapping(path="/login")
+public class UserLoginController {
     
   @Autowired
-  private UserRepository userRepository;
+  private UserLoginRepository userRepository;
 
-  @PostMapping(path="/add") 
-  public @ResponseBody String addNewUser (@RequestParam String name, @RequestParam int id, @RequestParam String password) {
-
-    User n = new User();
-    n.setUsername(name);
-    n.setId(id);
-    n.setPassword(password);
-    userRepository.save(n);
+  @GetMapping(path="/submit") 
+  public @ResponseBody String addNewUser (@RequestParam String name, @RequestParam String password) {    
+    UserLogin temp = userRepository.findById(name).get();
+    
+    if (temp == null || temp.getPassword() != password)
+      return "Access Denied";
     return "Saved";
   }
 
   @GetMapping(path="/all")
-  public @ResponseBody Iterable<User> getAllUsers() {
+  public @ResponseBody Iterable<UserLogin> getAllUsers() {
     return userRepository.findAll();
   }
 }
