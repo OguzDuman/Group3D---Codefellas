@@ -1,11 +1,14 @@
-package com.example.pandemikent.Model;
+// package com.example.pandemikent.Model;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+// import java.util.ArrayList;
 
-@Entity
-@DiscriminatorValue("Instructor")
-public class Instructor extends UserProfile{
-    // The identifies in the super class will automatically be used 
-    // as an identifier here
-}
+// import javax.persistence.DiscriminatorValue;
+// import javax.persistence.Entity;
+
+// @Entity
+// @DiscriminatorValue("Instructor")
+// public class Instructor extends UserProfile{
+//     // The identifies in the super class will automatically be used 
+//     // as an identifier here
+//     //private ArrayList<Section> section =  new ArrayList<>();
+// }
