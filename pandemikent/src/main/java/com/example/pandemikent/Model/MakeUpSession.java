@@ -28,7 +28,7 @@ public class MakeUpSession {
 	public MakeUpSession(int year, int month, int date, int hrs, int min, String sessionID) {
 		this.sessionDate = new Date(year, month, date, hrs, min);
         this.sessionID = sessionID;
-	}}
+	}
 
 	//Gets & Sets
 	public String getSessionID() {

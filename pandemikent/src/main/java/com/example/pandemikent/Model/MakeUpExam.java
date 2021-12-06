@@ -39,7 +39,7 @@ public class MakeUpExam {
         this.examID = examID;
         this.studentIDs = studentIDs;
         this.reason = reason;
-	}}
+	}
 
 	//Gets & Sets
 	public String getExamID() {

@@ -24,7 +24,7 @@ public class Quarantine {
 	public Quarantine() {
         this.daysLeft = -1;
         this.didCountdownEnd = false;
-        this.patientId = null;
+        this.patientID= null;
 	}
 		
 	public Quarantine(int daysLeft, Boolean didCountdownEnd, String patientID) {
@@ -51,10 +51,10 @@ public class Quarantine {
 	}
 
 	public String getPatientId() {
-		return patientId;
+		return patientID;
 	}
 
 	public void setPatientId(String patientId) {
-		this.patientId = patientId;
+		this.patientID = patientId;
 	}
 }
