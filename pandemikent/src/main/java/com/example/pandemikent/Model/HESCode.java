@@ -1,4 +1,4 @@
-package com.example.pandemikent.Entities;
+package com.example.pandemikent.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

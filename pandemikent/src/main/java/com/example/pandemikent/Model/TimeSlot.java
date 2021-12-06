@@ -1,4 +1,4 @@
-package com.example.pandemikent.Entities;
+package com.example.pandemikent.Model;
 
 public enum TimeSlot {
 	MONDAY_EIGTH_THIRTY_TO_NINE_TWENTY,
