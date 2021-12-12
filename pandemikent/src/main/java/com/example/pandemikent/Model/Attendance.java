@@ -2,10 +2,7 @@ package com.example.pandemikent.Model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ATTENDANCE")
@@ -20,9 +17,11 @@ public class Attendance {
 	private Date attendanceDate;
 		
 	@Column(name = "student_ids")
+	@ElementCollection
 	private ArrayList<String> studentIDs;
 
     @Column(name = "reason")
+	@ElementCollection
 	private ArrayList<String> reason; //what is reason tho
 
 	//Constructors
