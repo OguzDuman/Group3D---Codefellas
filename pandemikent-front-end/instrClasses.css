@@ -130,7 +130,7 @@
     font-size: 36px;
     color: black;
     float: left;
-    width: min-content;
+    width: 35%;
 }
 
 .container li:nth-child(odd) a {
