@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Participants</title>  
+        <link rel="stylesheet" href="participants.css">
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <img src="logo.jpg" height="50px" width="190px">
+                <img src="user.png" height="70px" width="70px">
+                <p><b>Name</b></p>
+                <p><b>Bilkent ID</b></p>
+                <p><b>Mail</b></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p class="accessStatus">You are allowed on campus.</p>
+            </div>
+
+            <ul>
+                <li><a href="#"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>            
+        </div>
+
+        <div class="topbar">
+            <h1>Classes > CS319-03 > Participants</h1>
+        </div>
+
+        <div class="container">
+            <table style="width: 60%">
+                <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+                <tr>
+                    <td><img src="user.png" height="70px" width="70px"></td>
+                    <td>Bilkent ID</td>
+                    <td>Full Name</td>
+                </tr>
+                <tr>
+                    <td><img src="user.png" height="70px" width="70px"></td>
+                    <td>Bilkent ID</td>
+                    <td>Full Name</td>
+                </tr>
+                <tr>
+                    <td><img src="user.png" height="70px" width="70px"></td>
+                    <td>Bilkent ID</td>
+                    <td>Full Name</td>
+                </tr>
+                <tr>
+                    <td><img src="user.png" height="70px" width="70px"></td>
+                    <td>Bilkent ID</td>
+                    <td>Full Name</td>
+                </tr>
+                <tr>
+                    <td><img src="user.png" height="70px" width="70px"></td>
+                    <td>Bilkent ID</td>
+                    <td>Full Name</td>
+                </tr>
+                <tr>
+                    <td><img src="user.png" height="70px" width="70px"></td>
+                    <td>Bilkent ID</td>
+                    <td>Full Name</td>
+                </tr>
+                <tr>
+                    <td><img src="user.png" height="70px" width="70px"></td>
+                    <td>Bilkent ID</td>
+                    <td>Full Name</td>
+                </tr>
+            </table>
+            <div class="notification">
+                <a href="#"><img src="bell.png" height="70px" width="70px">
+            </div>
+        </div>
+        <script>
+            var accessInfo;
+            
+            accessInfo = document.getElementsByClassName('accessStatus');
+            for (var i = 0; i < accessInfo.length; i++) {
+                if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
+                    accessInfo[i].style.color = "chartreuse";
+                }
+                else {
+                    accessInfo[i].style.color = "red";
+                }
+            }
+        </script>
+    </body>
+</html>
