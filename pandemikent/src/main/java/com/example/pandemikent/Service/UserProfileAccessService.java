@@ -1,36 +1,29 @@
 package com.example.pandemikent.Service;
 
-import com.example.pandemikent.Model.UserLogin;
 import com.example.pandemikent.Model.UserProfile;
-import com.example.pandemikent.Repo.InstructorRepository;
-import com.example.pandemikent.Repo.StudentRepository;
 import com.example.pandemikent.Repo.UserLoginRepository;
+import com.example.pandemikent.Repo.UserProfileRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class UserProfileAccessService {
+@Service
+public class UserProfileAccessService{
     @Autowired
-    private  UserLoginRepository userLoginRepository;
-    @Autowired
-    private  StudentRepository studentRepository;
-    @Autowired
-    private InstructorRepository instructorRepository;
+    private  UserProfileRepository userProfileRepository;
     
-    public UserProfile login(String id, String password) {
-        UserLogin user = userLoginRepository.findById(id).get();
-        
-        // check password
-        if (user.getPassword() == password) {
-            // find in Student
-            UserProfile profile = studentRepository.findById(id).get();
+    public UserProfile getUser(String id) {
+        // UserLogin user = userLoginRepository.findById(id).get();
+        UserProfile user = userProfileRepository.findById(id).get();
+        // // check password
+        // if (user.getPassword() == password) {
+        //     // find in Student
+        //     UserProfile profile = userProfileRepository.findById(id).get();
 
-            // if the profile is not of a student
-            if (profile == null) {
-                profile = instructorRepository.findById(id).get();
-            }
-            return profile;
-        }
+        //     return profile;
+        // }
 
-        return null;
+        return user;
     }
+    
 }
