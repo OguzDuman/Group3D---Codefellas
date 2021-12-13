@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="addHESCode.css">
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <img src="logo.jpg" height="70px" width="210px">
+                <img src="user.png" height="70px" width="70px">
+                <p><b>Name</b></p>
+                <p><b>Bilkent ID</b></p>
+                <p><b>Mail</b></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p>You are allowed on campus.</p>
+            </div>
+
+            <ul>
+                <li><a href="#"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>
+        </div>
+        <div class="topbar">
+            <div>
+                <h1>Add New Class</h1>
+            </div>
+        </div>
+        <form>
+            <div class="container">
+                <h1>HES Code: </h1>
+                <!--input type="text" placeholder="*9*9-9999-99" name="hescode" required minlength="10" maxlength="10" pattern="[0-9]|[A-Z]{4}-[0-9]{4}-[0-9]{2}"-->
+                <input type="text" placeholder="*9*9" name="hescode0" required minlength="4" maxlength="4" size="5" pattern="[0-9]|[A-Z]{4}">
+                <label>-</label>
+                <input type="text" placeholder="9999" name="hescode1" required minlength="4" maxlength="4" size="5" pattern="[0-9]{4}">
+                <label>-</label>
+                <input type="text" placeholder="99" name="hescode2" required minlength="2" maxlength="2" size="3" pattern="[0-9]{2}">
+            </div>
+            <div class="container">
+                <ul><li><a href="#"> 
+                    <span class="item">Submit</span>
+                </a> </li></ul>
+            </div>
+            <div class="container">
+               <span style="padding-top:340px"> 
+            </div>
+        </form>
+    </body>
+</html>
