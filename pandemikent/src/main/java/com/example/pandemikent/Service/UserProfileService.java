@@ -1,10 +1,14 @@
 package com.example.pandemikent.Service;
 
+import java.util.Optional;
+
 import com.example.pandemikent.Model.Instructor;
 import com.example.pandemikent.Model.Student;
+import com.example.pandemikent.Model.UserLogin;
 import com.example.pandemikent.Model.UserProfile;
 import com.example.pandemikent.Repo.InstructorRepository;
 import com.example.pandemikent.Repo.StudentRepository;
+import com.example.pandemikent.Repo.UserLoginRepository;
 import com.example.pandemikent.Repo.UserProfileRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +22,64 @@ public class UserProfileService {
     private StudentRepository studentRepository;
     @Autowired
     private InstructorRepository instructorRepository;
+    @Autowired
+    private UserProfileAccessService accessService;
+    @Autowired
+    private UserLoginRepository userLoginRepository;
 
     public UserProfile displayUserInfo(String id){   
         // find in the profile
-        UserProfile profile = userProfileRepository.findById(id).get();
+        // UserProfile profile = userProfileRepository.findById(id).get();
+        // find if user exists
+        UserProfile profile;
+        if (accessService.getUser(id) == null) 
+            return null;
+        else {
+            Optional<Student> tempStudent;
+            Optional<Instructor> tempInst;
+
+            // find in Student table
+            tempStudent = studentRepository.findById(id);
+
+            // if not present, find in Instructor table
+            if (tempStudent.isEmpty()){
+                tempInst = instructorRepository.findById(id);
+                if (tempInst.isEmpty()) {
+                    System.out.println("System error! Can't find user");
+                    return null;
+                } else {
+                    profile = tempInst.get();
+                }
+            } else {
+                System.out.println(tempStudent + "-------------------------");
+                profile = tempStudent.get();
+            }
+        } 
 
         return profile;
+    }
+
+    public boolean addUserProfile(UserProfile user) {
+
+        Optional<UserLogin> temp = userLoginRepository.findById(user.getUsername());
+        UserLogin u;
+
+        if (temp != null)
+            u = temp.get();
+        else 
+            return false;
+
+        if (u.getRole().contains("STUDENT")) {
+            studentRepository.save(new Student(user.getUsername(), user.getId(), user.getEmail()));
+        }
+        else if (u.getRole().contains("INSTRUCTOR")) {
+            instructorRepository.save(new Instructor(user.getUsername(), user.getId(), user.getEmail()));
+        }
+        else {
+            return false;
+        }
+
+        return true;
     }
 
     // how can anything be updated without direct access to the database  _____+++++++

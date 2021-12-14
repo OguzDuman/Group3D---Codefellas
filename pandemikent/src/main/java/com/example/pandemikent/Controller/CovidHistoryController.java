@@ -11,7 +11,7 @@
 
 //     @GetMapping("/vaccineHistory")
 //     public @ResponseBody String displayCovidHistoryPage(@RequestParam String name) {
-//         // I don't understand why the method in the service class is returning a boolean
+//         // I don't understand why the method in the service class is returning a boolean. It should return string.
 //         return covidInfo.getCovidHistory(name);
 //     }
 // }

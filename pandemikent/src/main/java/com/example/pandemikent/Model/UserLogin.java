@@ -9,11 +9,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.FetchType;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -33,11 +29,14 @@ public class UserLogin implements UserDetails{
     private List<String> role = new ArrayList<>();
 
     // Constructors
-    public UserLogin(int id, String username, String password) {
+    public UserLogin( String username, String password, String role) {
         this.username = username;
         this.password = password;
-        role.add("USER");
-        role.add("ADMIN");
+
+        // updating roles of the user
+        this.role.add("USER");
+        this.role.add("ADMIN");
+        if (role != null && ( role.equals("INSTRUCTOR") || role.equals("STUDENT") ) ) this.role.add(role);
     }
 
     public UserLogin() {
@@ -96,5 +95,9 @@ public class UserLogin implements UserDetails{
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public List<String> getRole() {
+        return role;
     }
 }

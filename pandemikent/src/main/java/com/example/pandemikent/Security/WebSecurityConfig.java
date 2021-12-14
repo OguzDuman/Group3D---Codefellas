@@ -1,5 +1,4 @@
 package com.example.pandemikent.Security;
-import java.net.PasswordAuthentication;
 
 import javax.sql.DataSource;
  
@@ -9,10 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.*;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
  
 @Configuration
 @EnableWebSecurity
@@ -34,15 +31,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // http.authorizeRequests()
+        //     .antMatchers("/submit")
+        //     .permitAll()
+        //     .antMatchers("/displayProfile")
+        //     .hasRole("USER")
+        //     .anyRequest().authenticated()
+        //     .and()
+        //     .formLogin().permitAll()
+        //     .and()
+        //     .logout().permitAll();     
         http.authorizeRequests()
-            .antMatchers("/displayProfile")
-            .hasRole("USER")
-            .anyRequest().authenticated()
-            .and()
-            .formLogin().permitAll()
-            .and()
-            .logout().permitAll();     
+            .antMatchers("**")
+            .permitAll()
+            ;
+        http.csrf().disable();     // temp testing setting
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

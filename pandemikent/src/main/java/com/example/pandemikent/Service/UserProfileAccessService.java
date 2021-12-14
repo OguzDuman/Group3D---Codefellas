@@ -1,5 +1,8 @@
 package com.example.pandemikent.Service;
 
+import java.util.Optional;
+
+import com.example.pandemikent.Model.UserLogin;
 import com.example.pandemikent.Model.UserProfile;
 import com.example.pandemikent.Repo.UserLoginRepository;
 import com.example.pandemikent.Repo.UserProfileRepository;
@@ -10,18 +13,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserProfileAccessService{
     @Autowired
-    private  UserProfileRepository userProfileRepository;
+    private  UserLoginRepository userLoginRepository;
     
-    public UserProfile getUser(String id) {
+    public UserLogin getUser(String id) {
         // UserLogin user = userLoginRepository.findById(id).get();
-        UserProfile user = userProfileRepository.findById(id).get();
-        // // check password
-        // if (user.getPassword() == password) {
-        //     // find in Student
-        //     UserProfile profile = userProfileRepository.findById(id).get();
-
-        //     return profile;
-        // }
+        Optional<UserLogin> temp = userLoginRepository.findById(id);
+        UserLogin user = null;
+        if (temp != null)
+            user = temp.get();
 
         return user;
     }
