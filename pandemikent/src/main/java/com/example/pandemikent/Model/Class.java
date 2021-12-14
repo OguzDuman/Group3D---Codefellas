@@ -40,7 +40,7 @@ public class Class {
 	private List<Section> sections;
 	
 	@OneToOne
-	@JoinColumn(name = "attendance_ids")
+	@JoinColumn(name = "attendance_id")
 	private Attendance attendance;
 	
 	@OneToOne
