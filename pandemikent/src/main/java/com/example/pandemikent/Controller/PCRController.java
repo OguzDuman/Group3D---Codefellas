@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.pandemikent.Model.PCR;
-import com.example.pandemikent.Services.CovidHistoryService;
+import com.example.pandemikent.Service.CovidHistoryService;
 
 @Controller
 public class PCRController {
