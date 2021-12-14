@@ -7,6 +7,9 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +18,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -24,12 +26,7 @@ public class Class {
 
 	// Properties
 	@Id
-	@Column(name = "class_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqclass")
-	@SequenceGenerator(name = "seqclass", sequenceName = "CLASS_SEQ", allocationSize = 1)
-	private Long classId;
-
-	@Column(name = "name", nullable = false)
+	@Column(name = "class_name", nullable = false)
 	private String name;
 	
 	@ManyToMany()
@@ -38,20 +35,25 @@ public class Class {
         joinColumns = { @JoinColumn(name = "classId") }, 
         inverseJoinColumns = { @JoinColumn(name = "studentId") }
     )
-	private List<Student> students = new ArrayList<>();
+	private List<Student> students;
 	
-	//@Enumerated(value = EnumType.STRING)   --- this was not worki`ngff
+
+	// @ElementCollection(targetClass = TimeSlot.class)
+	// @Enumerated(value = EnumType.STRING)   --- this was not worki`ngffnumerated(value = EnumType.STRING)
+	// private List<TimeSlot> timeSlots;
+
 	@ElementCollection
 	@CollectionTable(name = "time_slots")
 	private List<TimeSlot> timeSlots = new ArrayList<>();
+
 	
 	@OneToMany
 	@JoinColumn(name = "section_id")
 	private List<Section> sections;
 	
-	@OneToMany
+	@OneToOne
 	@JoinColumn(name = "attendance_id")
-	private List<Attendance> attendances;
+	private Attendance attendance;
 	
 	@OneToOne
 	@JoinColumn(name = "make_up_exam_id")
@@ -61,26 +63,17 @@ public class Class {
 	public Class() {
 	}
 
-	public Class(Long classId, String name, List<Student> students, List<TimeSlot> timeSlots, List<Section> sections,
-			List<Attendance> attendances, MakeUpExam makeUpExam) {
-		this.classId = classId;
+	public Class(String name, List<Student> students, List<TimeSlot> timeSlots, List<Section> sections,
+			Attendance attendance, MakeUpExam makeUpExam) {
 		this.name = name;
 		this.students = students;
 		this.timeSlots = timeSlots;
 		this.sections = sections;
-		this.attendances = attendances;
+		this.attendance = attendance;
 		this.makeUpExam = makeUpExam;
 	}
 
 	// Getters and Setters
-	public Long getClassId() {
-		return classId;
-	}
-
-	public void setClassId(Long classId) {
-		this.classId = classId;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -113,12 +106,12 @@ public class Class {
 		this.sections = sections;
 	}
 
-	public List<Attendance> getAttendances() {
-		return attendances;
+	public Attendance getAttendance() {
+		return attendance;
 	}
 
-	public void setAttendances(List<Attendance> attendances) {
-		this.attendances = attendances;
+	public void setAttendance(Attendance attendance) {
+		this.attendance = attendance;
 	}
 
 	public MakeUpExam getMakeUpExam() {
