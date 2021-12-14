@@ -3,10 +3,7 @@ package com.example.pandemikent.Model;
 import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,8 +13,6 @@ public class PCR {
 	// Properties 
 	@Id
 	@Column(name = "pcr_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqpcr")
-	@SequenceGenerator(name = "seqpcr", sequenceName = "PCR_SEQ", allocationSize = 1)
 	private Long pcrId;
 	
 	@Column(name = "patient_id", nullable = false)

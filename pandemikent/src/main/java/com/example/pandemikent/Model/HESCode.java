@@ -2,10 +2,7 @@ package com.example.pandemikent.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -15,8 +12,6 @@ public class HESCode {
 	// Properties
 	@Id
 	@Column(name = "hes_code_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqhes")
-	@SequenceGenerator(name = "seqhes", sequenceName = "HES_SEQ", allocationSize = 1)
 	private Long hesCodeId;
 	
 	@Column(name = "code", nullable = false)

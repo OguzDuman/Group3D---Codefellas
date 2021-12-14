@@ -4,10 +4,7 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -17,8 +14,6 @@ public class Vaccine {
 	// Properties
 	@Id
 	@Column(name = "vaccine_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqvaccine")
-	@SequenceGenerator(name = "seqvaccine", sequenceName = "VACCINE_SEQ", allocationSize = 1)
 	private Long vaccineId;
 	
 	@Column(name = "vaccine_date")
