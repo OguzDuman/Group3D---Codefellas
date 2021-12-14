@@ -7,8 +7,10 @@ import javax.persistence.CollectionTable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="instructor")
 @DiscriminatorValue("Instructor")
 public class Instructor extends UserProfile{
     @ElementCollection

@@ -14,6 +14,10 @@ import javax.persistence.Table;
 @DiscriminatorValue("Student")
 public class Student extends UserProfile {
     
+    public Student(String username, int id, String email) {
+        super(username, id, email);
+    }
+
     @ElementCollection
     @CollectionTable(name ="classList")
     private List<String> classes = new ArrayList<>();
