@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Classes</title>  
+        <link rel="stylesheet" href="stuClasses.css">
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <img src="logo.jpg" height="50px" width="190px">
+                <img src="user.png" height="70px" width="70px">
+                <p><b>Name</b></p>
+                <p><b>Bilkent ID</b></p>
+                <p><b>Mail</b></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p class="accessStatus">You are allowed on campus.</p>
+            </div>
+
+            <ul>
+                <li><a href="#"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>            
+        </div>
+
+        <div class="topbar">
+            <ul>
+                <li><a href="#"> 
+                    <span class="item">Join Class</span>
+                </a></li>
+            </ul>
+            <h1>Classes</h1>
+        </div>
+
+        <div class="container">
+            <ul>
+                <li><a href="instrCourses.html"> 
+                    <span class="item">CS319-03</span>
+                </a></li>
+                <li><a href="instrCourses.html"> 
+                    <span class="item">CS315-03</span>
+                </a></li>
+                <li><a href="instrCourses.html"> 
+                    <span class="item">MATH230-03</span>
+                </a></li>
+                <li><a href="instrCourses.html"> 
+                    <span class="item">ENG401-13</span>
+                </a></li>
+            </ul>
+            <div class="notification">
+                <a href="#"><img src="bell.png" height="70px" width="70px">
+            </div>
+        </div>
+        <script>
+            var accessInfo;
+            
+            accessInfo = document.getElementsByClassName('accessStatus');
+            for (var i = 0; i < accessInfo.length; i++) {
+                if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
+                    accessInfo[i].style.color = "chartreuse";
+                }
+                else {
+                    accessInfo[i].style.color = "red";
+                }
+            }
+        </script>
+    </body>
+</html>

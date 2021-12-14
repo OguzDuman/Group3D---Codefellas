@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="createClass.css">
+        <link rel="stylesheet" href="addHESCode.css">
     </head>
     
     <body>
@@ -47,23 +47,21 @@
         </div>
         <form>
             <div class="container">
-                <h1>Class Code: </h1>
-                <input type="text" placeholder="CS319 etc." name="classcode" required>
+                <h1>HES Code: </h1>
+                <!--input type="text" placeholder="*9*9-9999-99" name="hescode" required minlength="10" maxlength="10" pattern="[0-9]|[A-Z]{4}-[0-9]{4}-[0-9]{2}"-->
+                <input type="text" placeholder="*9*9" name="hescode0" required minlength="4" maxlength="4" size="5" pattern="[0-9]|[A-Z]{4}">
+                <label>-</label>
+                <input type="text" placeholder="9999" name="hescode1" required minlength="4" maxlength="4" size="5" pattern="[0-9]{4}">
+                <label>-</label>
+                <input type="text" placeholder="99" name="hescode2" required minlength="2" maxlength="2" size="3" pattern="[0-9]{2}">
             </div>
             <div class="container">
-                <h1>Number of Sections: </h1>
-                <input type="number" name="numofsections" required>
-            </div>
-            <div class="container">
-                <!--ul><li><a href="#"> 
-                    <span class="item">Submit</span>
-                </a></li></ul-->
                 <ul><li><a href="#"> 
                     <span class="item">Submit</span>
                 </a> </li></ul>
             </div>
             <div class="container">
-               <span style="padding-top:230px"> 
+               <span style="padding-top:340px"> 
             </div>
         </form>
     </body>

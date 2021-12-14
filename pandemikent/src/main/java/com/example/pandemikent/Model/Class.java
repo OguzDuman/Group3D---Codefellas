@@ -1,11 +1,18 @@
 package com.example.pandemikent.Model;
 
 import java.util.List;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+<<<<<<< HEAD
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+=======
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+>>>>>>> main
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -31,9 +38,15 @@ public class Class {
     )
 	private List<Student> students;
 	
-	@ElementCollection(targetClass = TimeSlot.class)
-	@Enumerated(value = EnumType.STRING)
-	private List<TimeSlot> timeSlots;
+
+	// @ElementCollection(targetClass = TimeSlot.class)
+	// @Enumerated(value = EnumType.STRING)   --- this was not worki`ngffnumerated(value = EnumType.STRING)
+	// private List<TimeSlot> timeSlots;
+
+	@ElementCollection
+	@CollectionTable(name = "time_slots")
+	private List<TimeSlot> timeSlots = new ArrayList<>();
+
 	
 	@OneToMany
 	@JoinColumn(name = "section_id")

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Courses</title>  
+        <link rel="stylesheet" href="stuCourses.css">
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <img src="logo.jpg" height="50px" width="190px">
+                <img src="user.png" height="70px" width="70px">
+                <p><b>Name</b></p>
+                <p><b>Bilkent ID</b></p>
+                <p><b>Mail</b></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p class="accessStatus">You are allowed on campus.</p>
+            </div>
+
+            <ul>
+                <li><a href="#"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>            
+        </div>
+
+        <div class="topbar">
+            <h1>Classes > CS319-03</h1>
+        </div>
+
+        <div class="container">
+            <h2>Instructor: </h2>
+            <h3>Eray Tüzün</h3>
+            <p class="attendance">You are allowed to attend the next class.</p>
+            <ul>
+                <li><a href="#"> 
+                    <span class="item">Participants</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Missed Classes</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Make-Up Sessions</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Make-Up Exams</span>
+                </a></li>
+            </ul>
+            <div class="notification">
+                <a href="#"><img src="bell.png" height="70px" width="70px">
+            </div>
+        </div> 
+        <script>
+            var accessInfo, attendanceInfo;
+            
+            accessInfo = document.getElementsByClassName('accessStatus');
+            for (var i = 0; i < accessInfo.length; i++) {
+                if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
+                    accessInfo[i].style.color = "chartreuse";
+                }
+                else {
+                    accessInfo[i].style.color = "red";
+                }
+            }
+
+            attendanceInfo = document.getElementsByClassName('attendance');
+            for (var i = 0; i < attendanceInfo.length; i++) {
+                if (attendanceInfo[i].innerHTML === 'You are allowed to attend the next class.') {
+                    attendanceInfo[i].style.color = "chartreuse";
+                }
+                else {
+                    attendanceInfo[i].style.color = "red";
+                }
+            }
+        </script>
+    </body>
+</html>

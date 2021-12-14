@@ -1,6 +1,7 @@
 package com.example.pandemikent.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -18,11 +19,11 @@ public class Attendance {
 		
 	@Column(name = "student_ids")
 	@ElementCollection
-	private ArrayList<String> studentIDs;
+	private List<String> studentIDs;
 
     @Column(name = "reason")
 	@ElementCollection
-	private ArrayList<String> reason; //what is reason tho
+	private List<String> reason; //what is reason tho
 
 	//Constructors
 	public Attendance() {
@@ -56,7 +57,7 @@ public class Attendance {
 		this.attendanceDate = attendanceDate;
 	}
 
-	public ArrayList<String> getStudentIDs() {
+	public List<String> getStudentIDs() {
 		return studentIDs;
 	}
 
@@ -64,7 +65,7 @@ public class Attendance {
 		this.studentIDs = studentIDs;
 	}
 
-    public ArrayList<String> getReason() {
+    public List<String> getReason() {
 		return reason;
 	}
 

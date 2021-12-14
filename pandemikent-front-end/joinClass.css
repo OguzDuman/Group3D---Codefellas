@@ -4,7 +4,7 @@
     font-display:auto;font-style:normal;font-weight:500;
 }
 
- input[type=text], input[type=number] {   
+ input[type=text], input[type=number], input[type=search] {   
         width: %100;  
         height: 40px; 
         margin-left: 30px; 
