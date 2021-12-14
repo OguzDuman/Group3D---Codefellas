@@ -1,4 +1,4 @@
-package com.example.pandemikent.Services;
+package com.example.pandemikent.Service;
 
 import java.util.List;
 import javax.persistence.EntityManager;
