@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import com.example.pandemikent.Model.Class;
 import com.example.pandemikent.Model.Instructor;
@@ -33,10 +35,39 @@ public class ClassService {
   	@Autowired
   	private QuarantineRepository quarantineRepository;
 	
-  	public Class save(Class newClass, String instrId) {
+  	public Class save(String classId, String sectionId, String instrId) {
   		Instructor instr = instructorRepository.findById(instrId).get();
-  		newClass.setInstructor(instr);
-  		return classRepository.save(newClass);
+  		if(classRepository.getById(classId) == null) {
+  			Class newClass = new Class();
+  			newClass.setName(classId);
+  			Section newSection = new Section();
+  			newSection.setInstructor(instr);
+  			newSection.setSectionNumber(sectionId);
+  			ArrayList<Section> sections = new ArrayList<Section>();
+  			sections.add(newSection);
+  			newClass.setSections(sections);
+  			return classRepository.save(newClass);
+  		}
+  		else {
+  			Boolean b = false;
+  			for( Section s : classRepository.getById(classId).getSections()) {
+  				if(s.getSectionNumber() == sectionId) {
+  					b = true;
+  					break;
+  				}
+  			}
+  			if(b)
+  				return null;
+  			else {
+  				Section newSection = new Section();
+  	  			newSection.setInstructor(instr);
+  	  			newSection.setSectionNumber(sectionId);
+	  	  		ArrayList<Section> sections = (ArrayList<Section>) classRepository.getById(classId).getSections();
+	  			sections.add(newSection);
+	  			classRepository.getById(classId).setSections(sections);
+	  			return classRepository.getById(classId);
+  			}
+  		}
   	}
 	
   	public List<String> listUserClasses(String userId) {
@@ -53,7 +84,7 @@ public class ClassService {
   	public List<Section> listUserSections(String userId, String classId) {
   		List<Section> sections = classRepository.getById(classId).getSections();
   		for(Section section: sections) {
-  			if(section.getInstructor().getId() != userId) {
+  			if(section.getInstructor().getUsername() != userId) {
   				sections.remove(section);
   			}
   		}
@@ -107,5 +138,18 @@ public class ClassService {
 	
   	public ArrayList<Student> listQuarantinedStudents(String classId, String instrId) {
   		return null;
+  	}
+  	
+  	public String getUserId() {
+  		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+  		String username;
+  		if (principal instanceof UserDetails) {
+  		  username = ((UserDetails)principal).getUsername();
+  		} else {
+  		  username = principal.toString();
+  		}
+  		
+  		return username;
   	}
 }

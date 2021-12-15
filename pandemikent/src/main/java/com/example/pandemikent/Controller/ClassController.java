@@ -65,15 +65,17 @@
   
    @GetMapping("/addClassPage")
    public String displayAddClassPage(@RequestParam("instrId")String instrId, Model theModel) {
- 	  Class newClass = new Class();
- 	  theModel.addAttribute("newClass", newClass);
+ 	  String classId = ""; 
+ 	  String sectionId = "";
+ 	  theModel.addAttribute("classId", classId);
+ 	  theModel.addAttribute("sectionId", sectionId);
  	  theModel.addAttribute("instrId", instrId);
  	  return "addClass";
    }
   
    @PostMapping("/addClass")
-   public String addClass(@ModelAttribute("newClass") Class newClass, @ModelAttribute("instrId") String instrId) {
- 	  Class c = classService.save(newClass, instrId);
+   public String addClass(@ModelAttribute("classId") String classId, @ModelAttribute("sectionId") String sectionId, @ModelAttribute("instrId") String instrId) {
+ 	  Class c = classService.save(classId, sectionId, instrId);
  	  if(c == null) {
  		  return "errorPage";
  	  } else {

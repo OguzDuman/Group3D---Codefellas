@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +22,8 @@ public class Section {
 	// Properties
 	@Id
 	@Column(name = "section_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq1")
+	@SequenceGenerator(name = "seq_section", sequenceName = "SECTION_SEQ", allocationSize = 1)
 	private Long sectionId;
 
 	@Column(name = "section_number", nullable = false)
