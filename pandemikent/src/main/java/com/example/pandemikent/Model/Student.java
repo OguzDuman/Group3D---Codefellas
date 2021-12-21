@@ -28,7 +28,10 @@ public class Student extends UserProfile {
 
     @ElementCollection
     @CollectionTable(name ="closeContacts")
-    private List<String> closeContacts = new ArrayList<>();
+    public List<String> closeContacts = new ArrayList<>();
+
+    @CollectionTable(name ="isQuarantined")
+    private Boolean isQuarantined = false;
 
     public List<String> getClasses() {
         return classes;
@@ -44,6 +47,14 @@ public class Student extends UserProfile {
 
     public void setHistory(ArrayList<String> history) {
         this.history = history;
+    }
+
+    public void setIsQuarantined(Boolean isQuarantined) {
+        this.isQuarantined = isQuarantined;
+    }
+
+    public Boolean getIsQuarantined() {
+        return isQuarantined;
     }
 
     public Student() {
