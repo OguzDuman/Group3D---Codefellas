@@ -21,10 +21,6 @@ public class Attendance {
 	@ElementCollection
 	private List<String> studentIDs;
 
-	@Column(name = "attendence")
-	@ElementCollection
-	private List<Boolean> present;
-
     @Column(name = "reason")
 	@ElementCollection
 	private List<String> reason; //what is reason tho
