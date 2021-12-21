@@ -42,7 +42,7 @@ public class UserProfileController {
     }
 
     @GetMapping("/")
-    public @ResponseBody String displayUserProfile() {
+    public @ResponseBody String home() {
         return "Hello!";
     }
 
@@ -52,5 +52,9 @@ public class UserProfileController {
         return userProfileService.getCloseContacts(name);
     }
 
-    // public @ResponseBody String 
+    @PostMapping("/addCloseContacts")
+    public @ResponseBody List<String> addCloseContacts(@RequestParam String name, @RequestParam String contact) {
+
+        return userProfileService.addCloseContacts(name, contact);
+    }
 }

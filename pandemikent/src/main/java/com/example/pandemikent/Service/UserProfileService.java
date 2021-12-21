@@ -121,4 +121,25 @@ public class UserProfileService {
         
     }
 
+    public List<String> addCloseContacts(String name, String contact) {
+        Optional<UserLogin> temp = userLoginRepository.findById(name);
+
+        if (temp.isEmpty())
+            return null;
+
+        if (temp.get().getRole().contains("STUDENT")) {
+            Optional<Student> student = studentRepository.findById(name);
+            Student s = student.get();
+            List<String> list = s.getCloseContacts();
+            if (!list.contains(contact)) {
+                list.add(contact);
+                studentRepository.save(s);
+            }
+            return list;
+        } else {
+            return null;
+        }
+
+        
+    }
 }

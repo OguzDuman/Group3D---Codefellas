@@ -28,10 +28,4 @@ public class VaccineController {
         // url of the page
         return "the page name";
     }
-
-    @PostMapping("/addVaccineCertificate")
-    public @ResponseBody String displayAddVaccineAppointmentPage() {
-        // url of the page
-        return "the page name";
-    }
 }
