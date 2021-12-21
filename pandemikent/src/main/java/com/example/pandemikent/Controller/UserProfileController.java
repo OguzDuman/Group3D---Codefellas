@@ -1,5 +1,7 @@
 package com.example.pandemikent.Controller;
 
+import java.util.List;
+
 import com.example.pandemikent.Model.UserProfile;
 import com.example.pandemikent.Service.UserProfileAccessService;
 import com.example.pandemikent.Service.UserProfileService;
@@ -44,9 +46,11 @@ public class UserProfileController {
         return "Hello!";
     }
 
-    // @GetMapping("/closeContacts")
-    // public @ResponseBody String getCloseContacts(@RequestParam name) {
+    @GetMapping("/closeContacts")
+    public @ResponseBody List<String> getCloseContacts(@RequestParam String name) {
 
-    //     return null;
-    // }
+        return userProfileService.getCloseContacts(name);
+    }
+
+    // public @ResponseBody String 
 }
