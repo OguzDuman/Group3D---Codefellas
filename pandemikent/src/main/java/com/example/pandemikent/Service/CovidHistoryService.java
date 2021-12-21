@@ -1,5 +1,6 @@
 package com.example.pandemikent.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,18 @@ public class CovidHistoryService {
 		return true;
 	}
 	
-	public Boolean getCovidHistory() {
+	public List<Vaccine> getVaccineHistory(String name) {
+		Query q = entityManager.createNativeQuery("SELECT * FROM pandemikent.VACCINE WHERE patient_id = :pId;", Vaccine.class);
+		q.setParameter("pId", name);
+		List<Object> temp = q.getResultList();
+		ArrayList<Vaccine> vaccines = new ArrayList<>();
+		for (Object t : temp) {
+			vaccines.add((Vaccine)t);
+		}
+		return vaccines;
+	}
+
+	public Boolean getCovidHistory(String name) {
 		return true;
 	}
 	

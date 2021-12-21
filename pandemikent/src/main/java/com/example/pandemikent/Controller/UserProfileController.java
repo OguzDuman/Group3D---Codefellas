@@ -43,4 +43,10 @@ public class UserProfileController {
     public @ResponseBody String displayUserProfile() {
         return "Hello!";
     }
+
+    // @GetMapping("/closeContacts")
+    // public @ResponseBody String getCloseContacts(@RequestParam name) {
+
+    //     return null;
+    // }
 }

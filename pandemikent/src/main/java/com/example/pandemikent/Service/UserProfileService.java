@@ -1,5 +1,6 @@
 package com.example.pandemikent.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.pandemikent.Model.Instructor;
@@ -101,6 +102,23 @@ public class UserProfileService {
         }
         // old version returned 
         return profile;
+    }
+
+    public List<String> getCloseContacts(String name) {
+        Optional<UserLogin> temp = userLoginRepository.findById(name);
+
+        if (temp.isEmpty())
+            return null;
+
+        if (temp.get().getRole().contains("STUDENT")) {
+            Optional<Student> student = studentRepository.findById(name);
+            Student s = student.get();
+            return s.getCloseContacts();
+        } else {
+            return null;
+        }
+
+        
     }
 
 }
