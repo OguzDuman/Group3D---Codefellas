@@ -27,7 +27,7 @@ public class ClassController {
 
   @GetMapping("/classes")
   public String displayClasses(@RequestParam("userId") String userId, Model theModel) {
-	  List<Class> classes = classService.listUserClasses(userId);
+	  List<String> classes = classService.listUserClasses(userId);
 	  theModel.addAttribute("classes", classes);
 	  return "listClasses";
   }
@@ -70,8 +70,9 @@ public class ClassController {
   }
   
   @PostMapping("/addClass")
-  public String addClass(@ModelAttribute("newClass") Class newClass, @ModelAttribute("instrId") String instrId) {
-	  Class c = classService.save(newClass, instrId);
+  public String addClass(@ModelAttribute("newClass") String newClass, @ModelAttribute("sections") String sectionId, 
+  								@ModelAttribute("instrId") String instrId) {
+	  Class c = classService.save(newClass, sectionId, instrId);
 	  if(c == null) {
 		  return "errorPage";
 	  } else {
