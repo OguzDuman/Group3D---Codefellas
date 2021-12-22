@@ -33,8 +33,8 @@ public class MakeUpService {
 	
 	public Boolean setMakeUpExam(MakeUpExam makeUpExam, String classId) {
 		Class c = classRepository.getById(classId);
-		ArrayList<String> ids = c.getAttendance().getStudentIDs();
-		ArrayList<String> reasons = c.getAttendance().getReason();
+		ArrayList<String> ids = (ArrayList<String>) c.getAttendance().getStudentIDs();
+		ArrayList<String> reasons = (ArrayList<String>) c.getAttendance().getReason();
 		for(int i = 0; i < ids.size();  i++) {
 			if(!reasons.get(i).equals("quarantined")) {
 				ids.remove(i);
