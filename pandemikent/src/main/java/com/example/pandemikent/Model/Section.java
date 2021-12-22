@@ -44,17 +44,22 @@ public class Section {
 	@OneToOne
 	@JoinColumn(name = "username")
 	private Instructor instructor;
+	
+	@OneToMany
+	@JoinColumn(name = "attendances_id")
+	private List<Attendance> attendances;
 
 	// Constructors
 	public Section() {
 	}
 
-	public Section(Long sectionId, String sectionNumber, List<Student> students, List<MakeUpSession> makeUpSessions, Instructor instructor) {
+	public Section(Long sectionId, String sectionNumber, List<Student> students, List<MakeUpSession> makeUpSessions, Instructor instructor, List<Attendance> attendances) {
 		this.sectionId = sectionId;
 		this.sectionNumber = sectionNumber;
 		this.students = students;
 		this.makeUpSessions = makeUpSessions;
 		this.instructor = instructor;
+		this.attendances = attendances;
 	}
 
 	// Getters and Setters
@@ -97,4 +102,13 @@ public class Section {
 	public void setInstructor(Instructor instructor) {
 		this.instructor = instructor;
 	}
+
+	public List<Attendance> getAttendances() {
+		return attendances;
+	}
+
+	public void setAttendances(List<Attendance> attendances) {
+		this.attendances = attendances;
+	}
+	
 }

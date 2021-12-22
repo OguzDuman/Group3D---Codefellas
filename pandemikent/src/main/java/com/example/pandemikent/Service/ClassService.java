@@ -133,7 +133,8 @@ public class ClassService {
   	}
 	
   	public Boolean getUserAccess(String userId) {
-  		return studentRepository.findById(userId).get().getCampusAccess();
+  		//return studentRepository.findById(userId).get().getCampusAccess();
+  		return true;
   	}
 	
   	public ArrayList<Student> listQuarantinedStudents(String classId, String instrId) {
