@@ -34,13 +34,14 @@ public class ClassService {
   	@Autowired
   	private QuarantineRepository quarantineRepository;
 	
-  	public Class save(String classId, String sectionId, String instrId) {
+  	public Class save(Class addClass, String instrId) {
   		Instructor instr = instructorRepository.findById(instrId).get();
-  		if(classRepository.getById(classId) == null) {
+  		if(classRepository.getById(addClass.getName()) == null) {
   			Class newClass = new Class();
-  			newClass.setName(classId);
+  			newClass.setName(addClass.getName());
   			Section newSection = new Section();
   			newSection.setInstructor(instr);
+  			String sectionId = addClass.getSections().get(0).getSectionNumber();
   			newSection.setSectionNumber(sectionId);
   			ArrayList<Section> sections = new ArrayList<Section>();
   			sections.add(newSection);
@@ -49,8 +50,8 @@ public class ClassService {
   		}
   		else {
   			Boolean b = false;
-  			for( Section s : classRepository.getById(classId).getSections()) {
-  				if(s.getSectionNumber() == sectionId) {
+  			for( Section s : classRepository.getById(addClass.getName()).getSections()) {
+  				if(s.getSectionNumber() == addClass.getSections().get(0).getSectionNumber()) {
   					b = true;
   					break;
   				}
@@ -60,18 +61,24 @@ public class ClassService {
   			else {
   				Section newSection = new Section();
   	  			newSection.setInstructor(instr);
-  	  			newSection.setSectionNumber(sectionId);
-	  	  		ArrayList<Section> sections = (ArrayList<Section>) classRepository.getById(classId).getSections();
+  	  			newSection.setSectionNumber(addClass.getSections().get(0).getSectionNumber());
+	  	  		ArrayList<Section> sections = (ArrayList<Section>) classRepository.getById(addClass.getName()).getSections();
 	  			sections.add(newSection);
-	  			classRepository.getById(classId).setSections(sections);
-	  			return classRepository.getById(classId);
+	  			classRepository.getById(addClass.getName()).setSections(sections);
+	  			return classRepository.getById(addClass.getName());
   			}
   		}
   	}
 	
   	public List<Class> listUserClasses(String userId) {
   		if(studentRepository.findById(userId) != null) {
-  			return studentRepository.findById(userId).get().getClasses();
+  			List<String> classesString = studentRepository.findById(userId).get().getClasses();
+  			List<Class> classes = new ArrayList<Class>();
+  			for(String s : classesString) {
+  				Class c = classRepository.findById(s).get();
+  				classes.add(c);
+  			}
+  			return classes;
   		}
   		else if(instructorRepository.findById(userId) != null) {
   			return instructorRepository.findById(userId).get().getClasses();
