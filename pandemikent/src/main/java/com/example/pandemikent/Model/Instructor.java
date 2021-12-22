@@ -19,7 +19,7 @@ public class Instructor extends UserProfile{
 
     @ElementCollection
     @CollectionTable(name ="sectionsInstructor")
-    private List<Section> sections = new ArrayList<>();
+    private List<Class> sections = new ArrayList<>();
 
     public Instructor(String username, int id, String email) {
         super(username, id, email);
@@ -41,11 +41,11 @@ public class Instructor extends UserProfile{
         this.history = history;
     }
 
-    public List<Section> getSections() {
+    public List<Class> getSections() {
         return sections;
     }
 
-    public void setSections(List<Section> sections) {
+    public void setSections(List<Class> sections) {
         this.sections = sections;
     }
 
