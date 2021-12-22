@@ -41,11 +41,11 @@ public class Instructor extends UserProfile{
         this.history = history;
     }
 
-    public List<Class> getSections() {
+    public List<Class> getClasses() {
         return sections;
     }
 
-    public void setSections(List<Class> sections) {
+    public void setClasses(List<Class> sections) {
         this.sections = sections;
     }
 
