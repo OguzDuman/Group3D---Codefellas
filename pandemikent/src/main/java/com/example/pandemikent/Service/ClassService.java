@@ -38,8 +38,14 @@ public class ClassService {
   	private QuarantineRepository quarantineRepository;
 	
   	public Class save(String classId, String sectionId, String instrId) {
-  		Instructor instr = instructorRepository.findById(instrId).get();
-  		if(classRepository.getById(classId) == null) {
+		Optional<Instructor> temp = instructorRepository.findById(instrId);
+		if (temp.isEmpty())
+			return null;
+		Instructor instr = temp.get();
+
+  		if(classRepository.findById(classId).isEmpty()) {
+			instr.getClasses().add("classId");
+			instructorRepository.save(instr);
   			Class newClass = new Class();
   			newClass.setName(classId);
   			Section newSection = new Section();
@@ -61,13 +67,18 @@ public class ClassService {
   			if(b)
   				return null;
   			else {
+				instr.getClasses().add("classId");
+				instructorRepository.save(instr);
   				Section newSection = new Section();
   	  			newSection.setInstructor(instr);
   	  			newSection.setSectionNumber(sectionId);
 	  	  		ArrayList<Section> sections = (ArrayList<Section>) classRepository.getById(classId).getSections();
+				sectionRepository.save(newSection);
 	  			sections.add(newSection);
 	  			classRepository.getById(classId).setSections(sections);
-	  			return classRepository.getById(classId);
+				Class c = classRepository.findById(classId).get();
+				c.setSections(sections);
+	  			return classRepository.save(c);
   			}
   		}
   	}

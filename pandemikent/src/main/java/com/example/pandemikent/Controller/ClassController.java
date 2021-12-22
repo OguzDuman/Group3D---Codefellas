@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ClassController {
@@ -25,11 +26,11 @@ public class ClassController {
   @Autowired
   private MakeUpService makeUpService;
 
-  @GetMapping("/classes")
-  public String displayClasses(@RequestParam("userId") String userId, Model theModel) {
+  @GetMapping("/getClasses")
+  public @ResponseBody List<String> displayClasses(@RequestParam("userId") String userId) {
 	  List<String> classes = classService.listUserClasses(userId);
-	  theModel.addAttribute("classes", classes);
-	  return "listClasses";
+	  // theModel.addAttribute("classes", classes);
+	  return classes;
   }
   
   @GetMapping("/sections")
@@ -39,6 +40,7 @@ public class ClassController {
 	  return "listSections";
   }
   
+  // where is it getting this information from ??????
   @GetMapping("/coursePage")
   public String displayCoursePage(@RequestParam("userId") String userId, @RequestParam("classId") String classId, @RequestParam("sectionId") Long sectionId, Model theModel) {
 	  theModel.addAttribute("classId", classId);
@@ -73,6 +75,7 @@ public class ClassController {
   public String addClass(@ModelAttribute("newClass") String newClass, @ModelAttribute("sections") String sectionId, 
   								@ModelAttribute("instrId") String instrId) {
 	  Class c = classService.save(newClass, sectionId, instrId);
+
 	  if(c == null) {
 		  return "errorPage";
 	  } else {
