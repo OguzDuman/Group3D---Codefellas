@@ -3,6 +3,8 @@ package com.example.pandemikent.Service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +13,7 @@ import com.example.pandemikent.Model.Class;
 import com.example.pandemikent.Model.Instructor;
 import com.example.pandemikent.Model.Section;
 import com.example.pandemikent.Model.Student;
+import com.example.pandemikent.Model.UserProfile;
 import com.example.pandemikent.Repo.ClassRepository;
 import com.example.pandemikent.Repo.InstructorRepository;
 import com.example.pandemikent.Repo.QuarantineRepository;
@@ -19,7 +22,7 @@ import com.example.pandemikent.Repo.StudentRepository;
 
 @Service
 public class ClassService {
-	
+	@Autowired
   	private StudentRepository studentRepository;
 	
   	@Autowired
@@ -70,10 +73,12 @@ public class ClassService {
   	}
 	
   	public List<String> listUserClasses(String userId) {
-  		if(studentRepository.findById(userId) != null) {
+		System.out.println("Efjalkjflal");
+  		if(studentRepository.findById(userId).isPresent()) {
+			System.out.println("Efjalkjflal");
   			return studentRepository.findById(userId).get().getClasses();
   		}
-  		else if(instructorRepository.findById(userId) != null) {
+  		else if(instructorRepository.findById(userId).isPresent()) {
   			return instructorRepository.findById(userId).get().getClasses();
   		}
   		else 
