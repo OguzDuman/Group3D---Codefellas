@@ -69,7 +69,7 @@ public class ClassService {
   		}
   	}
 	
-  	public List<String> listUserClasses(String userId) {
+  	public List<Class> listUserClasses(String userId) {
   		if(studentRepository.findById(userId) != null) {
   			return studentRepository.findById(userId).get().getClasses();
   		}
