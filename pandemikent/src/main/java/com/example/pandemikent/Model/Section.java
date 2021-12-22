@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +22,8 @@ public class Section {
 	// Properties
 	@Id
 	@Column(name = "section_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq1")
+	@SequenceGenerator(name = "seq_section", sequenceName = "SECTION_SEQ", allocationSize = 1)
 	private Long sectionId;
 
 	@Column(name = "section_number", nullable = false)
@@ -39,17 +44,22 @@ public class Section {
 	@OneToOne
 	@JoinColumn(name = "username")
 	private Instructor instructor;
+	
+	@OneToMany
+	@JoinColumn(name = "attendances_id")
+	private List<Attendance> attendances;
 
 	// Constructors
 	public Section() {
 	}
 
-	public Section(Long sectionId, String sectionNumber, List<Student> students, List<MakeUpSession> makeUpSessions, Instructor instructor) {
+	public Section(Long sectionId, String sectionNumber, List<Student> students, List<MakeUpSession> makeUpSessions, Instructor instructor, List<Attendance> attendances) {
 		this.sectionId = sectionId;
 		this.sectionNumber = sectionNumber;
 		this.students = students;
 		this.makeUpSessions = makeUpSessions;
 		this.instructor = instructor;
+		this.attendances = attendances;
 	}
 
 	// Getters and Setters
@@ -92,4 +102,13 @@ public class Section {
 	public void setInstructor(Instructor instructor) {
 		this.instructor = instructor;
 	}
+
+	public List<Attendance> getAttendances() {
+		return attendances;
+	}
+
+	public void setAttendances(List<Attendance> attendances) {
+		this.attendances = attendances;
+	}
+	
 }
