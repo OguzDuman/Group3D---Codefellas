@@ -43,6 +43,7 @@ public class SeleniumService {
 	
 	public String getRiskStatus(String tc, String passw, String hes) throws IOException {
 		String s = getRiskInfo(tc, passw, hes);
+		s = getRiskInfo(tc, passw, hes);
 		List<String> lines = IOUtils.readLines(new StringReader(s));
 		if(lines.get(9).equalsIgnoreCase("Riskli")) {
 			System.out.println("Riskli");
