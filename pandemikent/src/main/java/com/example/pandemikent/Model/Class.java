@@ -24,7 +24,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = "classesx")
+@Table(name = "classes")
 public class Class {
 
 	// Properties
@@ -50,7 +50,7 @@ public class Class {
 	private List<TimeSlot> timeSlots = new ArrayList<>();
 
 	
-    // @Cascade(CascadeType.SAVE_UPDATE)
+    // @Cascade(CascadeType.SAVE_UPDATE) CS2
 	// @OneToMany
 	@CollectionTable(name = "section_id")
 	@ElementCollection
