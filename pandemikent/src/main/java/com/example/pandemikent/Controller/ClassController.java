@@ -98,15 +98,16 @@ public class ClassController {
 	  return "joinClass";
   }
   
-//   @PostMapping("/joinClass")
-//   public String joinClass(@ModelAttribute("joinClass") Class joinClass, @ModelAttribute("joinSection") Section joinSection, @ModelAttribute("userId") String userId) {
-// 	  Boolean b = classService.joinClass(joinClass, joinSection, userId);
-// 	  if(b) {
-// 		  return "redirect:displayClasses";
-// 	  } else {
-// 		  return "errorPage";
-// 	  }
-//   }
+  @PostMapping("/joinClass")
+  public @ResponseBody Student joinClass(@ModelAttribute("joinClass") String joinClass, @ModelAttribute("joinSection") String joinSection, @ModelAttribute("userId") String userId) {
+	  Student s = classService.joinClass(joinClass, userId);
+	  return s;
+	//   if(b) {
+	// 	  return "redirect:displayClasses";
+	//   } else {
+	// 	  return "errorPage";
+	//   }
+  }
   
   @GetMapping("/participants")
   public String displayParticipantsPage(@ModelAttribute("participants") ArrayList<Student> participants, Model theModel) {

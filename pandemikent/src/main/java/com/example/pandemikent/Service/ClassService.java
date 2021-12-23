@@ -119,30 +119,31 @@ public class ClassService {
   		return classRepository.save(newClass);
   	}
 	
-  	// public Boolean joinClass(Class joinClass, String section, String userId) {
-  	// 	Class c = classRepository.findById(joinClass.getName()).get();
-  	// 	if(c == null) {
-  	// 		return false;
-  	// 	}
-  	// 	else {
-  	// 		for(String s : c.getSections()) {
-  	// 			if(s == section) {
-  	// 				section = s;
-  	// 				break;
-  	// 			}
-  	// 		}
-  	// 		if(joinClass.g == null) {
-  	// 			return false;
-  	// 		}
-  	// 		else {
-  	// 			Student stu = studentRepository.findById(userId).get();
-  	// 			stu.getClasses().add(c.getName());
-  	// 			c.getStudents().add(stu);
-  	// 			joinSection.getStudents().add(stu);
-  	// 			return true;
-  	// 		}
-  	// 	}
-  	// }
+  	public Student joinClass(String joinClass, String userId) {
+		System.out.println("Hellooooooooofnakjl");
+		// find class
+		Optional<Class> c = classRepository.findById(joinClass);
+		
+		if (c.isEmpty()) {
+			System.out.println("fkldafjka");
+  			return null;
+  		}
+  		else {
+
+		// find student
+			System.out.println("fkldafjka");
+			Optional<Student> t = studentRepository.findById(userId);
+			if (t.isEmpty()) 
+				return null;
+			Student student = t.get();
+			System.out.println("fkldafjka");
+			List<String> temp = (List<String>) student.getClasses();
+			temp.add(joinClass);
+			studentRepository.save(student);
+			
+  			return student;
+  		}
+  	}
 	
   	public ArrayList<Student> listParticipants(Long sectionId) {
   		return (ArrayList<Student>) sectionRepository.getById(sectionId).getStudents();
