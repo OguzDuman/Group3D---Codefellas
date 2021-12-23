@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="closeContacts.css">
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <img src="logo.jpg" height="70px" width="210px">
+                <img src="user.png" height="70px" width="70px">
+                <p><b>Name</b></p>
+                <p><b>Bilkent ID</b></p>
+                <p><b>Mail</b></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p>You are allowed on campus.</p>
+            </div>
+
+            <ul>
+                <li><a href="#"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>
+        </div>
+        <div class="topbar">
+            <div>
+                <h1>Add New Class</h1>
+            </div>
+        </div>
+        <form>
+            <table id="tbl_id" style="text-align:left" align="center">
+                    <tr>
+                        <th>Close</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="checked0" name="checked0"></td>
+                        <td>Oğuz Duman</td>
+                        <td>CS-319</td>
+                    </tr>
+            </table>
+            <div class="container">
+                <!--ul><li><a href="#"> 
+                    <span class="item">Submit</span>
+                </a></li></ul-->
+                <ul><li><a href="javascript:history.back()"> 
+                    <span class="item">Submit</span>
+                </a> </li></ul>
+            </div>
+        </form>
+    </body>
+</html>
