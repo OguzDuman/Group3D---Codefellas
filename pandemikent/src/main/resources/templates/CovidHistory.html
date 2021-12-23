@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="CovidHistory.css">
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <img src="logo.jpg" height="70px" width="210px">
+                <img src="user.png" height="70px" width="70px">
+                <p><b>Name</b></p>
+                <p><b>Bilkent ID</b></p>
+                <p><b>Mail</b></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p>You are allowed on campus.</p>
+            </div>
+
+            <ul>
+                <li><a href="#"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>
+        </div>
+        <div class="topbar">
+            <div>
+                <h1>Covid History</h1>
+            </div>
+        </div>
+        <form>
+            <table id="tbl_id" style="text-align:left" align="center">
+                    <tr>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Quarantine</th>
+                    </tr>
+                    <tr>
+                        <td>Infected</td>
+                        <td>12-12-2021</td>
+                        <td>10 days</td>
+                    </tr>
+                    <tr>
+                        <td>Contact</td>
+                        <td>12-01-2022</td>
+                        <td>5 days</td>
+                    </tr>
+                    <tr>
+                        <td>Infected</td>
+                        <td>12-12-2021</td>
+                        <td>10 days</td>
+                    </tr>
+                    <tr>
+                        <td>Contact</td>
+                        <td>12-01-2022</td>
+                        <td>5 days</td>
+                    </tr>
+            </table>
+
+            <script type="text/javascript">
+
+              function addMoreRows() {
+
+                var rowsAdded = document.getElementById('user_id').value;
+
+                for(var x=0; x<rowsAdded; x++) {
+                  var newRow = document.getElementById('tbl_id').insertRow();
+
+                  var newCell = newRow.insertCell();
+                  newCell.innerHTML="<tr><td><input type='text' name='type'></td></tr>";
+
+                  newCell = newRow.insertCell();
+                  newCell.innerHTML="<tr><td><input type='text' name='date'></td></tr>";
+
+                  newCell = newRow.insertCell();
+                  newCell.innerHTML="<tr><td><input type='text' name='quarantine'></td></tr>";
+
+                }
+
+              }
+            </script>
+            <div class="container">
+               <span style="padding-bottom:%0"> 
+            </div>
+        </form>
+    </body>
+</html>

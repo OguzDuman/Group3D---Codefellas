@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Make-Up Sessions</title>  
+        <link rel="stylesheet" href="stuMUExams.css">
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <img src="logo.jpg" height="50px" width="190px">
+                <img src="user.png" height="70px" width="70px">
+                <p><b>Name</b></p>
+                <p><b>Bilkent ID</b></p>
+                <p><b>Mail</b></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p class="accessStatus">You are allowed on campus.</p>
+            </div>
+
+            <ul>
+                <li><a href="#"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>            
+        </div>
+
+        <div class="topbar">
+            <h1>Classes > CS319-03 > Make-Up Sessions</h1>
+        </div>
+
+        <div class="container">
+            <table style="width: 60%">
+                <tr>
+                    <td><img src="warning.png" height="70px" width="70px"></td>
+                    <td>
+                        <p>You have a make-up session on 27 December 2021</p>
+                        <p><b style="color: blue;">Time: </b>17.30-19.20</p>
+                        <p><b style="color: blue;">Place: </b>B-Z04</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="warning.png" height="70px" width="70px"></td>
+                    <td>
+                        <p>You have a make-up session on 29 December 2021</p>
+                        <p><b style="color: blue;">Time: </b>17.30-19.30</p>
+                        <p><b style="color: blue;">Place: </b>G-160</p>
+                    </td>
+                </tr>
+            </table>
+            <div class="notification">
+                <a href="#"><img src="bell.png" height="70px" width="70px">
+            </div>
+        </div>
+        <script>
+            var accessInfo;
+            
+            accessInfo = document.getElementsByClassName('accessStatus');
+            for (var i = 0; i < accessInfo.length; i++) {
+                if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
+                    accessInfo[i].style.color = "chartreuse";
+                }
+                else {
+                    accessInfo[i].style.color = "red";
+                }
+            }
+        </script>
+    </body>
+</html>
