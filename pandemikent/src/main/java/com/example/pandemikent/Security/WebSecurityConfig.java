@@ -42,8 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //     .and()
         //     .logout().permitAll();     
         http.authorizeRequests()
-            .antMatchers("**")
+            .antMatchers("INSTRUCTOR")
             .permitAll()
+            .and()
+            .formLogin()
+            // .loginPage("login.html")
             ;
         http.csrf().disable();     // temp testing setting
     }

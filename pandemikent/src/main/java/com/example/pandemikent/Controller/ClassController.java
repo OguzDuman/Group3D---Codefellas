@@ -26,6 +26,7 @@ public class ClassController {
   @Autowired
   private MakeUpService makeUpService;
 
+  // done
   @GetMapping("/getClasses")
   public @ResponseBody List<String> displayClasses(@RequestParam("userId") String userId) {
 	  List<String> classes = classService.listUserClasses(userId);
@@ -71,6 +72,7 @@ public class ClassController {
 	  return "addClass";
   }
   
+  // done
   @PostMapping("/addClass")
   public @ResponseBody String addClass(@RequestParam String newClass, @RequestParam String section, 
   								@RequestParam String instr) {
@@ -83,9 +85,11 @@ public class ClassController {
 		  return c.toString();
 	  }
   }
-  
+
+
   @GetMapping("/joinClassPage")
-  public String displayJoinClassPage(@RequestParam("userId") String userId, Model theModel) {
+  public String displayJoinClassPage(@RequestParam("userId") String userId,
+  									 @RequestParam String className, Model theModel) {
 	  Class joinClass = new Class();
 	  Section joinSection = new Section();
 	  theModel.addAttribute("joinClass", joinClass);

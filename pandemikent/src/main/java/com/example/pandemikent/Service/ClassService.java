@@ -119,19 +119,19 @@ public class ClassService {
   		return classRepository.save(newClass);
   	}
 	
-  	// public Boolean joinClass(Class joinClass, Section joinSection, String userId) {
+  	// public Boolean joinClass(Class joinClass, String section, String userId) {
   	// 	Class c = classRepository.findById(joinClass.getName()).get();
   	// 	if(c == null) {
   	// 		return false;
   	// 	}
   	// 	else {
   	// 		for(String s : c.getSections()) {
-  	// 			if(s == joinSection.getSectionNumber()) {
-  	// 				joinSection = s;
+  	// 			if(s == section) {
+  	// 				section = s;
   	// 				break;
   	// 			}
   	// 		}
-  	// 		if(joinSection.getInstructor() == null) {
+  	// 		if(joinClass.g == null) {
   	// 			return false;
   	// 		}
   	// 		else {
