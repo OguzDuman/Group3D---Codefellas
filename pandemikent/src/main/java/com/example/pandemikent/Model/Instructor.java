@@ -48,7 +48,5 @@ public class Instructor extends UserProfile{
     public void setClasses(List<String> sections) {
         this.sections = sections;
     }
-
-    
 }
 

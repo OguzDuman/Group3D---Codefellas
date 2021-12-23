@@ -20,8 +20,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
-@Table(name = "CLASS")
+@Table(name = "classesx")
 public class Class {
 
 	// Properties
@@ -35,7 +38,7 @@ public class Class {
         joinColumns = { @JoinColumn(name = "classId") }, 
         inverseJoinColumns = { @JoinColumn(name = "studentId") }
     )
-	private List<Student> students;
+	private List<Student> students = new ArrayList<>();
 	
 
 	// @ElementCollection(targetClass = TimeSlot.class)
@@ -47,32 +50,45 @@ public class Class {
 	private List<TimeSlot> timeSlots = new ArrayList<>();
 
 	
-	@OneToMany
-	@JoinColumn(name = "section_id")
-	private List<Section> sections;
+    // @Cascade(CascadeType.SAVE_UPDATE)
+	// @OneToMany
+	@CollectionTable(name = "section_id")
+	@ElementCollection
+	private List<String> sections = new ArrayList<>();;
 	
-	@OneToOne
-	@JoinColumn(name = "attendance_id")
-	private Attendance attendance;
+	// @OneToOne
+	// @JoinColumn(name = "attendance_id")
+	// private Attendance attendance;
 	
+	@Cascade(CascadeType.ALL)
 	@OneToOne
 	@JoinColumn(name = "make_up_exam_id")
 	private MakeUpExam makeUpExam;
 
 	// Constructors
 	public Class() {
+		
 	}
 
-	public Class(String name, List<Student> students, List<TimeSlot> timeSlots, List<Section> sections,
-			Attendance attendance, MakeUpExam makeUpExam) {
+	// public Class(String name, List<Student> students, List<TimeSlot> timeSlots, List<Section> sections,
+	// 		Attendance attendance, MakeUpExam makeUpExam) {
+	// 	this.name = name;
+	// 	this.students = students;
+	// 	this.timeSlots = timeSlots;
+	// 	this.sections = sections;
+	// 	this.attendance = attendance;
+	// 	this.makeUpExam = makeUpExam;
+	// }
+	
+	// testing without attendance
+	public Class(String name, List<Student> students, List<TimeSlot> timeSlots, List<String> sections,
+			 MakeUpExam makeUpExam) {
 		this.name = name;
 		this.students = students;
 		this.timeSlots = timeSlots;
 		this.sections = sections;
-		this.attendance = attendance;
 		this.makeUpExam = makeUpExam;
 	}
-
 	// Getters and Setters
 	public String getName() {
 		return name;
@@ -98,21 +114,15 @@ public class Class {
 		this.timeSlots = timeSlots;
 	}
 
-	public List<Section> getSections() {
+	public List<String> getSections() {
 		return sections;
 	}
 
-	public void setSections(List<Section> sections) {
+	public void setSections(List<String> sections) {
 		this.sections = sections;
 	}
 
-	public Attendance getAttendance() {
-		return attendance;
-	}
 
-	public void setAttendance(Attendance attendance) {
-		this.attendance = attendance;
-	}
 
 	public MakeUpExam getMakeUpExam() {
 		return makeUpExam;
@@ -120,5 +130,15 @@ public class Class {
 
 	public void setMakeUpExam(MakeUpExam makeUpExam) {
 		this.makeUpExam = makeUpExam;
-	}	
-}
+	}	 
+
+	public String toString() {
+		return"sections = " +sections + "name = " + name;
+	}
+}	// public Attendance getAttendance() {
+	// 	return attendance;
+	// }
+
+	// public void setAttendance(Attendance attendance) {
+	// 	this.attendance = attendance;
+	// }

@@ -2,7 +2,10 @@ package com.example.pandemikent.Model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +18,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
-@Table(name = "SECTION")
+@Table(name = "sectx")
 public class Section {
 	
 	// Properties
@@ -27,39 +33,54 @@ public class Section {
 	private Long sectionId;
 
 	@Column(name = "section_number", nullable = false)
+	@Cascade({CascadeType.ALL})
 	private String sectionNumber;
 	
-	@ManyToMany()
-    @JoinTable(
-        name = "STUDENTS", 
-        joinColumns = { @JoinColumn(name = "sectionId") }, 
-        inverseJoinColumns = { @JoinColumn(name = "studentId") }
-    )
-	private List<Student> students = new ArrayList<>();
+	// @ManyToMany()
+	// @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
+    // @JoinTable(
+    //     name = "STUDENTS", 
+    //     joinColumns = { @JoinColumn(name = "sectionId") }, 
+    //     inverseJoinColumns = { @JoinColumn(name = "studentId") }
+    // )
+	// private List<Student> students = new ArrayList<>();
 	
+	// @Cascade(CascadeType.ALL)
 	@OneToMany
 	@JoinColumn(name = "make_up_session_id")
 	private List<MakeUpSession> makeUpSessions;
 	
-	@OneToOne
-	@JoinColumn(name = "username")
-	private Instructor instructor;
+	// @Cascade(CascadeType.ALL)
+	// //@OneToOne
+	// @ElementCollection
+    // @CollectionTable(name ="inst")
+	@Column(name="inst")
+	private String instructor;
 	
-	@OneToMany
-	@JoinColumn(name = "attendances_id")
-	private List<Attendance> attendances;
+	// @OneToMany
+	// @JoinColumn(name = "attendances_id")
+	// private List<Attendance> attendances;
 
 	// Constructors
 	public Section() {
 	}
 
-	public Section(Long sectionId, String sectionNumber, List<Student> students, List<MakeUpSession> makeUpSessions, Instructor instructor, List<Attendance> attendances) {
+	// public Section(Long sectionId, String sectionNumber, List<Student> students, List<MakeUpSession> makeUpSessions, Instructor instructor, List<Attendance> attendances) {
+	// 	this.sectionId = sectionId;
+	// 	this.sectionNumber = sectionNumber;
+	// 	this.students = students;
+	// 	this.makeUpSessions = makeUpSessions;
+	// 	this.instructor = instructor;
+	// 	this.attendances = attendances;
+	// }
+
+	public Section(Long sectionId, String sectionNumber, List<Student> students, List<MakeUpSession> makeUpSessions,
+					 String instructor) {
 		this.sectionId = sectionId;
 		this.sectionNumber = sectionNumber;
-		this.students = students;
+		// this.students = students;
 		this.makeUpSessions = makeUpSessions;
 		this.instructor = instructor;
-		this.attendances = attendances;
 	}
 
 	// Getters and Setters
@@ -80,11 +101,11 @@ public class Section {
 	}
 
 	public List<Student> getStudents() {
-		return students;
+		return null;
 	}
 
 	public void setStudents(List<Student> students) {
-		this.students = students;
+		
 	}
 
 	public List<MakeUpSession> getMakeUpSessions() {
@@ -95,20 +116,20 @@ public class Section {
 		this.makeUpSessions = makeUpSessions;
 	}
 
-	public Instructor getInstructor() {
+	public String getInstructor() {
 		return instructor;
 	}
 
-	public void setInstructor(Instructor instructor) {
+	public void setInstructor(String instructor) {
 		this.instructor = instructor;
 	}
 
-	public List<Attendance> getAttendances() {
-		return attendances;
-	}
+	// public List<Attendance> getAttendances() {
+	// 	return attendances;
+	// }
 
-	public void setAttendances(List<Attendance> attendances) {
-		this.attendances = attendances;
-	}
+	// public void setAttendances(List<Attendance> attendances) {
+	// 	this.attendances = attendances;
+	// }
 	
 }

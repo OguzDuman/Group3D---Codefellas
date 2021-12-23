@@ -39,42 +39,51 @@ public class ClassService {
 	
   	public Class save(String classId, String sectionId, String instrId) {
 		Optional<Instructor> temp = instructorRepository.findById(instrId);
+		System.out.println("Rajlkjfa1323");
 		if (temp.isEmpty())
 			return null;
+		System.out.println("Rajlkjfa1323");
 		Instructor instr = temp.get();
-
+		
   		if(classRepository.findById(classId).isEmpty()) {
-			instr.getClasses().add("classId");
+
+			System.out.println("gjlkaeooqp");
+			instr.getClasses().add(classId);
 			instructorRepository.save(instr);
   			Class newClass = new Class();
   			newClass.setName(classId);
   			Section newSection = new Section();
-  			newSection.setInstructor(instr);
+  			newSection.setInstructor(instr.getUsername());
   			newSection.setSectionNumber(sectionId);
   			ArrayList<Section> sections = new ArrayList<Section>();
   			sections.add(newSection);
-  			newClass.setSections(sections);
+			ArrayList<String> t = new ArrayList<String>();
+			t.add(sectionId);
+  			newClass.setSections(t);
   			return classRepository.save(newClass);
   		}
   		else {
   			Boolean b = false;
-  			for( Section s : classRepository.getById(classId).getSections()) {
-  				if(s.getSectionNumber() == sectionId) {
+  			for( String s : classRepository.getById(classId).getSections()) {
+  				if(s == sectionId) {
   					b = true;
   					break;
   				}
   			}
+			  System.out.println("fqipiro14");
   			if(b)
   				return null;
   			else {
-				instr.getClasses().add("classId");
+				System.out.println("dlkqjtq");
+				instr.getClasses().add(classId);
 				instructorRepository.save(instr);
   				Section newSection = new Section();
-  	  			newSection.setInstructor(instr);
+  	  			newSection.setInstructor(instr.getUsername());
   	  			newSection.setSectionNumber(sectionId);
-	  	  		ArrayList<Section> sections = (ArrayList<Section>) classRepository.getById(classId).getSections();
 				sectionRepository.save(newSection);
-	  			sections.add(newSection);
+	  	  		ArrayList<String> sections = (ArrayList<String>)classRepository.getById(classId).getSections();
+				sectionRepository.save(newSection);
+	  			sections.add(sectionId);
 	  			classRepository.getById(classId).setSections(sections);
 				Class c = classRepository.findById(classId).get();
 				c.setSections(sections);
@@ -96,44 +105,44 @@ public class ClassService {
   			return null;
   	}
 	
-  	public List<Section> listUserSections(String userId, String classId) {
-  		List<Section> sections = classRepository.getById(classId).getSections();
-  		for(Section section: sections) {
-  			if(section.getInstructor().getUsername() != userId) {
-  				sections.remove(section);
-  			}
-  		}
-  		return sections;
-  	}
+  	// public List<Section> listUserSections(String userId, String classId) {
+  	// 	List<Section> sections = classRepository.getById(classId).getSections();
+  	// 	for(Section section: sections) {
+  	// 		if(section.getInstructor().getUsername() != userId) {
+  	// 			sections.remove(section);
+  	// 		}
+  	// 	}
+  	// 	return sections;
+  	// }
 	
   	public Class addClass(Class newClass) {
   		return classRepository.save(newClass);
   	}
 	
-  	public Boolean joinClass(Class joinClass, Section joinSection, String userId) {
-  		Class c = classRepository.findById(joinClass.getName()).get();
-  		if(c == null) {
-  			return false;
-  		}
-  		else {
-  			for(Section s : c.getSections()) {
-  				if(s.getSectionNumber() == joinSection.getSectionNumber()) {
-  					joinSection = s;
-  					break;
-  				}
-  			}
-  			if(joinSection.getInstructor() == null) {
-  				return false;
-  			}
-  			else {
-  				Student stu = studentRepository.findById(userId).get();
-  				stu.getClasses().add(c.getName());
-  				c.getStudents().add(stu);
-  				joinSection.getStudents().add(stu);
-  				return true;
-  			}
-  		}
-  	}
+  	// public Boolean joinClass(Class joinClass, Section joinSection, String userId) {
+  	// 	Class c = classRepository.findById(joinClass.getName()).get();
+  	// 	if(c == null) {
+  	// 		return false;
+  	// 	}
+  	// 	else {
+  	// 		for(String s : c.getSections()) {
+  	// 			if(s == joinSection.getSectionNumber()) {
+  	// 				joinSection = s;
+  	// 				break;
+  	// 			}
+  	// 		}
+  	// 		if(joinSection.getInstructor() == null) {
+  	// 			return false;
+  	// 		}
+  	// 		else {
+  	// 			Student stu = studentRepository.findById(userId).get();
+  	// 			stu.getClasses().add(c.getName());
+  	// 			c.getStudents().add(stu);
+  	// 			joinSection.getStudents().add(stu);
+  	// 			return true;
+  	// 		}
+  	// 	}
+  	// }
 	
   	public ArrayList<Student> listParticipants(Long sectionId) {
   		return (ArrayList<Student>) sectionRepository.getById(sectionId).getStudents();
@@ -143,9 +152,9 @@ public class ClassService {
   		return null;
   	}
 	
-  	public Instructor getSectionInstr(Long sectionId) {
-  		return sectionRepository.findById(sectionId).get().getInstructor();
-  	}
+  	// public Instructor getSectionInstr(Long sectionId) {
+  	// 	return sectionRepository.findById(sectionId).get().getInstructor();
+  	// }
 	
   	public Boolean getUserAccess(String userId) {
   		//return studentRepository.findById(userId).get().getCampusAccess();
