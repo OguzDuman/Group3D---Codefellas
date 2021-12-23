@@ -31,20 +31,20 @@ public class MakeUpService {
 	@Autowired
 	private SectionRepository sectionRepository;
 	
-	public Boolean setMakeUpExam(MakeUpExam makeUpExam, String classId) {
-		Class c = classRepository.getById(classId);
-		ArrayList<String> ids = (ArrayList<String>) c.getAttendance().getStudentIDs();
-		ArrayList<String> reasons = (ArrayList<String>) c.getAttendance().getReason();
-		for(int i = 0; i < ids.size();  i++) {
-			if(!reasons.get(i).equals("quarantined")) {
-				ids.remove(i);
-			}
-		}
+	// public Boolean setMakeUpExam(MakeUpExam makeUpExam, String classId) {
+	// 	Class c = classRepository.getById(classId);
+	// 	ArrayList<String> ids = (ArrayList<String>) c.getAttendance().getStudentIDs();
+	// 	ArrayList<String> reasons = (ArrayList<String>) c.getAttendance().getReason();
+	// 	for(int i = 0; i < ids.size();  i++) {
+	// 		if(!reasons.get(i).equals("quarantined")) {
+	// 			ids.remove(i);
+	// 		}
+	// 	}
 		
-		makeUpExam.setStudentIDs(ids);
-		c.setMakeUpExam(makeUpExam);
-		return true;
-	}
+	// 	makeUpExam.setStudentIDs(ids);
+	// 	c.setMakeUpExam(makeUpExam);
+	// 	return true;
+	// }
 	
 	public Boolean setMakeUpSession(MakeUpSession makeUpSession, Long sectionId) {
 		Section s = sectionRepository.getById(sectionId);

@@ -33,26 +33,26 @@ public class ClassController {
 	  return classes;
   }
   
-  @GetMapping("/sections")
-  public String displaySections(@RequestParam("userId") String userId, @RequestParam("classId") String classId, Model theModel) {
-	  List<Section> sections = classService.listUserSections(userId, classId);
-	  theModel.addAttribute("sections", sections);
-	  return "listSections";
-  }
+//   @GetMapping("/sections")
+//   public String displaySections(@RequestParam("userId") String userId, @RequestParam("classId") String classId, Model theModel) {
+// 	  List<Section> sections = classService.listUserSections(userId, classId);
+// 	  theModel.addAttribute("sections", sections);
+// 	  return "listSections";
+//   }
   
   // where is it getting this information from ??????
-  @GetMapping("/coursePage")
-  public String displayCoursePage(@RequestParam("userId") String userId, @RequestParam("classId") String classId, @RequestParam("sectionId") Long sectionId, Model theModel) {
-	  theModel.addAttribute("classId", classId);
-	  theModel.addAttribute("sectionId", sectionId);
-	  Instructor instr = classService.getSectionInstr(sectionId);
-	  theModel.addAttribute("instr", instr);
-	  Boolean accessStatus = classService.getUserAccess(userId);
-	  theModel.addAttribute("accessStatus", accessStatus);
-	  List<Student> participants = classService.listParticipants(sectionId);
-	  theModel.addAttribute("participants", participants);
-	  return "coursePage";
-  }
+//   @GetMapping("/coursePage")
+//   public String displayCoursePage(@RequestParam("userId") String userId, @RequestParam("classId") String classId, @RequestParam("sectionId") Long sectionId, Model theModel) {
+// 	  theModel.addAttribute("classId", classId);
+// 	  theModel.addAttribute("sectionId", sectionId);
+// 	  Instructor instr = classService.getSectionInstr(sectionId);
+// 	  theModel.addAttribute("instr", instr);
+// 	  Boolean accessStatus = classService.getUserAccess(userId);
+// 	  theModel.addAttribute("accessStatus", accessStatus);
+// 	  List<Student> participants = classService.listParticipants(sectionId);
+// 	  theModel.addAttribute("participants", participants);
+// 	  return "coursePage";
+//   }
   
   @GetMapping("/sectionPage")
   public String displaySectionPage(@RequestParam("classId") String classId, @RequestParam("sectionId") Long sectionId, @RequestParam("instrId") String instrId, Model theModel) {
@@ -72,14 +72,15 @@ public class ClassController {
   }
   
   @PostMapping("/addClass")
-  public String addClass(@ModelAttribute("newClass") String newClass, @ModelAttribute("sections") String sectionId, 
-  								@ModelAttribute("instrId") String instrId) {
-	  Class c = classService.save(newClass, sectionId, instrId);
+  public @ResponseBody String addClass(@RequestParam String newClass, @RequestParam String section, 
+  								@RequestParam String instr) {
+	  Class c = classService.save(newClass, section, instr);
 
 	  if(c == null) {
-		  return "errorPage";
+		  return "alpha";
 	  } else {
-		  return "redirect:displayClasses";
+		  // return "redirect:displayClasses";
+		  return c.toString();
 	  }
   }
   
@@ -93,15 +94,15 @@ public class ClassController {
 	  return "joinClass";
   }
   
-  @PostMapping("/joinClass")
-  public String joinClass(@ModelAttribute("joinClass") Class joinClass, @ModelAttribute("joinSection") Section joinSection, @ModelAttribute("userId") String userId) {
-	  Boolean b = classService.joinClass(joinClass, joinSection, userId);
-	  if(b) {
-		  return "redirect:displayClasses";
-	  } else {
-		  return "errorPage";
-	  }
-  }
+//   @PostMapping("/joinClass")
+//   public String joinClass(@ModelAttribute("joinClass") Class joinClass, @ModelAttribute("joinSection") Section joinSection, @ModelAttribute("userId") String userId) {
+// 	  Boolean b = classService.joinClass(joinClass, joinSection, userId);
+// 	  if(b) {
+// 		  return "redirect:displayClasses";
+// 	  } else {
+// 		  return "errorPage";
+// 	  }
+//   }
   
   @GetMapping("/participants")
   public String displayParticipantsPage(@ModelAttribute("participants") ArrayList<Student> participants, Model theModel) {
@@ -147,11 +148,11 @@ public class ClassController {
 	  return "addMakeUpExam";
   }
   
-  @GetMapping("/setMakeUpExam")
-  public String setMakeUpExam(@ModelAttribute("makeUpExam") MakeUpExam makeUpExam, @ModelAttribute("classId") String classId) {
-	  makeUpService.setMakeUpExam(makeUpExam, classId);
-	  return "redirect:displaySectionPage";
-  }
+//   @GetMapping("/setMakeUpExam")
+//   public String setMakeUpExam(@ModelAttribute("makeUpExam") MakeUpExam makeUpExam, @ModelAttribute("classId") String classId) {
+// 	  makeUpService.setMakeUpExam(makeUpExam, classId);
+// 	  return "redirect:displaySectionPage";
+//   }
   
   @GetMapping("/setMakeUpSessionPage")
   public String displaySetMakeUpSessionPage(@ModelAttribute("sectionId") Long sectionId, Model theModel) {
