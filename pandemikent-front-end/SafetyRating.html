@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="SafetyRating.css">
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <img src="logo.jpg" height="70px" width="210px">
+                <img src="user.png" height="70px" width="70px">
+                <p><b>Name</b></p>
+                <p><b>Bilkent ID</b></p>
+                <p><b>Mail</b></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p>You are allowed on campus.</p>
+            </div>
+
+            <ul>
+                <li><a href="#"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>
+        </div>
+        <div class="topbar">
+            <div>
+                <h1>Safety Rating</h1>
+            </div>
+        </div>
+        <form>
+
+            <div class="container">
+                <h1>Safety Rating:</h1> 
+                <p>Your safety rating is &nbsp</p>
+                <label id="rating">20</label>
+            </div>
+           <!-- <div class="container">
+                <button onclick="change()">Recommendations</button> 
+                <label id="changable">Reco will be here</label>
+            </div>
+            <script>
+            //not working
+            change(){
+                var rating = document.getElementById('rating');
+                var str = document.getElementById('changable');
+                if (rating.innerHTML === "20"){
+                    str.innerHTML = "You are in high risk";
+                }
+                else if(rating.innerHTML < 80){
+                    str.innerHTML = "You are in medium risk";
+                }
+                else{
+                    str.innerHTML = "You are in low risk";
+                }
+            }
+            
+        </script>-->
+            </form>
+    </body>
+</html>
