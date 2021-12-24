@@ -73,6 +73,10 @@
      <artifactId>spring-security-config</artifactId>
      <version>5.1.6.RELEASE</version>
    </dependency>
+   <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
  </dependencies>
 
 	<build>
