@@ -20,24 +20,27 @@ public class VaccineCertificateService {
 
     public VaccineCertificate storeFile(MultipartFile file) {
         // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName = accessService.getCurrentUser() + "_vacccine_certificate";
         String username = accessService.getCurrentUser(); /// get the username here
-
+        System.out.println("fadjlkfaljfgks");
         try {
-            // Check if the file's name contains invalid characters
-            if(fileName.contains("..")) {
-                throw new Exception("Sorry! Filename contains invalid path sequence " + fileName);
-            }
-
-            VaccineCertificate vac = new VaccineCertificate( username, fileName, file.getContentType(), file.getBytes());
-
+            // // Check if the file's name contains invalid characters
+            // if(fileName.contains("..")) {
+            //     throw new Exception("Sorry! Filename contains invalid path sequence " + fileName);
+            // }
+        System.out.println("fadjlkfaljfgks");
+        VaccineCertificate vac = new VaccineCertificate( username, fileName, file.getContentType(), file.getBytes());
+            System.out.println("fadjlkfaljfgks");
             return vacCerRepository.save(vac);
-        } catch (Exception ex) {
-            // throw new Exception("Could not store file " + fileName + ". Please try again!", ex);
-            System.out.print("Exception during file upload.");
-        }
+        } 
+        finally {
+            return null;
+        }// catch (Exception ex) {
+        //     // throw new Exception("Could not store file " + fileName + ". Please try again!", ex);
+        //     System.out.print("Exception during file upload.");
+        // }
 
-        return null;
+        // return null;
     }
 
     public VaccineCertificate getFile(String fileId) {
