@@ -45,23 +45,21 @@
                 <h1>Add New Class</h1>
             </div>
         </div>
-        <form action="#" th:action="@{create}"
-					 th:object="${yeniPersonel}" method="POST">	
+        <form action="#" th:action="@{addClass}"
+					 th:object="${newClass}" method="POST">	
             <div class="container">
                 <h1>Class Code: </h1>
-                <input type="text" placeholder="CS319 etc." name="classcode" required>
+                <input type="text" th:field="*{name}" placeholder="CS319 etc." name="classcode" required>
             </div>
             <div class="container">
                 <h1>Number of Sections: </h1>
-                <input type="number" name="numofsections" required>
+                <input type="number" th:field="*{sections}" name="numofsections" required>
             </div>
             <div class="container">
                 <!--ul><li><a href="#"> 
                     <span class="item">Submit</span>
                 </a></li></ul-->
-                <ul><li><a href="#"> 
-                    <span class="item">Submit</span>
-                </a> </li></ul>
+                <ul><li><button type="submit">Submit</button> </li></ul>
             </div>
             <div class="container">
                <span style="padding-top:230px"> 

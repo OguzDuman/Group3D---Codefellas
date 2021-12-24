@@ -78,15 +78,13 @@ public class ClassController {
 	  Class newClass = new Class();
 	  theModel.addAttribute("newClass", newClass);
 	  theModel.addAttribute("instrId", instrId);
-	  return "addClass";
+	  return "createClass";
   }
   
   // done
   @PostMapping("/addClass")
-  public @ResponseBody String addClass(@RequestParam String newClass, @RequestParam String section, 
-  								@RequestParam String instr) {
-	  Class c = classService.save(newClass, section, instr);
-
+  public @ResponseBody String addClass(@ModelAttribute("newClass") Class newClass, @ModelAttribute("instrId") String instrId) {
+	  Class c = classService.save(newClass.getName(), newClass.getSections().get(0), "Esra");
 	  if(c == null) {
 		  return "alpha";
 	  } else {

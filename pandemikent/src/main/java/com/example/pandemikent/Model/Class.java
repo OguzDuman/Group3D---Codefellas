@@ -24,7 +24,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = "classesz")
+@Table(name = "classes")
 public class Class {
 
 	// Properties
