@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.example.pandemikent.Model.UserLogin;
 import com.example.pandemikent.Repo.UserLoginRepository;
+import com.example.pandemikent.Service.UserProfileAccessService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ public class UserLoginController {
     
   @Autowired
   private UserLoginRepository userRepository;
+  @Autowired
+  private UserProfileAccessService  accessService;
 
   @GetMapping(path="/login")
   public String login(){
@@ -30,7 +33,7 @@ public class UserLoginController {
     Optional<UserLogin> s = userRepository.findById(name);
     System.out.print(s);
     if (s == null){
-      return "Access Denied";
+      return "Error";
     }
     
     if (role != null && ( role.equals("INSTRUCTOR") || role.equals("STUDENT") ) )
@@ -42,7 +45,7 @@ public class UserLoginController {
   }
 
   @GetMapping(path="/all")
-  public @ResponseBody Iterable<UserLogin> getAllUsers() {
-    return userRepository.findAll();
+  public @ResponseBody String getAllUsers() {
+    return accessService.getCurrentUser();
   }
 }

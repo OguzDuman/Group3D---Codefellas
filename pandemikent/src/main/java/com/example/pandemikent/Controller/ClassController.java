@@ -26,12 +26,15 @@ public class ClassController {
   @Autowired
   private MakeUpService makeUpService;
 
+  @Autowired
+  private UserProfileAccessService accessService;
+
   // done
   @GetMapping("/getClasses")
-  public @ResponseBody List<String> displayClasses(@RequestParam("userId") String userId) {
-	  List<String> classes = classService.listUserClasses(userId);
-	  // theModel.addAttribute("classes", classes);
-	  return classes;
+  public @ResponseBody List<String> displayClasses() {
+		String name = accessService.getCurrentUser();
+	  	List<String> classes = classService.listUserClasses(name);
+	  	return classes;
   }
   
 //   @GetMapping("/sections")
@@ -65,11 +68,12 @@ public class ClassController {
 //   }
   
   @GetMapping("/addClassPage")
-  public String displayAddClassPage(@RequestParam("instrId")String instrId, Model theModel) {
-	  Class newClass = new Class();
-	  theModel.addAttribute("newClass", newClass);
-	  theModel.addAttribute("instrId", instrId);
-	  return "addClass";
+  public String displayAddClassPage( Model theModel) {
+		String name = accessService.getCurrentUser();
+	  	Class newClass = new Class();
+	  	theModel.addAttribute("newClass", newClass);
+	  	theModel.addAttribute("instrId", name);
+	  	return "addClass";
   }
   
   // done
@@ -99,8 +103,9 @@ public class ClassController {
   }
   
   @PostMapping("/joinClass")
-  public @ResponseBody Student joinClass(@ModelAttribute("joinClass") String joinClass, @ModelAttribute("joinSection") String joinSection, @ModelAttribute("userId") String userId) {
-	  Student s = classService.joinClass(joinClass, userId);
+  public @ResponseBody Student joinClass(@ModelAttribute("joinClass") String joinClass, @ModelAttribute("joinSection") String joinSection) {
+	  String name = accessService.getCurrentUser();
+	  Student s = classService.joinClass(joinClass, name);
 	  return s;
 	//   if(b) {
 	// 	  return "redirect:displayClasses";

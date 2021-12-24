@@ -8,6 +8,8 @@ import com.example.pandemikent.Repo.UserLoginRepository;
 import com.example.pandemikent.Repo.UserProfileRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +25,11 @@ public class UserProfileAccessService{
             user = temp.get();
 
         return user;
+    }
+
+    public String getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
     }
     
 }
