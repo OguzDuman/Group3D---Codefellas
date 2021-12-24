@@ -2,6 +2,8 @@ package com.example.pandemikent.Controller;
 
 import com.example.pandemikent.Model.Section;
 import com.example.pandemikent.Model.Student;
+import com.example.pandemikent.Model.UserProfile;
+import com.example.pandemikent.Repo.UserProfileRepository;
 import com.example.pandemikent.Model.Class;
 import com.example.pandemikent.Model.Instructor;
 import com.example.pandemikent.Model.MakeUpExam;
@@ -25,21 +27,28 @@ public class ClassController {
   
   @Autowired
   private MakeUpService makeUpService;
+  
+  @Autowired
+  private UserProfileRepository userProfileRepository;
 
   // done
   @GetMapping("/getClasses")
-  public @ResponseBody List<String> displayClasses(@RequestParam("userId") String userId) {
+  public String displayClasses(@RequestParam("userId") String userId, Model theModel) {
 	  List<String> classes = classService.listUserClasses(userId);
-	  // theModel.addAttribute("classes", classes);
-	  return classes;
+	  theModel.addAttribute("classes", classes);
+	  UserProfile user = userProfileRepository.findById(userId).get();
+	  theModel.addAttribute("user", user);
+	  return "instrClasses";
   }
   
-//   @GetMapping("/sections")
-//   public String displaySections(@RequestParam("userId") String userId, @RequestParam("classId") String classId, Model theModel) {
-// 	  List<Section> sections = classService.listUserSections(userId, classId);
-// 	  theModel.addAttribute("sections", sections);
-// 	  return "listSections";
-//   }
+   @GetMapping("/sections")
+   public String displaySections(@RequestParam("userId") String userId, @RequestParam("classId") String classId, Model theModel) {
+ 	  List<String> sections = classService.listUserSections(userId, classId);
+ 	  theModel.addAttribute("sections", sections);
+ 	  UserProfile user = userProfileRepository.findById(userId).get();
+	  theModel.addAttribute("user", user);
+ 	  return "instrCourses";
+   }
   
   // where is it getting this information from ??????
 //   @GetMapping("/coursePage")
@@ -81,8 +90,7 @@ public class ClassController {
 	  if(c == null) {
 		  return "alpha";
 	  } else {
-		  // return "redirect:displayClasses";
-		  return c.toString();
+		  return "redirect:displayClasses";
 	  }
   }
 

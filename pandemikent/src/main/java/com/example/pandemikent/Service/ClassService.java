@@ -39,15 +39,11 @@ public class ClassService {
 	
   	public Class save(String classId, String sectionId, String instrId) {
 		Optional<Instructor> temp = instructorRepository.findById(instrId);
-		System.out.println("Rajlkjfa1323");
 		if (temp.isEmpty())
 			return null;
-		System.out.println("Rajlkjfa1323");
 		Instructor instr = temp.get();
 		
   		if(classRepository.findById(classId).isEmpty()) {
-
-			System.out.println("gjlkaeooqp");
 			instr.getClasses().add(classId);
 			instructorRepository.save(instr);
   			Class newClass = new Class();
@@ -74,46 +70,60 @@ public class ClassService {
   			if(b)
   				return null;
   			else {
-				System.out.println("dlkqjtq");
-				instr.getClasses().add(classId);
 				instructorRepository.save(instr);
   				Section newSection = new Section();
   	  			newSection.setInstructor(instr.getUsername());
   	  			newSection.setSectionNumber(sectionId);
 				sectionRepository.save(newSection);
-	  	  		ArrayList<String> sections = (ArrayList<String>)classRepository.getById(classId).getSections();
+	  	  		List<String> sections = classRepository.getById(classId).getSections();
 				sectionRepository.save(newSection);
 	  			sections.add(sectionId);
 	  			classRepository.getById(classId).setSections(sections);
 				Class c = classRepository.findById(classId).get();
 				c.setSections(sections);
-	  			return classRepository.save(c);
+	  			return update(c);
   			}
   		}
   	}
+  	
+  	public Class update(Class entity) {
+  		if(!classRepository.existsById(entity.getName()))
+			return null;
+		else {
+			Class exit = classRepository.findById(entity.getName()).orElse(null);
+			
+			exit.setName(entity.getName() != null ? entity.getName() : exit.getName());
+			exit.setStudents(entity.getStudents() != null ? entity.getStudents() : exit.getStudents());
+			exit.setTimeSlots(entity.getTimeSlots() != null ? entity.getTimeSlots() : exit.getTimeSlots());
+			exit.setSections(entity.getSections() != null ? entity.getSections() : exit.getSections());
+			exit.setMakeUpExam(entity.getMakeUpExam() != null ? entity.getMakeUpExam() : exit.getMakeUpExam());
+		
+			return classRepository.save(exit);
+		}
+  	}
 	
   	public List<String> listUserClasses(String userId) {
-		System.out.println("Efjalkjflal");
   		if(studentRepository.findById(userId).isPresent()) {
-			System.out.println("Efjalkjflal");
   			return studentRepository.findById(userId).get().getClasses();
   		}
   		else if(instructorRepository.findById(userId).isPresent()) {
   			return instructorRepository.findById(userId).get().getClasses();
   		}
-  		else 
+  		else {
   			return null;
+  		}
+  			
   	}
 	
-  	// public List<Section> listUserSections(String userId, String classId) {
-  	// 	List<Section> sections = classRepository.getById(classId).getSections();
-  	// 	for(Section section: sections) {
-  	// 		if(section.getInstructor().getUsername() != userId) {
-  	// 			sections.remove(section);
-  	// 		}
-  	// 	}
-  	// 	return sections;
-  	// }
+  	 public List<String> listUserSections(String userId, String classId) {
+  	 	List<String> sections = classRepository.getById(classId).getSections();
+  	 	for(String section: sections) {
+  	 		if(instructorRepository.findById(sectionRepository.findBySectionNumber(section).getInstructor()).get().getUsername() != userId) {
+  	 			sections.remove(section);
+  	 		}
+  	 	}
+  	 	return sections;
+  	 }
 	
   	public Class addClass(Class newClass) {
   		return classRepository.save(newClass);

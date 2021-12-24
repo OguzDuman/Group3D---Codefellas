@@ -18,8 +18,8 @@ public class Instructor extends UserProfile{
     private List<String> history = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name ="sectionsInstructor")
-    private List<String> sections = new ArrayList<>();
+    @CollectionTable(name ="class_instructor")
+    private List<String> classes = new ArrayList<>();
 
     public Instructor(String username, int id, String email) {
         super(username, id, email);
@@ -30,7 +30,7 @@ public class Instructor extends UserProfile{
 
     @Override
     public String toString() {
-        return super.toString() + "Instructor [history=" + history + ", sections=" + sections + "]";
+        return super.toString() + "Instructor [history=" + history + ", sections=" + classes + "]";
     }
 
     public List<String> getHistory() {
@@ -42,11 +42,11 @@ public class Instructor extends UserProfile{
     }
 
     public List<String> getClasses() {
-        return sections;
+        return classes;
     }
 
     public void setClasses(List<String> sections) {
-        this.sections = sections;
+        this.classes = sections;
     }
 }
 

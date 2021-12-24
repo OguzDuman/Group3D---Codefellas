@@ -10,9 +10,9 @@
             <div class="userProfile">
                 <img src="logo.jpg" height="50px" width="190px">
                 <img src="user.png" height="70px" width="70px">
-                <p><b>Name</b></p>
-                <p><b>Bilkent ID</b></p>
-                <p><b>Mail</b></p>
+                <p th:text="${user.username}"></p>
+                <p th:text="${user.id}"></p>
+                <p th:text="${user.email}"></p>
             </div>
             
             <div class="campusAccess">
