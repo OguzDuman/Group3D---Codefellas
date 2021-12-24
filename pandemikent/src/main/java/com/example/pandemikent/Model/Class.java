@@ -24,7 +24,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = "classes")
+@Table(name = "classesz")
 public class Class {
 
 	// Properties
@@ -32,13 +32,9 @@ public class Class {
 	@Column(name = "class_name", nullable = false)
 	private String name;
 	
-	@ManyToMany()
-    @JoinTable(
-        name = "STUDENT", 
-        joinColumns = { @JoinColumn(name = "classId") }, 
-        inverseJoinColumns = { @JoinColumn(name = "studentId") }
-    )
-	private List<Student> students = new ArrayList<>();
+	@ElementCollection
+	@CollectionTable(name = "reg_students")
+	private List<String> students = new ArrayList<>();
 	
 
 	// @ElementCollection(targetClass = TimeSlot.class)
@@ -81,7 +77,7 @@ public class Class {
 	// }
 	
 	// testing without attendance
-	public Class(String name, List<Student> students, List<TimeSlot> timeSlots, List<String> sections,
+	public Class(String name, List<String> students, List<TimeSlot> timeSlots, List<String> sections,
 			 MakeUpExam makeUpExam) {
 		this.name = name;
 		this.students = students;
@@ -98,11 +94,11 @@ public class Class {
 		this.name = name;
 	}
 
-	public List<Student> getStudents() {
+	public List<String> getStudents() {
 		return students;
 	}
 
-	public void setStudents(List<Student> students) {
+	public void setStudents(List<String> students) {
 		this.students = students;
 	}
 

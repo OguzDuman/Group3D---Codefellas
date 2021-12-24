@@ -18,6 +18,12 @@ public class UserLoginController {
   @Autowired
   private UserLoginRepository userRepository;
 
+  @GetMapping(path="/login")
+  public String login(){
+    return "login";
+  }
+
+
   @PostMapping(path="/submit") 
   public @ResponseBody String addNewUser (@RequestParam String name, @RequestParam String password,
                                           @RequestParam String role) {    

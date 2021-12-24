@@ -129,30 +129,36 @@ public class ClassService {
   		return classRepository.save(newClass);
   	}
 	
-  	// public Boolean joinClass(Class joinClass, String section, String userId) {
-  	// 	Class c = classRepository.findById(joinClass.getName()).get();
-  	// 	if(c == null) {
-  	// 		return false;
-  	// 	}
-  	// 	else {
-  	// 		for(String s : c.getSections()) {
-  	// 			if(s == section) {
-  	// 				section = s;
-  	// 				break;
-  	// 			}
-  	// 		}
-  	// 		if(joinClass.g == null) {
-  	// 			return false;
-  	// 		}
-  	// 		else {
-  	// 			Student stu = studentRepository.findById(userId).get();
-  	// 			stu.getClasses().add(c.getName());
-  	// 			c.getStudents().add(stu);
-  	// 			joinSection.getStudents().add(stu);
-  	// 			return true;
-  	// 		}
-  	// 	}
-  	// }
+  	public Student joinClass(String joinClass, String userId) {
+		System.out.println("Hellooooooooofnakjl");
+		// find class
+		Optional<Class> c = classRepository.findById(joinClass);
+		
+		if (c.isEmpty()) {
+			System.out.println("fkldafjka");
+  			return null;
+  		}
+  		else {
+			// find student
+			System.out.println("fkldafjka");
+			Optional<Student> t = studentRepository.findById(userId);
+			List<String> students = c.get().getStudents(); 
+			if (t.isEmpty()) 
+				return null;
+
+			Student student = t.get();
+			System.out.println("fkldafjka");
+			List<String> temp = (List<String>) student.getClasses();
+			if (temp.contains(joinClass))
+				return student;
+
+			temp.add(joinClass);
+			students.add(userId);
+			studentRepository.save(student);
+			classRepository.save(c.get());
+  			return student;
+  		}
+  	}
 	
   	public ArrayList<Student> listParticipants(Long sectionId) {
   		return (ArrayList<Student>) sectionRepository.getById(sectionId).getStudents();
@@ -166,10 +172,10 @@ public class ClassService {
   	// 	return sectionRepository.findById(sectionId).get().getInstructor();
   	// }
 	
-  	public Boolean getUserAccess(String userId) {
-  		//return studentRepository.findById(userId).get().getCampusAccess();
-  		return true;
-  	}
+  	// public Boolean getUserAccess(String userId) {
+  	// 	//return studentRepository.findById(userId).get().getCampusAccess();
+  	// 	return true;
+  	// }
 	
   	public ArrayList<Student> listQuarantinedStudents(String classId, String instrId) {
   		return null;
@@ -187,4 +193,21 @@ public class ClassService {
   		
   		return username;
   	}
+	
+	public List<Student> getClassParticipants(String classId) {
+		Optional<Class> c = classRepository.findById(classId);
+		if (c.isEmpty())
+			return null;
+		
+		List<String> classList = c.get().getStudents();
+		List<Student> students = new ArrayList<>();  
+		for (String s : classList) {
+			Student temp = studentRepository.findById(s).get();
+			students.add(temp);
+		}
+
+		return students;
+	}
+
+	
 }
