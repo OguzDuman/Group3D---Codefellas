@@ -33,11 +33,6 @@ public class VaccineCertificateController {
         System.out.println("djfakljfkakljg");
         vCertificateService.storeFile(file);
 
-        // String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-        //         .path("/downloadFile/")
-        //         .path(vac.getUsername())
-        //         .toUriString();
-
         return "saved";
 
     }
