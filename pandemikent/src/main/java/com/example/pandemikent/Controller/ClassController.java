@@ -80,16 +80,17 @@ public class ClassController {
 	  theModel.addAttribute("newClass", newClass);
 	  UserProfile user = userProfileRepository.findById(instrId).get();
 	  theModel.addAttribute("user", user);
-	  theModel.addAttribute("instrId", instrId);
+	  theModel.addAttribute("instrId", user.getUsername());
+	  
 	  return "createClass";
   }
   
   // done
   @PostMapping("/addClass")
   public String addClass(RedirectAttributes rda, @ModelAttribute("newClass") Class newClass, @ModelAttribute("instrId") String instrId) {
-	  System.out.println(instrId);
-	  rda.addAttribute("userId", "Esra");
-	  Class c = classService.save(newClass.getName(), newClass.getSections().get(0), "Esra");
+	  rda.addAttribute("userId", instrId);
+	  System.out.println(newClass.getName());
+	  Class c = classService.save(newClass.getName(), newClass.getSections().get(0), instrId);
 	  if(c == null) {
 		  return "alpha";
 	  } else {
