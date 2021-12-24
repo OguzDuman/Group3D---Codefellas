@@ -8,7 +8,7 @@
     <body>
         <div class="sidebar">
             <div class="userProfile">
-                <p><img src="logo.jpg" height="70px" width="230px"></p>
+                <p><img src="logo.jpg" height="50px" width="190px"></p>
                 <p><img src="user.png" height="70px" width="70px"></p>
                 <p th:text="${user.username}"></p>
                 <p th:text="${user.id}"></p>
@@ -21,7 +21,7 @@
             </div>
 
             <ul>
-                <li><a href="#"> 
+                <li><a th:href="@{getClasses(userId=${user.username})}"> 
                     <span class="item">Classes</span>
                 </a></li>
                 <li><a href="#"> 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ClassController {
@@ -77,18 +78,22 @@ public class ClassController {
   public String displayAddClassPage(@RequestParam("instrId")String instrId, Model theModel) {
 	  Class newClass = new Class();
 	  theModel.addAttribute("newClass", newClass);
+	  UserProfile user = userProfileRepository.findById(instrId).get();
+	  theModel.addAttribute("user", user);
 	  theModel.addAttribute("instrId", instrId);
 	  return "createClass";
   }
   
   // done
   @PostMapping("/addClass")
-  public @ResponseBody String addClass(@ModelAttribute("newClass") Class newClass, @ModelAttribute("instrId") String instrId) {
+  public String addClass(RedirectAttributes rda, @ModelAttribute("newClass") Class newClass, @ModelAttribute("instrId") String instrId) {
+	  System.out.println(instrId);
+	  rda.addAttribute("userId", "Esra");
 	  Class c = classService.save(newClass.getName(), newClass.getSections().get(0), "Esra");
 	  if(c == null) {
 		  return "alpha";
 	  } else {
-		  return "redirect:displayClasses";
+		  return "redirect:getClasses";
 	  }
   }
 
