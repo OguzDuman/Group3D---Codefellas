@@ -1,34 +1,72 @@
-<!DOCTYPE html>   
-<html>   
-<head>  
-<meta name="viewport" content="width=device-width, initial-scale=1">  
-<title> Pandemikent | Login </title>  
-<link rel="stylesheet" href="login.css">
-</head>    
-<body>    
-    <form> 
+@font-face {
+    font-family:"graphie";
+    src:url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+    font-display:auto;font-style:normal;font-weight:500;
+}
 
-       <center> <img src="logo.jpg" > </center> 
-        <div class="container">   
-            <img src="user.png" style="width:40px;height:40px;">  
-            <span style="padding-left:20px"> 
-            <input type="text" placeholder="Bilkent ID" name="id" required>   
-        </div>   
-        <div class="container">    
-            <img src="user.png" style="width:40px;height:40px;">  
-            <span style="padding-left:20px"> 
-            <input type="password" placeholder="Password" name="password" required>   
-        </div>   
-        <div class="container">   
-            <button type="submit">Login</button>   
-        </div>   
-        <div class="container">
-               <span style="padding-top:55px"> 
-               <p>Your password is same with STARS.</p>
-        </div>
-        <!-- <div class="container">   
-            <a href="#"> Forgot password? </a>   
-        </div>  --> 
-    </form>     
-</body>     
-</html> 
+Body {  
+  font-family: "graphie";
+  src:url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+  font-display:auto;font-style:normal;font-weight:500;  
+  background-color: white;  
+}  
+button {   
+       background-color: #848080;   
+        color: black;   
+        width: 100px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        align-content: center;
+        border: none;   
+        cursor: pointer;   
+         }   
+ form {   
+       padding-top:90px;
+        border: 3px solid #a49c9c;   
+    }   
+ input[type=text], input[type=password] {   
+        width: %100;  
+        height: 40px; 
+        margin: 8px 0; 
+        padding-right: 200px;       
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: inline-block;   
+        border: 2px #2e2d2d;   
+        box-sizing: border-box;  
+        text-align: left;
+        border: 3px solid #b9b9b9;
+    }  
+ button:hover {   
+        opacity: 0.7;   
+    }   
+  .cancelbtn {   
+        width: auto;   
+        padding: 10px 18px;  
+        margin: 10px 5px;  
+    }   
+        
+     
+ .container {   
+       align-items: center;
+       display: flex;
+       justify-content: center;
+        padding: 25px;   
+        background-color: white;  
+    }   
+
+     .container a{      
+        color: black;   
+        width: 100px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        align-content: center;
+        border: none;   
+        cursor: pointer;   
+    }   
+
+    .center {
+        align-items: center;
+        display: flex;
+       justify-content: center;
+    }
