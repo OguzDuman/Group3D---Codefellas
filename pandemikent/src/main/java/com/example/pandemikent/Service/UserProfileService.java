@@ -43,9 +43,9 @@ public class UserProfileService {
             tempStudent = studentRepository.findById(id);
 
             // if not present, find in Instructor table
-            if (tempStudent.isEmpty()){
+            if (tempStudent.get() == null){
                 tempInst = instructorRepository.findById(id);
-                if (tempInst.isEmpty()) {
+                if (tempInst.get() == null) {
                     System.out.println("System error! Can't find user");
                     return null;
                 } else {
@@ -107,7 +107,7 @@ public class UserProfileService {
     public List<String> getCloseContacts(String name) {
         Optional<UserLogin> temp = userLoginRepository.findById(name);
 
-        if (temp.isEmpty())
+        if (temp.get() == null)
             return null;
 
         if (temp.get().getRole().contains("STUDENT")) {
@@ -124,7 +124,7 @@ public class UserProfileService {
     public List<String> addCloseContacts(String name, String contact) {
         Optional<UserLogin> temp = userLoginRepository.findById(name);
 
-        if (temp.isEmpty())
+        if (temp.get() == null)
             return null;
 
         if (temp.get().getRole().contains("STUDENT")) {

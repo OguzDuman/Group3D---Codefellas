@@ -39,11 +39,11 @@ public class ClassService {
 	
   	public Class save(String classId, String sectionId, String instrId) {
 		Optional<Instructor> temp = instructorRepository.findById(instrId);
-		if (temp.isEmpty())
+		if (temp.get() == null)
 			return null;
 		Instructor instr = temp.get();
 		
-  		if(classRepository.findById(classId).isEmpty()) {
+  		if(classRepository.findById(classId).get() == null) {
 			instr.getClasses().add(classId);
 			instructorRepository.save(instr);
   			Class newClass = new Class();
@@ -134,7 +134,7 @@ public class ClassService {
 		// find class
 		Optional<Class> c = classRepository.findById(joinClass);
 		
-		if (c.isEmpty()) {
+		if (c.get() == null) {
 			System.out.println("fkldafjka");
   			return null;
   		}
@@ -143,7 +143,7 @@ public class ClassService {
 			System.out.println("fkldafjka");
 			Optional<Student> t = studentRepository.findById(userId);
 			List<String> students = c.get().getStudents(); 
-			if (t.isEmpty()) 
+			if (t.get() == null)
 				return null;
 
 			Student student = t.get();
@@ -196,7 +196,7 @@ public class ClassService {
 	
 	public List<Student> getClassParticipants(String classId) {
 		Optional<Class> c = classRepository.findById(classId);
-		if (c.isEmpty())
+		if (c.get() == null)
 			return null;
 		
 		List<String> classList = c.get().getStudents();
