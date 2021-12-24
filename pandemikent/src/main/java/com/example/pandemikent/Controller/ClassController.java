@@ -39,7 +39,13 @@ public class ClassController {
 	  theModel.addAttribute("classes", classes);
 	  UserProfile user = userProfileRepository.findById(userId).get();
 	  theModel.addAttribute("user", user);
-	  return "instrClasses";
+	  String s = classService.getUserRole(userId);
+	  if(s.equalsIgnoreCase("student"))
+		  return "stuClasses";
+	  else if(s.equalsIgnoreCase("instructor"))
+	  	return "instrClasses";
+	  else
+		  return "error";
   }
   
    @GetMapping("/sections")
@@ -89,7 +95,6 @@ public class ClassController {
   @PostMapping("/addClass")
   public String addClass(RedirectAttributes rda, @ModelAttribute("newClass") Class newClass, @ModelAttribute("instrId") String instrId) {
 	  rda.addAttribute("userId", instrId);
-	  System.out.println(newClass.getName());
 	  Class c = classService.save(newClass.getName(), newClass.getSections().get(0), instrId);
 	  if(c == null) {
 		  return "alpha";
@@ -100,20 +105,21 @@ public class ClassController {
 
 
   @GetMapping("/joinClassPage")
-  public String displayJoinClassPage(@RequestParam("userId") String userId,
-  									 @RequestParam String className, Model theModel) {
+  public String displayJoinClassPage(@RequestParam("userId") String userId, Model theModel) {
 	  Class joinClass = new Class();
 	  Section joinSection = new Section();
 	  theModel.addAttribute("joinClass", joinClass);
 	  theModel.addAttribute("joinSection", joinSection);
-	  theModel.addAttribute("userId", userId);
+	  UserProfile user = userProfileRepository.findById(userId).get();
+	  theModel.addAttribute("user", user);
 	  return "joinClass";
   }
   
   @PostMapping("/joinClass")
-  public @ResponseBody Student joinClass(@ModelAttribute("joinClass") String joinClass, @ModelAttribute("joinSection") String joinSection, @ModelAttribute("userId") String userId) {
+  public String joinClass(RedirectAttributes rda, @ModelAttribute("joinClass") Class joinClass, @ModelAttribute("userId") String userId) {
+	  rda.addAttribute("userId", userId);
 	  Student s = classService.joinClass(joinClass, userId);
-	  return s;
+	  return "redirect:getClasses";
 	//   if(b) {
 	// 	  return "redirect:displayClasses";
 	//   } else {

@@ -42,11 +42,11 @@ public class Student extends UserProfile {
         return history;
     }
 
-    public void setHistory(ArrayList<String> history) {
+    public void setHistory(List<String> history) {
         this.history = history;
     }
 
-    public void setCloseContacts(ArrayList<String> closeContacts) {
+    public void setCloseContacts(List<String> closeContacts) {
         this.closeContacts = closeContacts;
     }
 
@@ -56,4 +56,8 @@ public class Student extends UserProfile {
 
     public Student() {
     }
+
+	public void setClasses(List<String> classes) {
+		this.classes = classes;
+	}
 }

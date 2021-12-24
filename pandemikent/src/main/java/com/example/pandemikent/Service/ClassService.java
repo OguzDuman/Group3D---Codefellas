@@ -100,6 +100,23 @@ public class ClassService {
 			return classRepository.save(exit);
 		}
   	}
+  	
+  	public Student updateStudent(Student entity) {
+  		if(!studentRepository.existsById(entity.getUsername()))
+			return null;
+		else {
+			Student exit = studentRepository.findById(entity.getUsername()).orElse(null);
+			
+			exit.setClasses(entity.getClasses() != null ? entity.getClasses() : (ArrayList<String>) exit.getClasses());
+			exit.setCloseContacts(entity.getCloseContacts() != null ? entity.getCloseContacts() : exit.getCloseContacts());
+			exit.setEmail(entity.getEmail() != null ? entity.getEmail() : exit.getEmail());
+			exit.setHistory(entity.getHistory() != null ? entity.getHistory() : exit.getHistory());
+			exit.setId(entity.getId() != 0 ? entity.getId() : exit.getId());
+			exit.setUsername(entity.getUsername() != null ? entity.getUsername() : exit.getUsername());
+		
+			return studentRepository.save(exit);
+		}
+  	}
 	
   	public List<String> listUserClasses(String userId) {
   		if(studentRepository.findById(userId).isPresent()) {
@@ -112,6 +129,17 @@ public class ClassService {
   			return null;
   		}
   			
+  	}
+  	
+  	public String getUserRole(String userId) {
+  		if(studentRepository.findById(userId).isPresent()) {
+  			return "student";
+  		}
+  		else if(instructorRepository.findById(userId).isPresent()) {
+  			return "instructor";
+  		}
+  		else
+  			return "none";
   	}
 	
   	 public List<String> listUserSections(String userId, String classId) {
@@ -128,10 +156,10 @@ public class ClassService {
   		return classRepository.save(newClass);
   	}
 	
-  	public Student joinClass(String joinClass, String userId) {
+  	public Student joinClass(Class joinClass, String userId) {
 		System.out.println("Hellooooooooofnakjl");
 		// find class
-		Optional<Class> c = classRepository.findById(joinClass);
+		Optional<Class> c = classRepository.findById(joinClass.getName());
 		
 		if (c.isEmpty()) {
 			System.out.println("fkldafjka");
@@ -139,7 +167,6 @@ public class ClassService {
   		}
   		else {
 			// find student
-			System.out.println("fkldafjka");
 			Optional<Student> t = studentRepository.findById(userId);
 			List<String> students = c.get().getStudents(); 
 			if (t.isEmpty()) 
@@ -151,10 +178,10 @@ public class ClassService {
 			if (temp.contains(joinClass))
 				return student;
 
-			temp.add(joinClass);
+			temp.add(joinClass.getName());
 			students.add(userId);
-			studentRepository.save(student);
-			classRepository.save(c.get());
+			updateStudent(student);
+			update(c.get());
   			return student;
   		}
   	}

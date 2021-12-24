@@ -21,7 +21,7 @@
             </div>
 
             <ul>
-                <li><a href="#"> 
+                <li><a th:href="@{getClasses(userId=${user.username})}"> 
                     <span class="item">Classes</span>
                 </a></li>
                 <li><a href="#"> 
@@ -45,7 +45,7 @@
 
         <div class="topbar">
             <ul>
-                <li><a href="#"> 
+                <li><a th:href="@{/joinClassPage(userId=${user.username})}"> 
                     <span class="item">Join Class</span>
                 </a></li>
             </ul>
@@ -74,7 +74,7 @@
  				<tr th:each="tmp : ${classes}">
 	 				<td>
 						<!-- class button -->
-						<a th:text=${tmp} th:href="@{displaySections(userId=219,classId={tmp})}"></a>
+						<a th:text=${tmp} href="#"></a>
 					</td>
  				</tbody>	
  			</table>
@@ -219,7 +219,7 @@
     margin-left: 230px;
 }
 
-.container ul li a {
+.container table a {
     padding: 10px 50px;
     text-align: center;
     border: 1px solid black;
@@ -230,26 +230,26 @@
     font-size: 36px;
     color: black;
     float: left;
-    width: 35%;
+    width: 100%;
 }
 
-.container li:nth-child(odd) a {
+.container tr:nth-child(odd) a {
     background-color: rgb(54, 133, 236);
 }
 
-.container li:nth-child(even) a {
+.container tr:nth-child(even) a {
     background-color: rgb(203, 161, 250);
 }
 
-.container li:nth-child(3n+0) a {
+.container tr:nth-child(3n+0) a {
     background-color: palegreen;
 }
 
-.container li:nth-child(4n+0) a {
+.container tr:nth-child(4n+0) a {
     background-color: palegoldenrod;
 }
 
-.container ul li a:hover {
+.container td a:hover {
     background-color: pink;
 }
 
