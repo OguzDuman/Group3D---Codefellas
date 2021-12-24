@@ -55,14 +55,14 @@ public class ClassController {
 // 	  return "coursePage";
 //   }
   
-  @GetMapping("/sectionPage")
-  public String displaySectionPage(@RequestParam("classId") String classId, @RequestParam("sectionId") Long sectionId, @RequestParam("instrId") String instrId, Model theModel) {
-	  theModel.addAttribute("classId", classId);
-	  theModel.addAttribute("instrId", instrId);
-	  List<Student> participants = classService.listParticipants(sectionId);
-	  theModel.addAttribute("participants", participants);
-	  return "sectionPage";
-  }
+//   @GetMapping("/sectionPage")
+//   public String displaySectionPage(@RequestParam("classId") String classId, @RequestParam("sectionId") Long sectionId, @RequestParam("instrId") String instrId, Model theModel) {
+// 	  theModel.addAttribute("classId", classId);
+// 	  theModel.addAttribute("instrId", instrId);
+// 	  List<Student> participants = classService.listParticipants(sectionId);
+// 	  theModel.addAttribute("participants", participants);
+// 	  return "sectionPage";
+//   }
   
   @GetMapping("/addClassPage")
   public String displayAddClassPage(@RequestParam("instrId")String instrId, Model theModel) {
@@ -108,9 +108,21 @@ public class ClassController {
 	// 	  return "errorPage";
 	//   }
   }
+
+  @GetMapping("/displayClassList")
+  public @ResponseBody List<Student> displayClassList(@RequestParam String classId) {
+	  List<Student>  participants = classService.getClassParticipants(classId);
+	  for(Student stu: participants)
+	  	System.out.println(stu);
+	  
+	  // theModel.addAttribute("participants", participants);
+	  // return "participantsPage";
+	  return participants;
+  }
   
   @GetMapping("/participants")
   public String displayParticipantsPage(@ModelAttribute("participants") ArrayList<Student> participants, Model theModel) {
+	  
 	  theModel.addAttribute("participants", participants);
 	  return "participantsPage";
   }

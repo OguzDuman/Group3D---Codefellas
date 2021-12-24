@@ -31,23 +31,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // http.authorizeRequests()
-        //     .antMatchers("/submit")
-        //     .permitAll()
-        //     .antMatchers("/displayProfile")
-        //     .hasRole("USER")
-        //     .anyRequest().authenticated()
-        //     .and()
-        //     .formLogin().permitAll()
-        //     .and()
-        //     .logout().permitAll();     
         http.authorizeRequests()
-            .antMatchers("INSTRUCTOR")
-            .permitAll()
+            .anyRequest().authenticated()
             .and()
             .formLogin()
-            // .loginPage("login.html")
-            ;
+            .loginPage("/login")
+            .permitAll()
+            .and()
+            .logout()                                    
+            .permitAll();
+        ;
         http.csrf().disable();     // temp testing setting
     }
 

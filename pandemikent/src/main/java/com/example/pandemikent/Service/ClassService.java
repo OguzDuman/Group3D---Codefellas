@@ -129,18 +129,23 @@ public class ClassService {
   			return null;
   		}
   		else {
-
-		// find student
+			// find student
 			System.out.println("fkldafjka");
 			Optional<Student> t = studentRepository.findById(userId);
+			List<String> students = c.get().getStudents(); 
 			if (t.isEmpty()) 
 				return null;
+
 			Student student = t.get();
 			System.out.println("fkldafjka");
 			List<String> temp = (List<String>) student.getClasses();
+			if (temp.contains(joinClass))
+				return student;
+
 			temp.add(joinClass);
+			students.add(userId);
 			studentRepository.save(student);
-			
+			classRepository.save(c.get());
   			return student;
   		}
   	}
@@ -157,10 +162,10 @@ public class ClassService {
   	// 	return sectionRepository.findById(sectionId).get().getInstructor();
   	// }
 	
-  	public Boolean getUserAccess(String userId) {
-  		//return studentRepository.findById(userId).get().getCampusAccess();
-  		return true;
-  	}
+  	// public Boolean getUserAccess(String userId) {
+  	// 	//return studentRepository.findById(userId).get().getCampusAccess();
+  	// 	return true;
+  	// }
 	
   	public ArrayList<Student> listQuarantinedStudents(String classId, String instrId) {
   		return null;
@@ -178,4 +183,21 @@ public class ClassService {
   		
   		return username;
   	}
+	
+	public List<Student> getClassParticipants(String classId) {
+		Optional<Class> c = classRepository.findById(classId);
+		if (c.isEmpty())
+			return null;
+		
+		List<String> classList = c.get().getStudents();
+		List<Student> students = new ArrayList<>();  
+		for (String s : classList) {
+			Student temp = studentRepository.findById(s).get();
+			students.add(temp);
+		}
+
+		return students;
+	}
+
+	
 }
