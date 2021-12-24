@@ -54,3 +54,19 @@ button {
         padding: 25px;   
         background-color: white;  
     }   
+
+     .container a{      
+        color: black;   
+        width: 100px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        align-content: center;
+        border: none;   
+        cursor: pointer;   
+    }   
+
+    .center {
+        align-items: center;
+        display: flex;
+       justify-content: center;
+    }
