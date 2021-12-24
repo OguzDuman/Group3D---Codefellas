@@ -186,17 +186,17 @@ public class ClassService {
   		}
   	}
 	
-  	public ArrayList<Student> listParticipants(Long sectionId) {
-  		return (ArrayList<Student>) sectionRepository.getById(sectionId).getStudents();
+  	public List<String> listParticipants(String classId) {
+  		return classRepository.getById(classId).getStudents();
   	}
 	
   	public List<Date> getMissedClasses() {
   		return null;
   	}
 	
-  	// public Instructor getSectionInstr(Long sectionId) {
-  	// 	return sectionRepository.findById(sectionId).get().getInstructor();
-  	// }
+  	 public String getSectionInstr(String sectionId) {
+  	 	return sectionRepository.findBySectionNumber(sectionId).getInstructor();
+  	 }
 	
   	// public Boolean getUserAccess(String userId) {
   	// 	//return studentRepository.findById(userId).get().getCampusAccess();

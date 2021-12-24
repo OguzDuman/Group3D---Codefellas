@@ -58,27 +58,31 @@ public class ClassController {
    }
   
   // where is it getting this information from ??????
-//   @GetMapping("/coursePage")
-//   public String displayCoursePage(@RequestParam("userId") String userId, @RequestParam("classId") String classId, @RequestParam("sectionId") Long sectionId, Model theModel) {
-// 	  theModel.addAttribute("classId", classId);
+   @GetMapping("/coursePage")
+   public String displayCoursePage(@RequestParam("userId") String userId, @RequestParam("classId") String classId, Model theModel) {
+	   UserProfile user = userProfileRepository.findById(userId).get();
+	   theModel.addAttribute("user", user);
+ 	  theModel.addAttribute("classId", classId);
 // 	  theModel.addAttribute("sectionId", sectionId);
-// 	  Instructor instr = classService.getSectionInstr(sectionId);
+// 	  String instr = classService.getSectionInstr(sectionId);
 // 	  theModel.addAttribute("instr", instr);
-// 	  Boolean accessStatus = classService.getUserAccess(userId);
-// 	  theModel.addAttribute("accessStatus", accessStatus);
-// 	  List<Student> participants = classService.listParticipants(sectionId);
-// 	  theModel.addAttribute("participants", participants);
-// 	  return "coursePage";
-//   }
+ 	  //Boolean accessStatus = classService.getUserAccess(userId);
+ 	  //theModel.addAttribute("accessStatus", accessStatus);
+ 	  List<String> participants = classService.listParticipants(classId);
+ 	  theModel.addAttribute("participants", participants);
+ 	  return "stuCourses";
+   }
   
-//   @GetMapping("/sectionPage")
-//   public String displaySectionPage(@RequestParam("classId") String classId, @RequestParam("sectionId") Long sectionId, @RequestParam("instrId") String instrId, Model theModel) {
-// 	  theModel.addAttribute("classId", classId);
-// 	  theModel.addAttribute("instrId", instrId);
-// 	  List<Student> participants = classService.listParticipants(sectionId);
-// 	  theModel.addAttribute("participants", participants);
-// 	  return "sectionPage";
-//   }
+   @GetMapping("/sectionPage")
+   public String displaySectionPage(@RequestParam("classId") String classId, @RequestParam("instrId") String instrId, Model theModel) {
+	   UserProfile user = userProfileRepository.findById(instrId).get();
+	   theModel.addAttribute("user", user);
+ 	  theModel.addAttribute("classId", classId);
+ 	  theModel.addAttribute("instrId", instrId);
+ 	  List<String> participants = classService.listParticipants(classId);
+ 	  theModel.addAttribute("participants", participants);
+ 	  return "instrSection";
+   }
   
   @GetMapping("/addClassPage")
   public String displayAddClassPage(@RequestParam("instrId")String instrId, Model theModel) {
@@ -97,7 +101,7 @@ public class ClassController {
 	  rda.addAttribute("userId", instrId);
 	  Class c = classService.save(newClass.getName(), newClass.getSections().get(0), instrId);
 	  if(c == null) {
-		  return "alpha";
+		  return "error";
 	  } else {
 		  return "redirect:getClasses";
 	  }

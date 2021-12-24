@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sections</title>  
@@ -9,11 +9,11 @@
     <body>
         <div class="sidebar">
             <div class="userProfile">
-                <img src="logo.jpg" height="50px" width="190px">
+                 <img src="logo.jpg" height="50px" width="190px">
                 <img src="user.png" height="70px" width="70px">
-                <p><b>Name</b></p>
-                <p><b>Bilkent ID</b></p>
-                <p><b>Mail</b></p>
+                <p th:text="${user.username}"></p>
+                <p th:text="${user.id}"></p>
+                <p th:text="${user.email}"></p>
             </div>
             
             <div class="campusAccess">
@@ -22,7 +22,7 @@
             </div>
 
             <ul>
-                <li><a href="instrClasses.html"> 
+                <li><a th:href="@{getClasses(userId=${user.username})}"> 
                     <span class="item">Classes</span>
                 </a></li>
                 <li><a href="#"> 
@@ -44,7 +44,8 @@
         </div>
 
         <div class="topbar">
-            <h1>Classes > CS319 > Section 01</h1>
+            <h1 style="display:inline-block;">Classes > </h1>
+            <h1 style="display:inline-block;" th:text=${classId}></h1>
         </div>
 
         <div class="container">
