@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 public class CovidHistoryController {
     @Autowired
     private CovidHistoryService covidInfo;
 
     @GetMapping("/vaccineHistory")
-    public @ResponseBody Boolean displayCovidHistoryPage(@RequestParam String name) {
+    public @ResponseBody
+    List<String> displayCovidHistoryPage(@RequestParam String userID) {
         // I don't understand why the method in the service class is returning a boolean. It should return string.
-        return covidInfo.getCovidHistory(name);
+        return covidInfo.getCovidHistory(userID);
     }
 }

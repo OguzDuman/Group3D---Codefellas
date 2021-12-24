@@ -2,7 +2,11 @@ package com.example.pandemikent.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
+
+import com.example.pandemikent.Model.Student;
+import com.example.pandemikent.Repo.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.Query;
@@ -20,6 +24,9 @@ public class CovidHistoryService {
 	
 	@Autowired
 	private VaccineRepository vaccineRepository;
+
+	@Autowired
+	private StudentRepository studentRepository;
 	
 	@Autowired
 	private HESCodeRepository hesCodeRepository;
@@ -52,8 +59,9 @@ public class CovidHistoryService {
 		return vaccines;
 	}
 
-	public Boolean getCovidHistory(String name) {
-		return true;
+	public List<String> getCovidHistory(String userID) {
+		Optional<Student> s = studentRepository.findById(userID);
+		return s.get().getHistory();
 	}
 	
 	public List<PCR> listUserPCRs(String id) {
