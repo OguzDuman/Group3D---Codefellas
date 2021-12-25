@@ -27,10 +27,7 @@ public class CovidHistoryService {
 
 	@Autowired
 	private StudentRepository studentRepository;
-	
-	@Autowired
-	private HESCodeRepository hesCodeRepository;
-	
+
 	@Autowired 
 	private EntityManager entityManager;
 	
@@ -41,10 +38,6 @@ public class CovidHistoryService {
 	public Boolean addVaccineAppointment(Vaccine vacApt) {
 		vacApt.setSuccessful(false);
 		vaccineRepository.save(vacApt);
-		return true;
-	}
-	
-	public Boolean addVaccineCertificate() {
 		return true;
 	}
 	
@@ -62,6 +55,15 @@ public class CovidHistoryService {
 	public List<String> getCovidHistory(String userID) {
 		Optional<Student> s = studentRepository.findById(userID);
 		return s.get().getHistory();
+	}
+
+	public Boolean addCovidHistory(String userID, String history) {
+		Optional<Student> s = studentRepository.findById(userID);
+		if (s.get() == null || history.equals("")) {
+			return false;
+		}
+		s.get().addHistory(history);
+		return true;
 	}
 	
 	public List<PCR> listUserPCRs(String id) {

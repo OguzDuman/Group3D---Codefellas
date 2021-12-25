@@ -46,6 +46,10 @@ public class Student extends UserProfile {
         this.history = history;
     }
 
+    public void addHistory(String historyText) {
+        history.add(historyText);
+    }
+
     public void setCloseContacts(ArrayList<String> closeContacts) {
         this.closeContacts = closeContacts;
     }
