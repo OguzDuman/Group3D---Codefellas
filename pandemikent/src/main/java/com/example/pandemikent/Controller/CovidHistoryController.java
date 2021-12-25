@@ -28,13 +28,32 @@ public class CovidHistoryController {
     @Autowired
     private UserProfileRepository userProfileRepository;
 
-    @GetMapping("/vaccineHistory")
-    public @ResponseBody
-    String displayCovidHistoryPage(@RequestParam String userID, Model theModel) {
+    @GetMapping("/CovidHistory")
+    public String displayCovidHistoryPage(@RequestParam String userID, Model theModel) {
         theModel.addAttribute("history", covidInfo.getCovidHistory(userID));
         UserProfile user = userProfileRepository.findById(userID).get();
         theModel.addAttribute("user", user);
-        return "vaccHistory";
+        String access = covidInfo.findAccessStatus(userID);
+  	  	theModel.addAttribute("access", access);
+        return "CovidHistory";
+    }
+    
+    @GetMapping("/quarantinePage")
+    public String displayQuarantinePage(@RequestParam String userID, Model theModel) {
+    	UserProfile user = userProfileRepository.findById(userID).get();
+        theModel.addAttribute("user", user);
+        String access = covidInfo.findAccessStatus(userID);
+  	  	theModel.addAttribute("access", access);
+        return "QuarantineTracker";
+    }
+    
+    @GetMapping("/HESTrackerPage")
+    public String displayHESTrackerPage(@RequestParam String userID, Model theModel) {
+    	UserProfile user = userProfileRepository.findById(userID).get();
+        theModel.addAttribute("user", user);
+        String access = covidInfo.findAccessStatus(userID);
+  	  	theModel.addAttribute("access", access);
+        return "HESCodeTracker";
     }
 
     @PostMapping("/addHistory")
