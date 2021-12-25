@@ -30,6 +30,16 @@ public class Student extends UserProfile {
     @CollectionTable(name ="closeContacts")
     private List<String> closeContacts = new ArrayList<>();
 
+    @CollectionTable(name ="accessStatus")
+    private boolean accessStatus = true;
+
+    public boolean getAccessStatus() {
+        return accessStatus;
+    }
+
+    public void setAccessStatus(boolean accessStatus) {
+        this.accessStatus = accessStatus;
+    }
     public List<String> getClasses() {
         return classes;
     }

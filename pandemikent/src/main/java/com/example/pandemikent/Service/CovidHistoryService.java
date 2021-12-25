@@ -73,4 +73,13 @@ public class CovidHistoryService {
 		return q.getResultList();
 	}
 
+	public void setCampusAccessStatus(String userID, boolean accessStatus) {
+		Optional<Student> s = studentRepository.findById(userID);
+		s.get().setAccessStatus(accessStatus);
+	}
+
+	public boolean findAccessStatus(String userID) {
+		Optional<Student> s = studentRepository.findById(userID);
+		return s.get().getAccessStatus();
+	}
 }
