@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -61,12 +62,14 @@ public class CovidHistoryController {
 //    }
 
     @GetMapping("/displayPCR")
-    public @ResponseBody
-    String displayPCRPage(@RequestParam String userID, Model theModel) {
+    public String displayPCRPage(@RequestParam("userID") String userID, Model theModel) {
+    	System.out.println("hey");
         theModel.addAttribute("PCRs", covidInfo.listUserPCRs(userID));
         UserProfile user = userProfileRepository.findById(userID).get();
         theModel.addAttribute("user", user);
-        return "pcrHist";
+        String access = covidInfo.findAccessStatus(userID);
+  	  	theModel.addAttribute("access", access);
+        return "PCRTracker";
     }
 
     @GetMapping("/addPCR")
@@ -80,14 +83,12 @@ public class CovidHistoryController {
     }
 
     @GetMapping("/displayVaccTracker")
-    public @ResponseBody
-    String displayVaccTracker(@RequestParam String userID, Model theModel) {
+    public String displayVaccTracker(@RequestParam("userID") String userID, Model theModel) {
         theModel.addAttribute("Vaccines", covidInfo.getVaccineHistory(userID));
         UserProfile user = userProfileRepository.findById(userID).get();
         theModel.addAttribute("user", user);
-        return "vaccHist";
+        String access = covidInfo.findAccessStatus(userID);
+  	  	theModel.addAttribute("access", access);
+        return "VaccineTracker";
     }
-
-
-
 }

@@ -72,11 +72,8 @@ public class CovidHistoryService {
 		return true;
 	}
 	
-	public List<PCR> listUserPCRs(String id) {
-		Query q = entityManager.createNativeQuery("SELECT * FROM pandemikent.PCR WHERE patient_id = :pId;", PCR.class);
-		q.setParameter("pId", id);
-		
-		return q.getResultList();
+	public List<PCR> listUserPCRs(String id) {		
+		return pcrRepoitory.getPCRByPatientId(id);
 	}
 
 	public void setCampusAccessStatus(String userID, boolean accessStatus) {
