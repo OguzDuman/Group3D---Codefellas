@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <link rel="stylesheet" href="HESCodeTracker.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>HES Code Tracker</title>  
     </head>
     
     <body>
@@ -9,14 +10,14 @@
             <div class="userProfile">
                 <img src="logo.jpg" height="70px" width="210px">
                 <img src="user.png" height="70px" width="70px">
-                <p><b>Name</b></p>
-                <p><b>Bilkent ID</b></p>
-                <p><b>Mail</b></p>
+                <p th:text="${user.username}"></p>
+                <p th:text="${user.id}"></p>
+                <p th:text="${user.email}"></p>
             </div>
             
             <div class="campusAccess">
                 <h4>Your Campus Access Status:</h4>
-                <p>You are allowed on campus.</p>
+                <p class="accessStatus">You are allowed on campus.</p>
             </div>
 
             <ul>
@@ -109,6 +110,19 @@
                <span style="padding-bottom:0%"> 
             </div>
         </form>
+        <script>
+            var accessInfo;
+            
+            accessInfo = document.getElementsByClassName('accessStatus');
+            for (var i = 0; i < accessInfo.length; i++) {
+                if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
+                    accessInfo[i].style.color = "chartreuse";
+                }
+                else {
+                    accessInfo[i].style.color = "red";
+                }
+            }
+        </script>
     </body>
     <style>
     @font-face {
@@ -117,8 +131,7 @@
     font-display:auto;font-style:normal;font-weight:500;
 }
 
- input[type=text], input[type=number] {   
-        width: 100%;  
+ input[type=text], input[type=number] {     
         height: 40px; 
         margin-left: 30px; 
         padding-right: 300px;       
@@ -134,7 +147,6 @@
     }  
 
     table {
-        width: 100%;
         margin-left: 250px;
         font-family: "graphie";
         border-collapse: collapse;
@@ -159,7 +171,6 @@
  form {   
        padding-top:90px;
         border: 3px solid #a49c9c;  
-        width: 100%;
     }   
     
 * {
