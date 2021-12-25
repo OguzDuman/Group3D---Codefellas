@@ -191,13 +191,13 @@ public class ClassService {
   		return null;
   	}
 	
-	  public String getInstr(String c) {
-		Optional<Class> cO = classRepository.findById(c).get()
-		if (cO.isEmpty())
-			return null;
+	//   public String getInstr(String c) {
+	// 	Optional<Class> cO = classRepository.findById(c).get()
+	// 	if (cO.isEmpty())
+	// 		return null;
 		
-		return cO.getClass().get
-	}
+	// 	return cO.getClass().get
+	// }
   
 	
   	// public Boolean getUserAccess(String userId) {

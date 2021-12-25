@@ -132,7 +132,7 @@ public class ClassController {
   }
 
   @GetMapping("/displayClassList")
-  public @ResponseBody List<Student> displayClassList(@RequestParam String classId) {
+  public List<Student> displayClassList(@RequestParam String classId) {
 	  List<Student>  participants = classService.getClassParticipants(classId);
 	  for(Student stu: participants)
 	  	System.out.println(stu);
