@@ -71,7 +71,7 @@ public class UserProfileService {
             return false;
 
         if (u.getRole().contains("STUDENT")) {
-            studentRepository.save(new Student(user.getUsername(), user.getId(), user.getEmail()));
+            studentRepository.save(new Student(user.getUsername(), user.getId(), user.getEmail(), true));
         }
         else if (u.getRole().contains("INSTRUCTOR")) {
             instructorRepository.save(new Instructor(user.getUsername(), user.getId(), user.getEmail()));
