@@ -71,6 +71,19 @@
                <span style="padding-top:230px"> 
             </div>
         </form>
+        <script>
+            var accessInfo;
+            
+            accessInfo = document.getElementsByClassName('accessStatus');
+            for (var i = 0; i < accessInfo.length; i++) {
+                if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
+                    accessInfo[i].style.color = "chartreuse";
+                }
+                else {
+                    accessInfo[i].style.color = "red";
+                }
+            }
+        </script>
     </body>
     <style>
     @font-face {
