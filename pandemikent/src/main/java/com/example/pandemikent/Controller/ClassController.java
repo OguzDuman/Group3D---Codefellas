@@ -32,6 +32,9 @@ public class ClassController {
   @Autowired
   private UserProfileRepository userProfileRepository;
 
+  @Autowired
+  private UserProfileAccessService accessService;
+
   // done
   @GetMapping("/getClasses")
   public String displayClasses(@RequestParam("userId") String userId, Model theModel) {

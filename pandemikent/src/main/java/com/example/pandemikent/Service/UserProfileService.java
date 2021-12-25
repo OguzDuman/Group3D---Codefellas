@@ -12,6 +12,7 @@ import com.example.pandemikent.Repo.StudentRepository;
 import com.example.pandemikent.Repo.UserLoginRepository;
 import com.example.pandemikent.Repo.UserProfileRepository;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,10 +66,14 @@ public class UserProfileService {
         Optional<UserLogin> temp = userLoginRepository.findById(user.getUsername());
         UserLogin u;
 
-        if (temp != null)
+        if (temp.isPresent())
             u = temp.get();
         else 
             return false;
+
+        // check for valid email
+        // if (!EmailValidator.getInstance().isValid(user.getEmail()))
+        //     return false;
 
         if (u.getRole().contains("STUDENT")) {
             studentRepository.save(new Student(user.getUsername(), user.getId(), user.getEmail(), true));
@@ -117,8 +122,6 @@ public class UserProfileService {
         } else {
             return null;
         }
-
-        
     }
 
     public List<String> addCloseContacts(String name, String contact) {

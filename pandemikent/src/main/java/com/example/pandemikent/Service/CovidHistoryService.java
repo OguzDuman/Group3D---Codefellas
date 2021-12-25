@@ -82,4 +82,5 @@ public class CovidHistoryService {
 		Optional<Student> s = studentRepository.findById(userID);
 		return s.get().getAccessStatus();
 	}
+
 }
