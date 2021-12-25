@@ -51,8 +51,6 @@ public class ClassService {
   			Section newSection = new Section();
   			newSection.setInstructor(instr.getUsername());
   			newSection.setSectionNumber(sectionId);
-  			ArrayList<Section> sections = new ArrayList<Section>();
-  			sections.add(newSection);
 			ArrayList<String> t = new ArrayList<String>();
 			t.add(sectionId);
   			newClass.setSections(t);
@@ -66,7 +64,6 @@ public class ClassService {
   					break;
   				}
   			}
-			  
   			if(b)
   				return null;
   			else {
@@ -76,9 +73,7 @@ public class ClassService {
   	  			newSection.setSectionNumber(sectionId);
 				sectionRepository.save(newSection);
 	  	  		List<String> sections = classRepository.getById(classId).getSections();
-				sectionRepository.save(newSection);
 	  			sections.add(sectionId);
-	  			classRepository.getById(classId).setSections(sections);
 				Class c = classRepository.findById(classId).get();
 				c.setSections(sections);
 	  			return update(c);
@@ -97,8 +92,25 @@ public class ClassService {
 			exit.setTimeSlots(entity.getTimeSlots() != null ? entity.getTimeSlots() : exit.getTimeSlots());
 			exit.setSections(entity.getSections() != null ? entity.getSections() : exit.getSections());
 			exit.setMakeUpExam(entity.getMakeUpExam() != null ? entity.getMakeUpExam() : exit.getMakeUpExam());
-		
+
 			return classRepository.save(exit);
+		}
+  	}
+  	
+  	public Student updateStudent(Student entity) {
+  		if(!studentRepository.existsById(entity.getUsername()))
+			return null;
+		else {
+			Student exit = studentRepository.findById(entity.getUsername()).orElse(null);
+			
+			exit.setClasses(entity.getClasses() != null ? entity.getClasses() : (ArrayList<String>) exit.getClasses());
+			exit.setCloseContacts(entity.getCloseContacts() != null ? entity.getCloseContacts() : exit.getCloseContacts());
+			exit.setEmail(entity.getEmail() != null ? entity.getEmail() : exit.getEmail());
+			exit.setHistory(entity.getHistory() != null ? entity.getHistory() : exit.getHistory());
+			exit.setId(entity.getId() != 0 ? entity.getId() : exit.getId());
+			exit.setUsername(entity.getUsername() != null ? entity.getUsername() : exit.getUsername());
+			
+			return studentRepository.save(exit);
 		}
   	}
 	
@@ -114,11 +126,22 @@ public class ClassService {
   		}
   			
   	}
-	
+  	
+  	public String getUserRole(String userId) {
+  		if(studentRepository.findById(userId).isPresent()) {
+  			return "student";
+  		}
+  		else if(instructorRepository.findById(userId).isPresent()) {
+  			return "instructor";
+  		}
+  		else
+  			return "none";
+  	}  	
+  	
   	 public List<String> listUserSections(String userId, String classId) {
   	 	List<String> sections = classRepository.getById(classId).getSections();
   	 	for(String section: sections) {
-  	 		if(instructorRepository.findById(sectionRepository.findBySectionNumber(section).getInstructor()).get().getUsername() != userId) {
+  	 		if(sectionRepository.findBySectionNumber(section).getInstructor() != userId) {
   	 			sections.remove(section);
   	 		}
   	 	}
@@ -129,10 +152,10 @@ public class ClassService {
   		return classRepository.save(newClass);
   	}
 	
-  	public Student joinClass(String joinClass, String userId) {
+  	public Student joinClass(Class joinClass, String userId) {
 		System.out.println("Hellooooooooofnakjl");
 		// find class
-		Optional<Class> c = classRepository.findById(joinClass);
+		Optional<Class> c = classRepository.findById(joinClass.getName());
 		
 		if (c.get() == null) {
 			System.out.println("fkldafjka");
@@ -140,7 +163,6 @@ public class ClassService {
   		}
   		else {
 			// find student
-			System.out.println("fkldafjka");
 			Optional<Student> t = studentRepository.findById(userId);
 			List<String> students = c.get().getStudents(); 
 			if (t.get() == null)
@@ -152,25 +174,25 @@ public class ClassService {
 			if (temp.contains(joinClass))
 				return student;
 
-			temp.add(joinClass);
+			temp.add(joinClass.getName());
 			students.add(userId);
-			studentRepository.save(student);
-			classRepository.save(c.get());
+			updateStudent(student);
+			update(c.get());
   			return student;
   		}
   	}
 	
-  	public ArrayList<Student> listParticipants(Long sectionId) {
-  		return (ArrayList<Student>) sectionRepository.getById(sectionId).getStudents();
+  	public List<String> listParticipants(String classId) {
+  		return classRepository.getById(classId).getStudents();
   	}
 	
   	public List<Date> getMissedClasses() {
   		return null;
   	}
 	
-  	// public Instructor getSectionInstr(Long sectionId) {
-  	// 	return sectionRepository.findById(sectionId).get().getInstructor();
-  	// }
+  	 public String getSectionInstr(String sectionId) {
+  	 	return sectionRepository.findBySectionNumber(sectionId).getInstructor();
+  	 }
 	
   	// public Boolean getUserAccess(String userId) {
   	// 	//return studentRepository.findById(userId).get().getCampusAccess();

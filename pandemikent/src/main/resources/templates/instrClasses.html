@@ -22,7 +22,7 @@
             </div>
 
             <ul>
-                <li><a href="#"> 
+                <li><a th:href="@{getClasses(userId=${user.username})}"> 
                     <span class="item">Classes</span>
                 </a></li>
                 <li><a href="#"> 
@@ -45,7 +45,7 @@
 
         <div class="topbar">
             <ul>
-                <li><a th:href="@{/addClassPage(instrId=Esra)}"> 
+                <li><a th:href="@{/addClassPage(instrId=${user.username})}"> 
                     <span class="item">Create Class</span>
                 </a></li>
             </ul>
@@ -68,7 +68,7 @@
  				<tr th:each="tmp : ${classes}">
 	 				<td>
 						<!-- class button -->
-						<a th:text=${tmp} href="#"></a>
+						<a th:text=${tmp} th:href="@{sectionPage(classId=${tmp},instrId=${user.username})}"></a>
 					</td>
  				</tbody>	
  			</table>

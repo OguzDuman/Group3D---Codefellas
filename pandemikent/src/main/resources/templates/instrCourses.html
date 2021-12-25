@@ -11,9 +11,9 @@
             <div class="userProfile">
                 <img src="logo.jpg" height="50px" width="190px">
                 <img src="user.png" height="70px" width="70px">
-                <p><b>Name</b></p>
-                <p><b>Bilkent ID</b></p>
-                <p><b>Mail</b></p>
+                <p th:text="${user.username}"></p>
+                <p th:text="${user.id}"></p>
+                <p th:text="${user.email}"></p>
             </div>
             
             <div class="campusAccess">
@@ -66,7 +66,7 @@
  				<tr th:each="tmp : ${sections}">
 	 				<td>
 						<!-- section button -->
-						<a th:text=${tmp} th:href="#"></a>
+						<a th:text=${tmp} th:href="@{sectionPage(classId=${classId},instrId=${user.username})}"></a>
 					</td>
  				</tbody>	
  			</table>
@@ -204,7 +204,7 @@
     text-decoration: none;
     font-size: 36px;
     color: black;
-    width: 30%;
+    width: 100%;
 }
 
 .container tr a:hover {
