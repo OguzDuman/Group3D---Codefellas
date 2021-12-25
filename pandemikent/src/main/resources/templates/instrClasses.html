@@ -25,22 +25,22 @@
                 <li><a th:href="@{getClasses(userId=${user.username})}"> 
                     <span class="item">Classes</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{HESTrackerPage(userID=${user.username})}"> 
                     <span class="item">HES Code Tracker</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{displayVaccTracker(userID=${user.username})}"> 
                     <span class="item">Vaccine Tracker</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{displayPCR(userID=${user.username})}"> 
                     <span class="item">PCR Tracker</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{quarantinePage(userID=${user.username})}"> 
                     <span class="item">Quarantine Tracker</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{CovidHistory(userID=${user.username})}"> 
                     <span class="item">Covid History</span>
                 </a></li>
-            </ul>            
+            </ul>       
         </div>
 
         <div class="topbar">
