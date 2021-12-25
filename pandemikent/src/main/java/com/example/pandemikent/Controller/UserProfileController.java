@@ -31,7 +31,7 @@ public class UserProfileController {
 
     @GetMapping("/displayProfile")
     public @ResponseBody UserProfile displayUserProfile() {
-        String name = accessService.getCurrentUser();
+        String name = userProfileAccessService.getCurrentUser();
         return userProfileService.displayUserInfo(name);
         // return userProfileService.displayUserInfo(name);
     }
@@ -39,8 +39,9 @@ public class UserProfileController {
     @PostMapping("/createProfile")
     public @ResponseBody String addUserProfile(@RequestParam int id,
                                                  @RequestParam String email) {
-        String name = accessService.getCurrentUser();
-        if (userProfileService.addUserProfile(new UserProfile(name, id, email))) 
+        String name = userProfileAccessService.getCurrentUser();
+        if (userProfileService.addUserProfile(new UserProfile(name, id, email, true))) 
+
             return "Saved";
         else 
             return "Failed to save!";
@@ -56,13 +57,13 @@ public class UserProfileController {
 
     @GetMapping("/closeContacts")
     public @ResponseBody List<String> getCloseContacts() {
-        String name = accessService.getCurrentUser();
+        String name = userProfileAccessService.getCurrentUser();
         return userProfileService.getCloseContacts(name);
     }
 
     @PostMapping("/addCloseContacts")
     public @ResponseBody List<String> addCloseContacts(@RequestParam String contact) {
-        String name = accessService.getCurrentUser();
+        String name = userProfileAccessService.getCurrentUser();
         return userProfileService.addCloseContacts(name, contact);
     }
 }
