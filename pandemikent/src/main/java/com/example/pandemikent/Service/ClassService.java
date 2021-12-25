@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cache.CacheProperties.JCache;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -39,11 +40,11 @@ public class ClassService {
 	
   	public Class save(String classId, String sectionId, String instrId) {
 		Optional<Instructor> temp = instructorRepository.findById(instrId);
-		if (temp.isEmpty())
+		if (temp.get() == null)
 			return null;
 		Instructor instr = temp.get();
 		
-  		if(classRepository.findById(classId).isEmpty()) {
+  		if(classRepository.findById(classId).get() == null) {
 			instr.getClasses().add(classId);
 			instructorRepository.save(instr);
   			Class newClass = new Class();
@@ -153,11 +154,10 @@ public class ClassService {
   	}
 	
   	public Student joinClass(Class joinClass, String userId) {
-		System.out.println("Hellooooooooofnakjl");
 		// find class
 		Optional<Class> c = classRepository.findById(joinClass.getName());
 		
-		if (c.isEmpty()) {
+		if (c.get() == null) {
 			System.out.println("fkldafjka");
   			return null;
   		}
@@ -165,19 +165,20 @@ public class ClassService {
 			// find student
 			Optional<Student> t = studentRepository.findById(userId);
 			List<String> students = c.get().getStudents(); 
-			if (t.isEmpty()) 
+			if (t.get() == null)
 				return null;
 
 			Student student = t.get();
-			System.out.println("fkldafjka");
 			List<String> temp = (List<String>) student.getClasses();
-			if (temp.contains(joinClass))
+			if (temp.contains(joinClass.getName()))
 				return student;
 
 			temp.add(joinClass.getName());
 			students.add(userId);
 			updateStudent(student);
-			update(c.get());
+			Class jc = c.get();
+			jc.setStudents(students);
+			update(jc);
   			return student;
   		}
   	}
@@ -218,7 +219,7 @@ public class ClassService {
 	
 	public List<Student> getClassParticipants(String classId) {
 		Optional<Class> c = classRepository.findById(classId);
-		if (c.isEmpty())
+		if (c.get() == null)
 			return null;
 		
 		List<String> classList = c.get().getStudents();
