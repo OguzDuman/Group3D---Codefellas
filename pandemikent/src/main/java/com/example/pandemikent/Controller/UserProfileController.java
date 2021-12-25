@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.pandemikent.Model.UserProfile;
 import com.example.pandemikent.Repo.UserProfileRepository;
+import com.example.pandemikent.Service.CovidHistoryService;
 import com.example.pandemikent.Service.UserProfileAccessService;
 import com.example.pandemikent.Service.UserProfileService;
 
@@ -23,6 +24,8 @@ public class UserProfileController {
     UserProfileAccessService userProfileAccessService;
     @Autowired
     UserProfileRepository userProfileRepository;
+    @Autowired
+    private CovidHistoryService covidInfo;
 
     // @GetMapping("/login")
     // public @ResponseBody UserProfile login(@RequestParam String name, @RequestParam String password) {
@@ -52,6 +55,8 @@ public class UserProfileController {
     	String name = userProfileAccessService.getCurrentUser();
     	UserProfile user = userProfileRepository.findById(name).get();
   	  	theModel.addAttribute("user", user);
+	  	String access = covidInfo.findAccessStatus(user.getUsername());
+		theModel.addAttribute("access", access);
         return "mainPage";
     }
 
