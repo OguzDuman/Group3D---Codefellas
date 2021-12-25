@@ -34,9 +34,5 @@ public class UserProfileAccessService{
         return auth.getName();
     }
     
-    public String getCurrentUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getName();
-    }
     
 }

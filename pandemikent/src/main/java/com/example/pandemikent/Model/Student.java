@@ -16,7 +16,7 @@ import javax.persistence.DiscriminatorValue;
 public class Student extends UserProfile {
 
     public Student(String username, int id, String email, Boolean accessStatus) {
-        super(username, id, email);
+        super(username, id, email, true);
     }
 
     @ElementCollection

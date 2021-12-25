@@ -24,12 +24,15 @@ public class UserProfile {
     private int id;
     @Column(name="email")
     private String email;
+    @Column(name = "access_status")
+    private Boolean accessStatus;
 
     // Constructors
-    public UserProfile(String username, int id, String email) {
+    public UserProfile(String username, int id, String email, Boolean accessStatus) {
         this.username = username;
         this.id = id;
         this.email = email;
+        this.accessStatus = accessStatus;
     }
 
     public String getUsername() {
@@ -61,6 +64,14 @@ public class UserProfile {
         this.id = -1;
         this.email = null;
     }
+
+	public Boolean getAccessStatus() {
+		return accessStatus;
+	}
+
+	public void setAccessStatus(Boolean accessStatus) {
+		this.accessStatus = accessStatus;
+	}
 
     // Functions
 

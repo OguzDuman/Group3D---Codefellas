@@ -31,6 +31,9 @@ public class ClassController {
   
   @Autowired
   private UserProfileRepository userProfileRepository;
+  
+  @Autowired
+  private CovidHistoryService covidInfo;
 
   @Autowired
   private UserProfileAccessService accessService;
@@ -43,6 +46,8 @@ public class ClassController {
 	  UserProfile user = userProfileRepository.findById(userId).get();
 	  theModel.addAttribute("user", user);
 	  String s = classService.getUserRole(userId);
+	  String access = covidInfo.findAccessStatus(userId);
+	  theModel.addAttribute("access", access);
 	  if(s.equalsIgnoreCase("student"))
 		  return "stuClasses";
 	  else if(s.equalsIgnoreCase("instructor"))

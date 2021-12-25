@@ -6,7 +6,10 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 
 import com.example.pandemikent.Model.Student;
+import com.example.pandemikent.Model.UserProfile;
 import com.example.pandemikent.Repo.StudentRepository;
+import com.example.pandemikent.Repo.UserProfileRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.Query;
@@ -27,6 +30,9 @@ public class CovidHistoryService {
 
 	@Autowired
 	private StudentRepository studentRepository;
+	
+	@Autowired
+	private UserProfileRepository userProfileRepository;
 
 	@Autowired 
 	private EntityManager entityManager;
@@ -78,9 +84,15 @@ public class CovidHistoryService {
 		s.get().setAccessStatus(accessStatus);
 	}
 
-	public boolean findAccessStatus(String userID) {
-		Optional<Student> s = studentRepository.findById(userID);
-		return s.get().getAccessStatus();
+	public String findAccessStatus(String userID) {
+		Optional<UserProfile> s = userProfileRepository.findById(userID);
+		Boolean b = s.get().getAccessStatus();
+		String access = "";
+		  if(b)
+			  access = "You are allowed on campus.";
+		  else 
+			  access = "You are not allowed on campus.";
+		return access;
 	}
 
 }

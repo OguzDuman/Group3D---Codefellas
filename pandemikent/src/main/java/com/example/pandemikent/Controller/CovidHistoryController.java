@@ -9,6 +9,7 @@ import com.example.pandemikent.Repo.UserProfileRepository;
 import com.example.pandemikent.Service.CovidHistoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 import java.util.Optional;
 
+@Controller
 public class CovidHistoryController {
     @Autowired
     private CovidHistoryService covidInfo;
@@ -43,14 +45,20 @@ public class CovidHistoryController {
         return "Failed";
     }
 
-    @GetMapping("/campusAccessStatus")
-    public @ResponseBody
-    String displayCampusAccessStatus(@RequestParam String userID, Model theModel) {
-        theModel.addAttribute("accessStatus", covidInfo.findAccessStatus(userID));
-        UserProfile user = userProfileRepository.findById(userID).get();
-        theModel.addAttribute("user", covidInfo.findAccessStatus(userID));
-        return "accessStatus";
-    }
+//    @GetMapping("/campusAccessStatus")
+//    public @ResponseBody
+//    String displayCampusAccessStatus(@RequestParam String userID, Model theModel) {
+//        theModel.addAttribute("accessStatus", covidInfo.findAccessStatus(userID));
+//        UserProfile user = userProfileRepository.findById(userID).get();
+//        theModel.addAttribute("user", covidInfo.findAccessStatus(userID));
+//        return "accessStatus";
+//    }
+    
+//    @GetMapping("/campusAccessStatus")
+//    public @ResponseBody Boolean displayCampusAccessStatus(@RequestParam("userID") String userID) {
+//        System.out.println("hey");
+//        return covidInfo.findAccessStatus(userID);
+//    }
 
     @GetMapping("/displayPCR")
     public @ResponseBody
