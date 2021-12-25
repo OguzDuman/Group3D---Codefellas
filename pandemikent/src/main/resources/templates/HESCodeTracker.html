@@ -8,7 +8,7 @@
     <body>
         <div class="sidebar">
             <div class="userProfile">
-                <img src="logo.jpg" height="70px" width="210px">
+                <img src="logo.jpg" height="50px" width="190px">
                 <img src="user.png" height="70px" width="70px">
                 <p th:text="${user.username}"></p>
                 <p th:text="${user.id}"></p>
@@ -105,17 +105,17 @@
                 }
 
               }
-              var accessInfo;
-            
-            accessInfo = document.getElementsByClassName('accessStatus');
-            for (var i = 0; i < accessInfo.length; i++) {
-                if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
-                    accessInfo[i].style.color = "chartreuse";
+                var accessInfo;
+                
+                accessInfo = document.getElementsByClassName('accessStatus');
+                for (var i = 0; i < accessInfo.length; i++) {
+                    if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
+                        accessInfo[i].style.color = "chartreuse";
+                    }
+                    else {
+                        accessInfo[i].style.color = "red";
+                    }
                 }
-                else {
-                    accessInfo[i].style.color = "red";
-                }
-            }
             </script>
             <div class="container">
                <span style="padding-bottom:0%"> 
