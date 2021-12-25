@@ -226,4 +226,9 @@ public class ClassController {
 	  makeUpService.setMakeUpSession(makeUpSession, sectionId);
 	  return "redirect:displaySectionPage";
   }
+  
+  @GetMapping("/howToUse") 
+  public String displayHowToUse() {
+	  return "howToUse";
+  }
 }

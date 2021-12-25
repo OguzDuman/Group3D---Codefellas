@@ -15,7 +15,7 @@ import javax.persistence.DiscriminatorValue;
 @DiscriminatorValue("Student")
 public class Student extends UserProfile {
 
-    public Student(String username, int id, String email, Boolean accessStatus) {
+    public Student(String username, int id, String email) {
         super(username, id, email, true);
     }
 
@@ -30,9 +30,6 @@ public class Student extends UserProfile {
     @ElementCollection
     @CollectionTable(name ="closeContacts")
     private List<String> closeContacts = new ArrayList<>();
-    
-    @Column(name = "access_status")
-    private Boolean accessStatus;
 
     public List<String> getClasses() {
         return classes;
@@ -71,13 +68,5 @@ public class Student extends UserProfile {
 	
 	public String toString() {
 		return"name = " +getUsername() + "id= " + getId();
-	}
-
-	public Boolean getAccessStatus() {
-		return accessStatus;
-	}
-
-	public void setAccessStatus(Boolean accessStatus) {
-		this.accessStatus = accessStatus;
 	}
 }

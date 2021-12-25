@@ -60,7 +60,7 @@ public class UserProfileController {
     	String name = userProfileAccessService.getCurrentUser();
     	UserProfile user = userProfileService.displayUserInfo(name);
         if (user == null)
-            user = new UserProfile("----", 0, "----");
+            user = new UserProfile("----", 0, "----", true);
   	  	theModel.addAttribute("user", user);
 	  	String access = covidInfo.findAccessStatus(user.getUsername());
 		theModel.addAttribute("access", access);

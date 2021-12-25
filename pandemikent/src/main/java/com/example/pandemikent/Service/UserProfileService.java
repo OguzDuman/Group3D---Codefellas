@@ -44,9 +44,9 @@ public class UserProfileService {
             tempStudent = studentRepository.findById(id);
 
             // if not present, find in Instructor table
-            if (tempStudent.get() == null){
+            if (tempStudent.isEmpty()){
                 tempInst = instructorRepository.findById(id);
-                if (tempInst.get() == null) {
+                if (tempInst.isEmpty()) {
                     System.out.println("System error! Can't find user");
                     return null;
                 } else {
@@ -76,7 +76,7 @@ public class UserProfileService {
         //     return false;
 
         if (u.getRole().contains("STUDENT")) {
-            studentRepository.save(new Student(user.getUsername(), user.getId(), user.getEmail(), true));
+            studentRepository.save(new Student(user.getUsername(), user.getId(), user.getEmail()));
         }
         else if (u.getRole().contains("INSTRUCTOR")) {
             instructorRepository.save(new Instructor(user.getUsername(), user.getId(), user.getEmail()));

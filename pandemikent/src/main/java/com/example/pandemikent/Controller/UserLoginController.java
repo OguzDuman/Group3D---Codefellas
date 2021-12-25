@@ -36,7 +36,7 @@ public class UserLoginController {
   }
 
   @PostMapping(path="/submit") 
-  public @ResponseBody String addNewUser (@RequestParam String name, @RequestParam String password,
+  public String addNewUser (@RequestParam String name, @RequestParam String password,
                                           @RequestParam String role, @RequestParam String number, @RequestParam String email) {    
     Optional<UserLogin> s = userRepository.findById(name);
     System.out.print(s);
@@ -46,12 +46,12 @@ public class UserLoginController {
     
     if (role != null && ( role.equals("INSTRUCTOR") || role.equals("STUDENT") ) ) {
       userRepository.save( new UserLogin(name, password, role));
-      userProfileService.addUserProfile(new UserProfile(name, Integer.parseInt(number), email));
+      userProfileService.addUserProfile(new UserProfile(name, Integer.parseInt(number), email, true));
     }
     else 
-      return "Failed to save";
+      return "Error";
 
-    return "Saved";
+    return "login";
   }
 
   @GetMapping(path="/all")
