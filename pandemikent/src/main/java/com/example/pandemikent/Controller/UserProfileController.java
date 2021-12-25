@@ -1,8 +1,11 @@
 package com.example.pandemikent.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.example.pandemikent.Model.UserLogin;
 import com.example.pandemikent.Model.UserProfile;
+import com.example.pandemikent.Repo.UserLoginRepository;
 import com.example.pandemikent.Repo.UserProfileRepository;
 import com.example.pandemikent.Service.CovidHistoryService;
 import com.example.pandemikent.Service.UserProfileAccessService;
@@ -24,6 +27,8 @@ public class UserProfileController {
     UserProfileAccessService userProfileAccessService;
     @Autowired
     UserProfileRepository userProfileRepository;
+    @Autowired
+    UserLoginRepository userLoginRepository;
     @Autowired
     private CovidHistoryService covidInfo;
 
@@ -53,7 +58,9 @@ public class UserProfileController {
     @GetMapping("/")
     public String home(Model theModel) {
     	String name = userProfileAccessService.getCurrentUser();
-    	UserProfile user = userProfileRepository.findById(name).get();
+    	UserProfile user = userProfileService.displayUserInfo(name);
+        if (user == null)
+            user = new UserProfile("----", 0, "----");
   	  	theModel.addAttribute("user", user);
 	  	String access = covidInfo.findAccessStatus(user.getUsername());
 		theModel.addAttribute("access", access);

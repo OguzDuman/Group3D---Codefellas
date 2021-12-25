@@ -15,15 +15,6 @@ import com.example.pandemikent.Repo.SectionRepository;
 
 @Service
 public class MakeUpService {
-
-	@Autowired
-	private AttendanceRepository attendanceRepository;
-	
-	@Autowired
-	private MakeUpExamRepository makeUpExamRepository;
-	
-	@Autowired
-	private MakeUpSessionRepository makeUpSessionRepository;
 	
 	@Autowired
 	private ClassRepository classRepository;

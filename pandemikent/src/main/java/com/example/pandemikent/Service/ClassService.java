@@ -1,5 +1,6 @@
 package com.example.pandemikent.Service;
 
+import java.lang.StackWalker.Option;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -202,9 +203,14 @@ public class ClassService {
   		return null;
   	}
 	
-  	 public String getSectionInstr(String sectionId) {
-  	 	return sectionRepository.findBySectionNumber(sectionId).getInstructor();
-  	 }
+	//   public String getInstr(String c) {
+	// 	Optional<Class> cO = classRepository.findById(c).get()
+	// 	if (cO.isEmpty())
+	// 		return null;
+		
+	// 	return cO.getClass().get
+	// }
+  
 	
   	// public Boolean getUserAccess(String userId) {
   	// 	//return studentRepository.findById(userId).get().getCampusAccess();
