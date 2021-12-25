@@ -1,36 +1,3 @@
-<!DOCTYPE html>   
-<html>   
-<head>  
-<meta name="viewport" content="width=device-width, initial-scale=1">  
-<title> Pandemikent | Login </title>  
-<link rel="stylesheet" href="login.css">
-</head>    
-<body>    
-    <form name="f" th:action="@{login}" method="post"> 
-
-       <center> <img src="logo.jpg" > </center> 
-        <div class="container">   
-            <img src="user.png" style="width:40px;height:40px;">  
-            <span style="padding-left:20px"> 
-            <input type="text" placeholder="Bilkent ID" name="username" id="username" required>   
-        </div>   
-        <div class="container">    
-            <img src="user.png" style="width:40px;height:40px;">  
-            <span style="padding-left:20px"> 
-            <input type="password" placeholder="Password" name="password" id="password" required>   
-        </div>   
-        <div class="container">   
-            <button type="submit">Login</button>   
-        </div>   
-        <div class="container">
-               <span style="padding-top:55px"> 
-        </div>
-        <!-- <div class="container">   
-            <a href="#"> Forgot password? </a>   
-        </div>  --> 
-    </form>     
-</body>     
-<style>
 @font-face {
     font-family:"graphie";
     src:url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
@@ -41,8 +8,9 @@ Body {
   font-family: "graphie";
   src:url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
   font-display:auto;font-style:normal;font-weight:500;  
-  background-color: white;  
+  background-color: white; 
 }  
+
 button {   
        background-color: #848080;   
         color: black;   
@@ -55,10 +23,10 @@ button {
          }   
  form {   
        padding-top:90px;
-        border: 3px solid #a49c9c;   
+        border: 3px solid #a49c9c;
     }   
  input[type=text], input[type=password] {   
-        width: 100%;  
+        width: %100;  
         height: 40px; 
         margin: 8px 0; 
         padding-right: 200px;       
@@ -83,9 +51,59 @@ button {
  .container {   
        align-items: center;
        display: flex;
-       justify-content: center;
-        padding: 25px;   
+       justify-content: center;  
         background-color: white;  
     }   
-</style>
-</html> 
+
+     .container a{      
+        color: black;   
+        width: 100px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        align-content: center;
+        border: none;   
+        cursor: pointer;   
+    }   
+
+    .container h1{
+    font-size: 36pt;
+    font-family: "graphie";
+    color: darkolivegreen;
+}
+
+.container a{
+    font-size: 30pt;
+    font-family: "graphie";
+    color: darkcyan;
+}
+
+.container h2{
+    font-size: 30pt;
+    font-family: "graphie";
+    color: darkcyan;
+}
+
+    .container ul li a {
+    position: center;
+    display: block;
+    padding: 2px;
+    text-align: center;
+    border: 1px solid black;
+    background-color: gray;
+    margin: 10px 0px;
+    font-family: "graphie";
+    text-decoration: none;
+    color: black;
+    font-size: 20pt;
+}
+
+.container ul li a:hover {
+    background-color: pink;
+}
+
+    .center {
+        align-items: center;
+        display: flex;
+       justify-content: center;
+       padding-bottom: 30px;
+    }

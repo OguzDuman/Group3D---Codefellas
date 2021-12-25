@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Service
 public class UserProfileAccessService{
@@ -27,6 +29,11 @@ public class UserProfileAccessService{
         return user;
     }
 
+    public String getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
+    }
+    
     public String getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getName();

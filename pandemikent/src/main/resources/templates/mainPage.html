@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Main Page</title>  
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <p><img src="logo.jpg" height="50px" width="190px"></p>
+                <p><img src="user.png" height="70px" width="70px"></p>
+                <p th:text="${user.username}"></p>
+                <p th:text="${user.id}"></p>
+                <p th:text="${user.email}"></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p class="accessStatus">You are allowed on campus.</p>
+            </div>
+
+            <ul>
+                <li><a th:href="@{getClasses(userId=${user.username})}"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a href="#"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>
+        </div>
+        <script>
+            var accessInfo;
+            
+            accessInfo = document.getElementsByClassName('accessStatus');
+            for (var i = 0; i < accessInfo.length; i++) {
+                if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
+                    accessInfo[i].style.color = "chartreuse";
+                }
+                else {
+                    accessInfo[i].style.color = "red";
+                }
+            }
+        </script>
+    </body>
+    <style>
+        @font-face {
+            font-family:"graphie";
+            src:url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+            font-display:auto;font-style:normal;font-weight:500;
+        }
+            
+        * {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .sidebar {
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            top: 0;
+            left: 0;
+            width: 100%;
+            margin: auto;
+            height: 100%;
+            padding: 0px 0;
+        }
+
+        .sidebar .userProfile {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .sidebar .userProfile img {
+            margin-bottom: 5px;
+        }
+
+        .sidebar .userProfile p{
+            font-family: "graphie";
+            font-size: 18pt;
+        }
+
+        .sidebar .campusAccess {
+            margin-bottom: 15px;
+            text-align: center;
+            font-family: "graphie";
+        }
+
+        .sidebar .campusAccess h4 {
+            font-size: 16pt;
+            line-height: 90%;
+        }
+
+        .sidebar .campusAccess p {
+            font-size: 14pt;
+            color: chartreuse;
+            line-height: 80%;
+        }
+
+        .sidebar ul li a {
+            align-items: center;
+            align-self: center;
+            display: block;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid black;
+            background-color: gray;
+            font-family: "graphie";
+            text-decoration: none;
+            color: black;
+            margin: auto;
+            margin-bottom: 15px;
+            width: 30%;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: pink;
+        }
+
+    </style>
+</html>

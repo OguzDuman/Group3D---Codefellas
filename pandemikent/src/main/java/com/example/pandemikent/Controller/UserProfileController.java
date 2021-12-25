@@ -3,11 +3,13 @@ package com.example.pandemikent.Controller;
 import java.util.List;
 
 import com.example.pandemikent.Model.UserProfile;
+import com.example.pandemikent.Repo.UserProfileRepository;
 import com.example.pandemikent.Service.UserProfileAccessService;
 import com.example.pandemikent.Service.UserProfileService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +22,7 @@ public class UserProfileController {
     @Autowired
     UserProfileAccessService userProfileAccessService;
     @Autowired
-    UserProfileAccessService accessService;
+    UserProfileRepository userProfileRepository;
 
     // @GetMapping("/login")
     // public @ResponseBody UserProfile login(@RequestParam String name, @RequestParam String password) {
@@ -45,8 +47,11 @@ public class UserProfileController {
     }
 
     @GetMapping("/")
-    public @ResponseBody String home() {
-        return "Hello!";
+    public String home(Model theModel) {
+    	String name = userProfileAccessService.getCurrentUser();
+    	UserProfile user = userProfileRepository.findById(name).get();
+  	  	theModel.addAttribute("user", user);
+        return "mainPage";
     }
 
     @GetMapping("/closeContacts")

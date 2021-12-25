@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cache.CacheProperties.JCache;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import com.example.pandemikent.Repo.InstructorRepository;
 import com.example.pandemikent.Repo.QuarantineRepository;
 import com.example.pandemikent.Repo.SectionRepository;
 import com.example.pandemikent.Repo.StudentRepository;
+import com.example.pandemikent.Repo.UserProfileRepository;
 
 @Service
 public class ClassService {
@@ -36,18 +38,17 @@ public class ClassService {
 	
   	@Autowired
   	private QuarantineRepository quarantineRepository;
+  	
+  	@Autowired
+  	private UserProfileRepository userProfileRepository;
 	
   	public Class save(String classId, String sectionId, String instrId) {
 		Optional<Instructor> temp = instructorRepository.findById(instrId);
-		System.out.println("Rajlkjfa1323");
 		if (temp.isEmpty())
 			return null;
-		System.out.println("Rajlkjfa1323");
 		Instructor instr = temp.get();
 		
   		if(classRepository.findById(classId).isEmpty()) {
-
-			System.out.println("gjlkaeooqp");
 			instr.getClasses().add(classId);
 			instructorRepository.save(instr);
   			Class newClass = new Class();
@@ -55,8 +56,6 @@ public class ClassService {
   			Section newSection = new Section();
   			newSection.setInstructor(instr.getUsername());
   			newSection.setSectionNumber(sectionId);
-  			ArrayList<Section> sections = new ArrayList<Section>();
-  			sections.add(newSection);
 			ArrayList<String> t = new ArrayList<String>();
 			t.add(sectionId);
   			newClass.setSections(t);
@@ -70,97 +69,142 @@ public class ClassService {
   					break;
   				}
   			}
-			  System.out.println("fqipiro14");
   			if(b)
   				return null;
   			else {
-				System.out.println("dlkqjtq");
-				instr.getClasses().add(classId);
 				instructorRepository.save(instr);
   				Section newSection = new Section();
   	  			newSection.setInstructor(instr.getUsername());
   	  			newSection.setSectionNumber(sectionId);
 				sectionRepository.save(newSection);
-	  	  		ArrayList<String> sections = (ArrayList<String>)classRepository.getById(classId).getSections();
-				sectionRepository.save(newSection);
+	  	  		List<String> sections = classRepository.getById(classId).getSections();
 	  			sections.add(sectionId);
-	  			classRepository.getById(classId).setSections(sections);
 				Class c = classRepository.findById(classId).get();
 				c.setSections(sections);
-	  			return classRepository.save(c);
+	  			return update(c);
   			}
   		}
   	}
+  	
+  	public Class update(Class entity) {
+  		if(!classRepository.existsById(entity.getName()))
+			return null;
+		else {
+			Class exit = classRepository.findById(entity.getName()).orElse(null);
+			
+			exit.setName(entity.getName() != null ? entity.getName() : exit.getName());
+			exit.setStudents(entity.getStudents() != null ? entity.getStudents() : exit.getStudents());
+			exit.setTimeSlots(entity.getTimeSlots() != null ? entity.getTimeSlots() : exit.getTimeSlots());
+			exit.setSections(entity.getSections() != null ? entity.getSections() : exit.getSections());
+			exit.setMakeUpExam(entity.getMakeUpExam() != null ? entity.getMakeUpExam() : exit.getMakeUpExam());
+
+			return classRepository.save(exit);
+		}
+  	}
+  	
+  	public Student updateStudent(Student entity) {
+  		if(!studentRepository.existsById(entity.getUsername()))
+			return null;
+		else {
+			Student exit = studentRepository.findById(entity.getUsername()).orElse(null);
+			
+			exit.setClasses(entity.getClasses() != null ? entity.getClasses() : (ArrayList<String>) exit.getClasses());
+			exit.setCloseContacts(entity.getCloseContacts() != null ? entity.getCloseContacts() : exit.getCloseContacts());
+			exit.setEmail(entity.getEmail() != null ? entity.getEmail() : exit.getEmail());
+			exit.setHistory(entity.getHistory() != null ? entity.getHistory() : exit.getHistory());
+			exit.setId(entity.getId() != 0 ? entity.getId() : exit.getId());
+			exit.setUsername(entity.getUsername() != null ? entity.getUsername() : exit.getUsername());
+			
+			return studentRepository.save(exit);
+		}
+  	}
 	
   	public List<String> listUserClasses(String userId) {
-		System.out.println("Efjalkjflal");
   		if(studentRepository.findById(userId).isPresent()) {
-			System.out.println("Efjalkjflal");
   			return studentRepository.findById(userId).get().getClasses();
   		}
   		else if(instructorRepository.findById(userId).isPresent()) {
   			return instructorRepository.findById(userId).get().getClasses();
   		}
-  		else 
+  		else {
   			return null;
+  		}
+  			
   	}
-	
-  	// public List<Section> listUserSections(String userId, String classId) {
-  	// 	List<Section> sections = classRepository.getById(classId).getSections();
-  	// 	for(Section section: sections) {
-  	// 		if(section.getInstructor().getUsername() != userId) {
-  	// 			sections.remove(section);
-  	// 		}
-  	// 	}
-  	// 	return sections;
-  	// }
+  	
+  	public String getUserRole(String userId) {
+  		if(studentRepository.findById(userId).isPresent()) {
+  			return "student";
+  		}
+  		else if(instructorRepository.findById(userId).isPresent()) {
+  			return "instructor";
+  		}
+  		else
+  			return "none";
+  	}  	
+  	
+  	 public List<String> listUserSections(String userId, String classId) {
+  	 	List<String> sections = classRepository.getById(classId).getSections();
+  	 	for(String section: sections) {
+  	 		if(sectionRepository.findBySectionNumber(section).getInstructor() != userId) {
+  	 			sections.remove(section);
+  	 		}
+  	 	}
+  	 	return sections;
+  	 }
 	
   	public Class addClass(Class newClass) {
   		return classRepository.save(newClass);
   	}
 	
-  	public Student joinClass(String joinClass, String userId) {
-		System.out.println("Hellooooooooofnakjl");
+  	public Student joinClass(Class joinClass, String userId) {
 		// find class
-		Optional<Class> c = classRepository.findById(joinClass);
+		Optional<Class> c = classRepository.findById(joinClass.getName());
 		
-		if (c.isEmpty()) {
-			System.out.println("fkldafjka");
+		if (c.get() == null) {
   			return null;
   		}
   		else {
 			// find student
-			System.out.println("fkldafjka");
 			Optional<Student> t = studentRepository.findById(userId);
-			List<String> students = c.get().getStudents(); 
-			if (t.isEmpty()) 
+			if (t.isEmpty())
 				return null;
 
 			Student student = t.get();
-			System.out.println("fkldafjka");
-			List<String> temp = (List<String>) student.getClasses();
-			if (temp.contains(joinClass))
+			Class jc = c.get();
+			List<String> temp = student.getClasses();
+			List<String> students = c.get().getStudents(); 
+			if (temp.contains(joinClass.getName()))
 				return student;
 
-			temp.add(joinClass);
+			temp.add(joinClass.getName());
 			students.add(userId);
-			studentRepository.save(student);
-			classRepository.save(c.get());
+			student.setClasses(temp);
+			updateStudent(student);
+			jc.setStudents(students);
+			update(jc);
+			System.out.println(students);
   			return student;
   		}
   	}
 	
-  	public ArrayList<Student> listParticipants(Long sectionId) {
-  		return (ArrayList<Student>) sectionRepository.getById(sectionId).getStudents();
+  	public List<UserProfile> listParticipants(String classId) {
+  		List<String> list = classRepository.getById(classId).getStudents();
+  		List<UserProfile> students = new ArrayList<UserProfile>();
+  		for (String s : list) {
+			UserProfile temp = userProfileRepository.findById(s).get();
+			students.add(temp);
+		}
+		return students;
   	}
 	
   	public List<Date> getMissedClasses() {
   		return null;
   	}
 	
-  	// public Instructor getSectionInstr(Long sectionId) {
-  	// 	return sectionRepository.findById(sectionId).get().getInstructor();
-  	// }
+  	 public String getSectionInstr(String sectionId) {
+  	 	return sectionRepository.findBySectionNumber(sectionId).getInstructor();
+  	 }
 	
   	// public Boolean getUserAccess(String userId) {
   	// 	//return studentRepository.findById(userId).get().getCampusAccess();
@@ -186,7 +230,7 @@ public class ClassService {
 	
 	public List<Student> getClassParticipants(String classId) {
 		Optional<Class> c = classRepository.findById(classId);
-		if (c.isEmpty())
+		if (c.get() == null)
 			return null;
 		
 		List<String> classList = c.get().getStudents();
@@ -194,6 +238,7 @@ public class ClassService {
 		for (String s : classList) {
 			Student temp = studentRepository.findById(s).get();
 			students.add(temp);
+			System.out.println(temp.toString());
 		}
 
 		return students;

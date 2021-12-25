@@ -2,7 +2,11 @@ package com.example.pandemikent.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
+
+import com.example.pandemikent.Model.Student;
+import com.example.pandemikent.Repo.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.Query;
@@ -20,10 +24,10 @@ public class CovidHistoryService {
 	
 	@Autowired
 	private VaccineRepository vaccineRepository;
-	
+
 	@Autowired
-	private HESCodeRepository hesCodeRepository;
-	
+	private StudentRepository studentRepository;
+
 	@Autowired 
 	private EntityManager entityManager;
 	
@@ -34,10 +38,6 @@ public class CovidHistoryService {
 	public Boolean addVaccineAppointment(Vaccine vacApt) {
 		vacApt.setSuccessful(false);
 		vaccineRepository.save(vacApt);
-		return true;
-	}
-	
-	public Boolean addVaccineCertificate() {
 		return true;
 	}
 	
@@ -52,7 +52,17 @@ public class CovidHistoryService {
 		return vaccines;
 	}
 
-	public Boolean getCovidHistory(String name) {
+	public List<String> getCovidHistory(String userID) {
+		Optional<Student> s = studentRepository.findById(userID);
+		return s.get().getHistory();
+	}
+
+	public Boolean addCovidHistory(String userID, String history) {
+		Optional<Student> s = studentRepository.findById(userID);
+		if (s.get() == null || history.equals("")) {
+			return false;
+		}
+		s.get().addHistory(history);
 		return true;
 	}
 	
@@ -62,4 +72,15 @@ public class CovidHistoryService {
 		
 		return q.getResultList();
 	}
+
+	public void setCampusAccessStatus(String userID, boolean accessStatus) {
+		Optional<Student> s = studentRepository.findById(userID);
+		s.get().setAccessStatus(accessStatus);
+	}
+
+	public boolean findAccessStatus(String userID) {
+		Optional<Student> s = studentRepository.findById(userID);
+		return s.get().getAccessStatus();
+	}
+
 }
