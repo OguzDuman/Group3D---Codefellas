@@ -91,14 +91,16 @@ public class CovidHistoryController {
         return "PCRTracker";
     }
 
-    @GetMapping("/addPCR")
+    @GetMapping("/addPCRPage")
     public String displayAddPCRPage(@RequestParam("userID")String userID, Model theModel) {
         PCR newPCR = new PCR();
         theModel.addAttribute("newPCR", newPCR);
         UserProfile user = userProfileRepository.findById(userID).get();
         theModel.addAttribute("user", user);
         theModel.addAttribute("userID", userID);
-        return "createPCR";
+        String access = covidInfo.findAccessStatus(userID);
+  	  	theModel.addAttribute("access", access);
+        return "addPCR";
     }
 
     @GetMapping("/displayVaccTracker")
