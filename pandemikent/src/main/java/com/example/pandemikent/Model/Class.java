@@ -50,7 +50,7 @@ public class Class {
 	// @OneToMany
 	@CollectionTable(name = "section_id")
 	@ElementCollection
-	private List<String> sections = new ArrayList<>();;
+	private List<String> sections = new ArrayList<>();
 	
 	// @OneToOne
 	// @JoinColumn(name = "attendance_id")

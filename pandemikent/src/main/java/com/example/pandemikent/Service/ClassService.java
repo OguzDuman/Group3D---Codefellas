@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cache.CacheProperties.JCache;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import com.example.pandemikent.Repo.InstructorRepository;
 import com.example.pandemikent.Repo.QuarantineRepository;
 import com.example.pandemikent.Repo.SectionRepository;
 import com.example.pandemikent.Repo.StudentRepository;
+import com.example.pandemikent.Repo.UserProfileRepository;
 
 @Service
 public class ClassService {
@@ -37,6 +39,9 @@ public class ClassService {
 	
   	@Autowired
   	private QuarantineRepository quarantineRepository;
+  	
+  	@Autowired
+  	private UserProfileRepository userProfileRepository;
 	
   	public Class save(String classId, String sectionId, String instrId) {
 		Optional<Instructor> temp = instructorRepository.findById(instrId);
@@ -154,37 +159,44 @@ public class ClassService {
   	}
 	
   	public Student joinClass(Class joinClass, String userId) {
-		System.out.println("Hellooooooooofnakjl");
 		// find class
 		Optional<Class> c = classRepository.findById(joinClass.getName());
 		
-		if (c.isEmpty()) {
-			System.out.println("fkldafjka");
+		if (c.get() == null) {
   			return null;
   		}
   		else {
 			// find student
 			Optional<Student> t = studentRepository.findById(userId);
-			List<String> students = c.get().getStudents(); 
-			if (t.isEmpty()) 
+			if (t.isEmpty())
 				return null;
 
 			Student student = t.get();
-			System.out.println("fkldafjka");
-			List<String> temp = (List<String>) student.getClasses();
-			if (temp.contains(joinClass))
+			Class jc = c.get();
+			List<String> temp = student.getClasses();
+			List<String> students = c.get().getStudents(); 
+			if (temp.contains(joinClass.getName()))
 				return student;
 
 			temp.add(joinClass.getName());
 			students.add(userId);
+			student.setClasses(temp);
 			updateStudent(student);
-			update(c.get());
+			jc.setStudents(students);
+			update(jc);
+			System.out.println(students);
   			return student;
   		}
   	}
 	
-  	public List<String> listParticipants(String classId) {
-  		return classRepository.getById(classId).getStudents();
+  	public List<UserProfile> listParticipants(String classId) {
+  		List<String> list = classRepository.getById(classId).getStudents();
+  		List<UserProfile> students = new ArrayList<UserProfile>();
+  		for (String s : list) {
+			UserProfile temp = userProfileRepository.findById(s).get();
+			students.add(temp);
+		}
+		return students;
   	}
 	
   	public List<Date> getMissedClasses() {
@@ -224,7 +236,7 @@ public class ClassService {
 	
 	public List<Student> getClassParticipants(String classId) {
 		Optional<Class> c = classRepository.findById(classId);
-		if (c.isEmpty())
+		if (c.get() == null)
 			return null;
 		
 		List<String> classList = c.get().getStudents();
@@ -232,6 +244,7 @@ public class ClassService {
 		for (String s : classList) {
 			Student temp = studentRepository.findById(s).get();
 			students.add(temp);
+			System.out.println(temp.toString());
 		}
 
 		return students;

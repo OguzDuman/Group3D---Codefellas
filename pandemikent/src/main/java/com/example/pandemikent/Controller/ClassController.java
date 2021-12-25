@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,6 +32,12 @@ public class ClassController {
   
   @Autowired
   private UserProfileRepository userProfileRepository;
+  
+  @Autowired
+  private CovidHistoryService covidInfo;
+
+  @Autowired
+  private UserProfileAccessService accessService;
 
   // done
   @GetMapping("/getClasses")
@@ -40,6 +47,8 @@ public class ClassController {
 	  UserProfile user = userProfileRepository.findById(userId).get();
 	  theModel.addAttribute("user", user);
 	  String s = classService.getUserRole(userId);
+	  String access = covidInfo.findAccessStatus(userId);
+	  theModel.addAttribute("access", access);
 	  if(s.equalsIgnoreCase("student"))
 		  return "stuClasses";
 	  else if(s.equalsIgnoreCase("instructor"))
@@ -48,29 +57,26 @@ public class ClassController {
 		  return "error";
   }
   
-   @GetMapping("/sections")
-   public String displaySections(@RequestParam("userId") String userId, @RequestParam("classId") String classId, Model theModel) {
- 	  List<String> sections = classService.listUserSections(userId, classId);
- 	  theModel.addAttribute("sections", sections);
- 	  UserProfile user = userProfileRepository.findById(userId).get();
-	  theModel.addAttribute("user", user);
-	  theModel.addAttribute("classId", classId);
- 	  return "instrCourses";
-   }
+//   @GetMapping("/sections")
+//   public String displaySections(@RequestParam("userId") String userId, @RequestParam("classId") String classId, Model theModel) {
+// 	  List<String> sections = classService.listUserSections(userId, classId);
+// 	  theModel.addAttribute("sections", sections);
+// 	  UserProfile user = userProfileRepository.findById(userId).get();
+//	  theModel.addAttribute("user", user);
+//	  theModel.addAttribute("classId", classId);
+// 	  return "instrCourses";
+//   }
   
-  // where is it getting this information from ??????
    @GetMapping("/coursePage")
    public String displayCoursePage(@RequestParam("userId") String userId, @RequestParam("classId") String classId, Model theModel) {
-	   UserProfile user = userProfileRepository.findById(userId).get();
+	  UserProfile user = userProfileRepository.findById(userId).get();
 	  theModel.addAttribute("user", user);
  	  theModel.addAttribute("classId", classId);
 // 	  theModel.addAttribute("sectionId", sectionId);
 // 	  String instr = classService.getSectionInstr(sectionId);
 // 	  theModel.addAttribute("instr", instr);
- 	  //Boolean accessStatus = classService.getUserAccess(userId);
- 	  //theModel.addAttribute("accessStatus", accessStatus);
- 	  List<String> participants = classService.listParticipants(classId);
- 	  theModel.addAttribute("participants", participants);
+ 	  String access = covidInfo.findAccessStatus(userId);
+	  theModel.addAttribute("access", access);
  	  return "stuCourses";
    }
   
@@ -80,8 +86,8 @@ public class ClassController {
 	   theModel.addAttribute("user", user);
  	  theModel.addAttribute("classId", classId);
  	  theModel.addAttribute("instrId", instrId);
- 	  List<String> participants = classService.listParticipants(classId);
- 	  theModel.addAttribute("participants", participants);
+ 	  String access = covidInfo.findAccessStatus(instrId);
+	  theModel.addAttribute("access", access);
  	  return "instrSection";
    }
   
@@ -92,7 +98,8 @@ public class ClassController {
 	  UserProfile user = userProfileRepository.findById(instrId).get();
 	  theModel.addAttribute("user", user);
 	  theModel.addAttribute("instrId", user.getUsername());
-	  
+	  String access = covidInfo.findAccessStatus(instrId);
+	  theModel.addAttribute("access", access);
 	  return "createClass";
   }
   
@@ -117,6 +124,8 @@ public class ClassController {
 	  theModel.addAttribute("joinSection", joinSection);
 	  UserProfile user = userProfileRepository.findById(userId).get();
 	  theModel.addAttribute("user", user);
+	  String access = covidInfo.findAccessStatus(userId);
+	  theModel.addAttribute("access", access);
 	  return "joinClass";
   }
   
@@ -131,32 +140,38 @@ public class ClassController {
 	  }
   }
 
-  @GetMapping("/displayClassList")
-  public List<Student> displayClassList(@RequestParam String classId) {
-	  List<Student>  participants = classService.getClassParticipants(classId);
-	  for(Student stu: participants)
-	  	System.out.println(stu);
-	  
-	  // theModel.addAttribute("participants", participants);
-	  // return "participantsPage";
-	  return participants;
-  }
+//  @GetMapping("/displayClassList")
+//  public @ResponseBody List<Student> displayClassList(@RequestParam String classId) {
+//	  List<Student>  participants = classService.getClassParticipants(classId);
+//	  for(Student stu: participants)
+//	  	System.out.println(stu);
+//	  
+//	  // theModel.addAttribute("participants", participants);
+//	  // return "participantsPage";
+//	  return participants;
+//  }
   
   @GetMapping("/participants")
-  public String displayParticipantsPage(@ModelAttribute("participants") ArrayList<Student> participants, 
-		  @RequestParam("userId") String userId, Model theModel) {
+  public String displayParticipantsPage(@RequestParam("classId") String classId, @RequestParam("userId") String userId, Model theModel) {
 	  UserProfile user = userProfileRepository.findById(userId).get();
 	  theModel.addAttribute("user", user);
-	  theModel.addAttribute("participants", participants);
+	  theModel.addAttribute("classId", classId);
+	  List<UserProfile> participants = classService.listParticipants(classId);
+ 	  theModel.addAttribute("participants", participants);
+ 	  String access = covidInfo.findAccessStatus(userId);
+	  theModel.addAttribute("access", access);
 	  return "participants";
   }
   
   @GetMapping("/seeStudents")
-  public String displaySeeStudentsPage(@ModelAttribute("participants") ArrayList<Student> participants,
-		  @RequestParam("userId") String userId, Model theModel) {
+  public String displaySeeStudentsPage(@RequestParam("classId") String classId, @RequestParam("userId") String userId, Model theModel) {
 	  UserProfile user = userProfileRepository.findById(userId).get();
 	  theModel.addAttribute("user", user);
+	  theModel.addAttribute("classId", classId);
+	  List<UserProfile> participants = classService.listParticipants(classId);
 	  theModel.addAttribute("participants", participants);
+	  String access = covidInfo.findAccessStatus(userId);
+	  theModel.addAttribute("access", access);
 	  return "seeStudents";
   }
   

@@ -18,38 +18,41 @@
             
             <div class="campusAccess">
                 <h4>Your Campus Access Status:</h4>
-                <p>You are allowed on campus.</p>
+                <p th:text="${access}" class="accessStatus"></p>
             </div>
 
             <ul>
                 <li><a th:href="@{getClasses(userId=${user.username})}"> 
                     <span class="item">Classes</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{HESTrackerPage(userID=${user.username})}"> 
                     <span class="item">HES Code Tracker</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{displayVaccTracker(userID=${user.username})}"> 
                     <span class="item">Vaccine Tracker</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{displayPCR(userID=${user.username})}"> 
                     <span class="item">PCR Tracker</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{quarantinePage(userID=${user.username})}"> 
                     <span class="item">Quarantine Tracker</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{CovidHistory(userID=${user.username})}"> 
                     <span class="item">Covid History</span>
                 </a></li>
-            </ul>            
+            </ul>       
         </div>
 
         <div class="topbar">
+            <h1>Classes</h1>
+        </div>
+
+        <div class="topButton">
             <ul>
                 <li><a th:href="@{/addClassPage(instrId=${user.username})}"> 
                     <span class="item">Create Class</span>
                 </a></li>
             </ul>
-            <h1>Classes</h1>
         </div>
 
         <div class="container">
@@ -72,9 +75,9 @@
 					</td>
  				</tbody>	
  			</table>
-            <div class="notification">
-                <a href="#"><img src="bell.png" height="70px" width="70px">
-            </div>
+        </div>
+        <div class="notification">
+            <a href="#"><img src="bell.png" height="70px" width="70px">
         </div>
         <script>
             var accessInfo;
@@ -92,165 +95,160 @@
     </body>
     <style>
     @font-face {
-    font-family:"graphie";
-    src:url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
-    font-display:auto;font-style:normal;font-weight:500;
-}
+        font-family:"graphie";
+        src:url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+        font-display:auto;font-style:normal;font-weight:500;
+    }
 
-* {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}   
+    * {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }   
 
-.sidebar {
-    background-color: white;
-    border-right: 2px solid black;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 225px;
-    height: 100%;
-    padding: 10px 0;
-}
+    .sidebar {
+        background-color: white;
+        border-right: 2px solid black;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 225px;
+        height: 100%;
+        padding: 10px 0;
+    }
 
-.sidebar .userProfile {
-    margin-bottom: 15px;
-    text-align: center;
-}
+    .sidebar .userProfile {
+        margin-bottom: 15px;
+        text-align: center;
+    }
 
-.sidebar .userProfile img {
-    margin-bottom: 5px;
-}
+    .sidebar .userProfile img {
+        margin-bottom: 5px;
+    }
 
-.sidebar .userProfile p{
-    font-family: "graphie";
-    font-size: 18pt;
-}
+    .sidebar .userProfile p{
+        font-family: "graphie";
+        font-size: 18pt;
+    }
 
-.sidebar .campusAccess {
-    margin-bottom: 15px;
-    text-align: center;
-    font-family: "graphie";
-}
+    .sidebar .campusAccess {
+        margin-bottom: 15px;
+        text-align: center;
+        font-family: "graphie";
+    }
 
-.sidebar .campusAccess h4 {
-    font-size: 16pt;
-    line-height: 90%;
-}
+    .sidebar .campusAccess h4 {
+        font-size: 16pt;
+        line-height: 90%;
+    }
 
-.sidebar .campusAccess p {
-    font-size: 14pt;
-    color: chartreuse;
-    line-height: 80%;
-}
+    .sidebar .campusAccess p {
+        font-size: 14pt;
+        color: chartreuse;
+        line-height: 80%;
+    }
 
-.sidebar ul li a {
-    position: relative;
-    display: block;
-    padding: 2px;
-    text-align: center;
-    border: 1px solid black;
-    background-color: gray;
-    margin: 10px 60px;
-    font-family: "graphie";
-    text-decoration: none;
-    color: black;
-}
+    .sidebar ul li a {
+        position: relative;
+        display: block;
+        padding: 2px;
+        text-align: center;
+        border: 1px solid black;
+        background-color: gray;
+        margin: 10px 60px;
+        font-family: "graphie";
+        text-decoration: none;
+        color: black;
+    }
 
-.sidebar ul li a:hover {
-    background-color: pink;
-}
+    .sidebar ul li a:hover {
+        background-color: pink;
+    }
 
-.topbar {
-    background-color: white;
-    border-bottom: 2px solid black;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    padding: 10px 0;
-    margin-left: 225px;
-}
+    .topbar {
+        background-color: white;
+        border-bottom: 2px solid black;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        padding: 10px 0;
+        margin-left: 225px;
+    }
 
-.topbar h1 {
-    margin-left: 20px;
-    font-size: 36pt;
-    font-family: "graphie";
-    font-style: italic;
-    font-weight: 200;
-}
+    .topbar h1 {
+        margin-left: 20px;
+        font-size: 36pt;
+        font-family: "graphie";
+        font-style: italic;
+        font-weight: 200;
+    }
 
-.topbar ul li a {
-    position: fixed;
-    margin-left: 940px;
-    margin-top: 15px;
-    padding: 5px;
-    text-align: center;
-    border: 1px solid black;
-    background-color: gray;
-    font-family: "graphie";
-    text-decoration: none;
-    color: black;
-}
+    .topButton ul li a {
+        position: fixed;
+        top: 20px;
+        right: 10px;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+        background-color: gray;
+        font-family: "graphie";
+        text-decoration: none;
+        color: black;
+    }
 
-.topbar ul li a:hover {
-    background-color: pink;
-}
+    .topButton ul li a:hover {
+        background-color: pink;
+    }
 
-.container {
-    background-color: white;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 10px 0;
-    margin-top: 80px;
-    margin-left: 230px;
-}
+    .container {
+        background-color: white;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 10px 0;
+        margin-top: 80px;
+        margin-left: 230px;
+    }
 
-.container table a  {
-    padding: 10px 50px;
-    text-align: center;
-    border: 1px solid black;
-    background-color: gray;
-    margin: 20px 20px;
-    font-family: "graphie";
-    text-decoration: none;
-    font-size: 36px;
-    color: black;
-    float: left;
-    width: 100%;
-}
+    .container table a  {
+        padding: 10px 50px;
+        text-align: center;
+        border: 1px solid black;
+        background-color: gray;
+        margin: 20px 20px;
+        font-family: "graphie";
+        text-decoration: none;
+        font-size: 36px;
+        color: black;
+        float: left;
+        width: 100%;
+    }
 
-.container tr:nth-child(odd) a {
-    background-color: rgb(54, 133, 236);
-}
+    .container tr:nth-child(odd) a {
+        background-color: rgb(54, 133, 236);
+    }
 
-.container tr:nth-child(even) a {
-    background-color: rgb(203, 161, 250);
-}
+    .container tr:nth-child(even) a {
+        background-color: rgb(203, 161, 250);
+    }
 
-.container tr:nth-child(3n+0) a {
+    .container tr:nth-child(3n+0) a {
     background-color: palegreen;
-}
+    }
 
-.container tr:nth-child(4n+0) a {
-    background-color: palegoldenrod;
-}
+    .container td a:hover {
+        background-color: pink;
+    }
 
-.container td:hover {
-    background-color: pink;
-}
-
-.container .notification a{
-    position: fixed;
-    left: 1190px;
-    bottom: 10px;
-
-}
+    .notification {
+        position: fixed;
+        right: 15px;
+        bottom: 15px;
+    }
     </style>
 </html>

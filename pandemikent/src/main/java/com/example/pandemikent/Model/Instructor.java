@@ -22,7 +22,7 @@ public class Instructor extends UserProfile{
     private List<String> classes = new ArrayList<>();
 
     public Instructor(String username, int id, String email) {
-        super(username, id, email);
+        super(username, id, email, true);
     }
 
     public Instructor() {
