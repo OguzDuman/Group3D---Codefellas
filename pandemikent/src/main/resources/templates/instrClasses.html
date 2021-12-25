@@ -68,7 +68,7 @@
  				<tr th:each="tmp : ${classes}">
 	 				<td>
 						<!-- class button -->
-						<a th:text=${tmp} th:href="@{sectionPage(classId=${tmp},instrId=${user.username})}"></a>
+						<a th:text=${tmp} th:href="@{sections(classId=${tmp},userId=${user.username})}"></a>
 					</td>
  				</tbody>	
  			</table>

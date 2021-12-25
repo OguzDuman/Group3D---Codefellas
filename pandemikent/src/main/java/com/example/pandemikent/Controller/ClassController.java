@@ -54,6 +54,7 @@ public class ClassController {
  	  theModel.addAttribute("sections", sections);
  	  UserProfile user = userProfileRepository.findById(userId).get();
 	  theModel.addAttribute("user", user);
+	  theModel.addAttribute("classId", classId);
  	  return "instrCourses";
    }
   
@@ -61,7 +62,7 @@ public class ClassController {
    @GetMapping("/coursePage")
    public String displayCoursePage(@RequestParam("userId") String userId, @RequestParam("classId") String classId, Model theModel) {
 	   UserProfile user = userProfileRepository.findById(userId).get();
-	   theModel.addAttribute("user", user);
+	  theModel.addAttribute("user", user);
  	  theModel.addAttribute("classId", classId);
 // 	  theModel.addAttribute("sectionId", sectionId);
 // 	  String instr = classService.getSectionInstr(sectionId);
@@ -123,12 +124,11 @@ public class ClassController {
   public String joinClass(RedirectAttributes rda, @ModelAttribute("joinClass") Class joinClass, @ModelAttribute("userId") String userId) {
 	  rda.addAttribute("userId", userId);
 	  Student s = classService.joinClass(joinClass, userId);
-	  return "redirect:getClasses";
-	//   if(b) {
-	// 	  return "redirect:displayClasses";
-	//   } else {
-	// 	  return "errorPage";
-	//   }
+	  if(s == null) {
+		  return "error";
+	  } else {
+		  return "redirect:getClasses";
+	  }
   }
 
   @GetMapping("/displayClassList")
@@ -143,10 +143,21 @@ public class ClassController {
   }
   
   @GetMapping("/participants")
-  public String displayParticipantsPage(@ModelAttribute("participants") ArrayList<Student> participants, Model theModel) {
-	  
+  public String displayParticipantsPage(@ModelAttribute("participants") ArrayList<Student> participants, 
+		  @RequestParam("userId") String userId, Model theModel) {
+	  UserProfile user = userProfileRepository.findById(userId).get();
+	  theModel.addAttribute("user", user);
 	  theModel.addAttribute("participants", participants);
-	  return "participantsPage";
+	  return "participants";
+  }
+  
+  @GetMapping("/seeStudents")
+  public String displaySeeStudentsPage(@ModelAttribute("participants") ArrayList<Student> participants,
+		  @RequestParam("userId") String userId, Model theModel) {
+	  UserProfile user = userProfileRepository.findById(userId).get();
+	  theModel.addAttribute("user", user);
+	  theModel.addAttribute("participants", participants);
+	  return "seeStudents";
   }
   
   @GetMapping("/makeUpSessionPage")
@@ -165,12 +176,6 @@ public class ClassController {
   
   public String displayMissedClassesPage() {
 	  return null;
-  }
-  
-  @GetMapping("/seeStudents")
-  public String displaySeeStudentsPage(@ModelAttribute("participants") ArrayList<Student> participants, Model theModel) {
-	  theModel.addAttribute("participants", participants);
-	  return "seeStudentsPage";
   }
   
   @GetMapping("/quarantinedStudents")
