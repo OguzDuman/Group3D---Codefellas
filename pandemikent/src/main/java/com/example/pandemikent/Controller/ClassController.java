@@ -69,8 +69,6 @@ public class ClassController {
 // 	  theModel.addAttribute("instr", instr);
  	  //Boolean accessStatus = classService.getUserAccess(userId);
  	  //theModel.addAttribute("accessStatus", accessStatus);
- 	  List<String> participants = classService.listParticipants(classId);
- 	  theModel.addAttribute("participants", participants);
  	  return "stuCourses";
    }
   
@@ -80,8 +78,8 @@ public class ClassController {
 	   theModel.addAttribute("user", user);
  	  theModel.addAttribute("classId", classId);
  	  theModel.addAttribute("instrId", instrId);
- 	  List<String> participants = classService.listParticipants(classId);
- 	  theModel.addAttribute("participants", participants);
+ 	  //List<String> participants = classService.listParticipants(classId);
+ 	  //theModel.addAttribute("participants", participants);
  	  return "instrSection";
    }
   
@@ -143,19 +141,22 @@ public class ClassController {
   }
   
   @GetMapping("/participants")
-  public String displayParticipantsPage(@ModelAttribute("participants") ArrayList<Student> participants, 
-		  @RequestParam("userId") String userId, Model theModel) {
+  public String displayParticipantsPage(@RequestParam("classId") String classId, @RequestParam("userId") String userId, Model theModel) {
 	  UserProfile user = userProfileRepository.findById(userId).get();
 	  theModel.addAttribute("user", user);
-	  theModel.addAttribute("participants", participants);
+	  theModel.addAttribute("classId", classId);
+	  List<UserProfile> participants = classService.listParticipants(classId);
+ 	  theModel.addAttribute("participants", participants);
+ 	  
 	  return "participants";
   }
   
   @GetMapping("/seeStudents")
-  public String displaySeeStudentsPage(@ModelAttribute("participants") ArrayList<Student> participants,
-		  @RequestParam("userId") String userId, Model theModel) {
+  public String displaySeeStudentsPage(@RequestParam("classId") String classId, @RequestParam("userId") String userId, Model theModel) {
 	  UserProfile user = userProfileRepository.findById(userId).get();
 	  theModel.addAttribute("user", user);
+	  theModel.addAttribute("classId", classId);
+	  List<UserProfile> participants = classService.listParticipants(classId);
 	  theModel.addAttribute("participants", participants);
 	  return "seeStudents";
   }

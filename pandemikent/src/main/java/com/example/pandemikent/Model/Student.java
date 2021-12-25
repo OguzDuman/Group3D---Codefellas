@@ -4,7 +4,8 @@ package com.example.pandemikent.Model;
         import java.util.List;
 
         import javax.persistence.CollectionTable;
-        import javax.persistence.DiscriminatorValue;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
         import javax.persistence.ElementCollection;
         import javax.persistence.Entity;
         import javax.persistence.Table;
@@ -14,7 +15,7 @@ package com.example.pandemikent.Model;
 @DiscriminatorValue("Student")
 public class Student extends UserProfile {
 
-    public Student(String username, int id, String email) {
+    public Student(String username, int id, String email, Boolean accessStatus) {
         super(username, id, email);
     }
 
@@ -29,6 +30,9 @@ public class Student extends UserProfile {
     @ElementCollection
     @CollectionTable(name ="closeContacts")
     private List<String> closeContacts = new ArrayList<>();
+    
+    @Column(name = "access_status")
+    private Boolean accessStatus;
 
     public List<String> getClasses() {
         return classes;
@@ -67,5 +71,13 @@ public class Student extends UserProfile {
 	
 	public String toString() {
 		return"name = " +getUsername() + "id= " + getId();
+	}
+
+	public Boolean getAccessStatus() {
+		return accessStatus;
+	}
+
+	public void setAccessStatus(Boolean accessStatus) {
+		this.accessStatus = accessStatus;
 	}
 }

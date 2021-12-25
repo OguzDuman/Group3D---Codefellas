@@ -20,6 +20,7 @@ import com.example.pandemikent.Repo.InstructorRepository;
 import com.example.pandemikent.Repo.QuarantineRepository;
 import com.example.pandemikent.Repo.SectionRepository;
 import com.example.pandemikent.Repo.StudentRepository;
+import com.example.pandemikent.Repo.UserProfileRepository;
 
 @Service
 public class ClassService {
@@ -37,14 +38,17 @@ public class ClassService {
 	
   	@Autowired
   	private QuarantineRepository quarantineRepository;
+  	
+  	@Autowired
+  	private UserProfileRepository userProfileRepository;
 	
   	public Class save(String classId, String sectionId, String instrId) {
 		Optional<Instructor> temp = instructorRepository.findById(instrId);
-		if (temp.get() == null)
+		if (temp.isEmpty())
 			return null;
 		Instructor instr = temp.get();
 		
-  		if(classRepository.findById(classId).get() == null) {
+  		if(classRepository.findById(classId).isEmpty()) {
 			instr.getClasses().add(classId);
 			instructorRepository.save(instr);
   			Class newClass = new Class();
@@ -158,33 +162,40 @@ public class ClassService {
 		Optional<Class> c = classRepository.findById(joinClass.getName());
 		
 		if (c.get() == null) {
-			System.out.println("fkldafjka");
   			return null;
   		}
   		else {
 			// find student
 			Optional<Student> t = studentRepository.findById(userId);
-			List<String> students = c.get().getStudents(); 
-			if (t.get() == null)
+			if (t.isEmpty())
 				return null;
 
 			Student student = t.get();
-			List<String> temp = (List<String>) student.getClasses();
+			Class jc = c.get();
+			List<String> temp = student.getClasses();
+			List<String> students = c.get().getStudents(); 
 			if (temp.contains(joinClass.getName()))
 				return student;
 
 			temp.add(joinClass.getName());
 			students.add(userId);
+			student.setClasses(temp);
 			updateStudent(student);
-			Class jc = c.get();
 			jc.setStudents(students);
 			update(jc);
+			System.out.println(students);
   			return student;
   		}
   	}
 	
-  	public List<String> listParticipants(String classId) {
-  		return classRepository.getById(classId).getStudents();
+  	public List<UserProfile> listParticipants(String classId) {
+  		List<String> list = classRepository.getById(classId).getStudents();
+  		List<UserProfile> students = new ArrayList<UserProfile>();
+  		for (String s : list) {
+			UserProfile temp = userProfileRepository.findById(s).get();
+			students.add(temp);
+		}
+		return students;
   	}
 	
   	public List<Date> getMissedClasses() {
@@ -227,6 +238,7 @@ public class ClassService {
 		for (String s : classList) {
 			Student temp = studentRepository.findById(s).get();
 			students.add(temp);
+			System.out.println(temp.toString());
 		}
 
 		return students;

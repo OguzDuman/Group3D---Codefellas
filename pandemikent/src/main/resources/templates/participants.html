@@ -45,7 +45,9 @@
         </div>
 
         <div class="topbar">
-            <h1>Classes > CS319-03 > Participants</h1>
+            <h1 style="display:inline-block;">Classes > </h1>
+            <h1 style="display:inline-block;" th:text=${classId}></h1>
+            <h1 style="display:inline-block;"> > Participants</h1>
         </div>
 
         <div class="container">
@@ -57,6 +59,7 @@
                 </tr>
                 <tr th:each="student : ${participants}">
                     <td><img src="user.png" height="70px" width="70px"></td>
+
                     <td th:text="${student.id}">ID</td>
                     <td th:text="${student.username}">Name</td>
                 </tr>
