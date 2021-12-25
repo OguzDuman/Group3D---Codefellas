@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Classes</title>
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <img src="logo.jpg" height="50px" width="190px">
+                <img src="user.png" height="70px" width="70px">
+                <p th:text="${user.username}"></p>
+                <p th:text="${user.id}"></p>
+                <p th:text="${user.email}"></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p th:text="${access}" class="accessStatus"></p>
+            </div>
+
+            <ul>
+                <li><a th:href="@{getClasses(userId=${user.username})}"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a th:href="@{HESTrackerPage(userID=${user.username})}"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a th:href="@{displayVaccTracker(userID=${user.username})}"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a th:href="@{displayPCR(userID=${user.username})}"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a th:href="@{quarantinePage(userID=${user.username})}"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a th:href="@{CovidHistory(userID=${user.username})}"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>          
+        
+        </div>
+
+        <div class="topbar">
+            <h1>Classes</h1>
+        </div>
+
+        <div class="topButton">
+            <ul>
+                <li><a th:href="@{/joinClassPage(userId=${user.username})}"> 
+                    <span class="item">Join Class</span>
+                </a></li>
+            </ul>
+        </div>
+
+        <div class="container">
+        <!-- 
+            <ul>
+                <li><a href="instrCourses.html"> 
+                    <span class="item">CS319-03</span>
+                </a></li>
+                <li><a href="instrCourses.html"> 
+                    <span class="item">CS315-03</span>
+                </a></li>
+                <li><a href="instrCourses.html"> 
+                    <span class="item">MATH230-03</span>
+                </a></li>
+                <li><a href="instrCourses.html"> 
+                    <span class="item">ENG401-13</span>
+                </a></li>
+            </ul>
+            -->
+            <table>
+ 				<tbody>
+ 				<tr th:each="tmp : ${classes}">
+	 				<td>
+						<!-- class button -->
+						<a th:text=${tmp} th:href="@{coursePage(userId=${user.username},classId=${tmp})}"></a>
+					</td>
+ 				</tbody>	
+ 			</table>
+        </div>
+        <div class="notification">
+            <a href="#"><img src="bell.png" height="70px" width="70px">
+        </div>
+        <script>
+            var accessInfo;
+            
+            accessInfo = document.getElementsByClassName('accessStatus');
+            for (var i = 0; i < accessInfo.length; i++) {
+                if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
+                    accessInfo[i].style.color = "chartreuse";
+                }
+                else {
+                    accessInfo[i].style.color = "red";
+                }
+            }
+        </script>
+    </body>
+    
+    <style>
+    @font-face {
+        font-family:"graphie";
+        src:url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+        font-display:auto;font-style:normal;font-weight:500;
+    }
+
+    * {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }   
+
+    .sidebar {
+        background-color: white;
+        border-right: 2px solid black;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 225px;
+        height: 100%;
+        padding: 10px 0;
+    }
+
+    .sidebar .userProfile {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .sidebar .userProfile img {
+        margin-bottom: 5px;
+    }
+
+    .sidebar .userProfile p{
+        font-family: "graphie";
+        font-size: 18pt;
+    }
+
+    .sidebar .campusAccess {
+        margin-bottom: 15px;
+        text-align: center;
+        font-family: "graphie";
+    }
+
+    .sidebar .campusAccess h4 {
+        font-size: 16pt;
+        line-height: 90%;
+    }
+
+    .sidebar .campusAccess p {
+        font-size: 14pt;
+        color: chartreuse;
+        line-height: 80%;
+    }
+
+    .sidebar ul li a {
+        position: relative;
+        display: block;
+        padding: 2px;
+        text-align: center;
+        border: 1px solid black;
+        background-color: gray;
+        margin: 10px 60px;
+        font-family: "graphie";
+        text-decoration: none;
+        color: black;
+    }
+
+    .sidebar ul li a:hover {
+        background-color: pink;
+    }
+
+    .topbar {
+        background-color: white;
+        border-bottom: 2px solid black;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        padding: 10px 0;
+        margin-left: 225px;
+    }
+
+    .topbar h1 {
+        margin-left: 20px;
+        font-size: 36pt;
+        font-family: "graphie";
+        font-style: italic;
+        font-weight: 200;
+    }
+
+    .topButton ul li a {
+        position: fixed;
+        top: 20px;
+        right: 10px;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+        background-color: gray;
+        font-family: "graphie";
+        text-decoration: none;
+        color: black;
+    }
+
+    .topButton ul li a:hover {
+        background-color: pink;
+    }
+
+    .container {
+        background-color: white;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 10px 0;
+        margin-top: 80px;
+        margin-left: 230px;
+    }
+
+    .container table a {
+        padding: 10px 50px;
+        text-align: center;
+        border: 1px solid black;
+        background-color: gray;
+        margin: 20px 20px;
+        font-family: "graphie";
+        text-decoration: none;
+        font-size: 36px;
+        color: black;
+        float: left;
+        width: 100%;
+    }
+
+    .container tr:nth-child(odd) a {
+        background-color: rgb(54, 133, 236);
+    }
+
+    .container tr:nth-child(even) a {
+        background-color: rgb(203, 161, 250);
+    }
+
+    .container tr:nth-child(3n+0) a {
+    background-color: palegreen;
+    }
+
+    .container td a:hover {
+        background-color: pink;
+    }
+
+    .notification {
+        position: fixed;
+        right: 15px;
+        bottom: 15px;
+    }
+    </style>
+</html>

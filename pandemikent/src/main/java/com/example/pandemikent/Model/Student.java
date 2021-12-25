@@ -1,21 +1,22 @@
 package com.example.pandemikent.Model;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
-import javax.persistence.CollectionTable;
+        import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+        import javax.persistence.ElementCollection;
+        import javax.persistence.Entity;
+        import javax.persistence.Table;
 
 @Entity
 @Table(name="student")
 @DiscriminatorValue("Student")
 public class Student extends UserProfile {
-    
+
     public Student(String username, int id, String email) {
-        super(username, id, email);
+        super(username, id, email, true);
     }
 
     @ElementCollection
@@ -42,11 +43,11 @@ public class Student extends UserProfile {
         return history;
     }
 
-    public void setHistory(ArrayList<String> history) {
+    public void setHistory(List<String> history) {
         this.history = history;
     }
 
-    public void setCloseContacts(ArrayList<String> closeContacts) {
+    public void setCloseContacts(List<String> closeContacts) {
         this.closeContacts = closeContacts;
     }
 
@@ -54,6 +55,18 @@ public class Student extends UserProfile {
         return closeContacts;
     }
 
+    public void addHistory(String historyText) {
+        history.add(historyText);
+    }
+
     public Student() {
     }
+
+	public void setClasses(List<String> classes) {
+		this.classes = classes;
+	}
+	
+	public String toString() {
+		return"name = " +getUsername() + "id= " + getId();
+	}
 }

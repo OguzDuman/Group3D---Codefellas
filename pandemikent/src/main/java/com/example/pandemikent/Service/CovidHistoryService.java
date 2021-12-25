@@ -2,7 +2,14 @@ package com.example.pandemikent.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
+
+import com.example.pandemikent.Model.Student;
+import com.example.pandemikent.Model.UserProfile;
+import com.example.pandemikent.Repo.StudentRepository;
+import com.example.pandemikent.Repo.UserProfileRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.Query;
@@ -20,10 +27,13 @@ public class CovidHistoryService {
 	
 	@Autowired
 	private VaccineRepository vaccineRepository;
+
+	@Autowired
+	private StudentRepository studentRepository;
 	
 	@Autowired
-	private HESCodeRepository hesCodeRepository;
-	
+	private UserProfileRepository userProfileRepository;
+
 	@Autowired 
 	private EntityManager entityManager;
 	
@@ -37,30 +47,42 @@ public class CovidHistoryService {
 		return true;
 	}
 	
-	public Boolean addVaccineCertificate() {
-		return true;
-	}
-	
 	public List<Vaccine> getVaccineHistory(String name) {
-		Query q = entityManager.createNativeQuery("SELECT * FROM pandemikent.VACCINE WHERE patient_id = :pId;", Vaccine.class);
-		q.setParameter("pId", name);
-		List<Object> temp = q.getResultList();
-		ArrayList<Vaccine> vaccines = new ArrayList<>();
-		for (Object t : temp) {
-			vaccines.add((Vaccine)t);
-		}
-		return vaccines;
+		return vaccineRepository.getVaccineByPatientId(name);
 	}
 
-	public Boolean getCovidHistory(String name) {
+	public List<String> getCovidHistory(String userID) {
+		Optional<Student> s = studentRepository.findById(userID);
+		return s.get().getHistory();
+	}
+
+	public Boolean addCovidHistory(String userID, String history) {
+		Optional<Student> s = studentRepository.findById(userID);
+		if (s.get() == null || history.equals("")) {
+			return false;
+		}
+		s.get().addHistory(history);
 		return true;
 	}
 	
-	public List<PCR> listUserPCRs(String id) {
-		Query q = entityManager.createNativeQuery("SELECT * FROM pandemikent.PCR WHERE patient_id = :pId;", PCR.class);
-		q.setParameter("pId", id);
-		
-		return q.getResultList();
+	public List<PCR> listUserPCRs(String id) {		
+		return pcrRepoitory.getPCRByPatientId(id);
+	}
+
+	public void setCampusAccessStatus(String userID, boolean accessStatus) {
+		Optional<Student> s = studentRepository.findById(userID);
+		s.get().setAccessStatus(accessStatus);
+	}
+
+	public String findAccessStatus(String userID) {
+		Optional<UserProfile> s = userProfileRepository.findById(userID);
+		Boolean b = s.get().getAccessStatus();
+		String access = "";
+		  if(b)
+			  access = "You are allowed on campus.";
+		  else 
+			  access = "You are not allowed on campus.";
+		return access;
 	}
 
 }

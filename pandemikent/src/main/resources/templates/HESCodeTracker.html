@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>HES Code Tracker</title>  
+    </head>
+    
+    <body>
+        <div class="sidebar">
+            <div class="userProfile">
+                <img src="logo.jpg" height="50px" width="190px">
+                <img src="user.png" height="70px" width="70px">
+                <p th:text="${user.username}"></p>
+                <p th:text="${user.id}"></p>
+                <p th:text="${user.email}"></p>
+            </div>
+            
+            <div class="campusAccess">
+                <h4>Your Campus Access Status:</h4>
+                <p class="accessStatus">You are allowed on campus.</p>
+            </div>
+
+            <ul>
+                <li><a th:href="@{getClasses(userId=${user.username})}"> 
+                    <span class="item">Classes</span>
+                </a></li>
+                <li><a th:href="@{HESTrackerPage(userID=${user.username})}"> 
+                    <span class="item">HES Code Tracker</span>
+                </a></li>
+                <li><a th:href="@{displayVaccTracker(userID=${user.username})}"> 
+                    <span class="item">Vaccine Tracker</span>
+                </a></li>
+                <li><a th:href="@{displayPCR(userID=${user.username})}"> 
+                    <span class="item">PCR Tracker</span>
+                </a></li>
+                <li><a th:href="@{quarantinePage(userID=${user.username})}"> 
+                    <span class="item">Quarantine Tracker</span>
+                </a></li>
+                <li><a th:href="@{CovidHistory(userID=${user.username})}"> 
+                    <span class="item">Covid History</span>
+                </a></li>
+            </ul>
+        </div>
+        <div class="topbar">
+            <div>
+                <h1>HES Code Tracker</h1>
+            </div>
+        </div>
+        <form>
+            <table id="tbl_id" style="text-align:left" align="center">
+                    <tr>
+                        <th>HES Code</th>
+                        <th>Name</th>
+                        <th>Days Left</th>
+                    </tr>
+                    <tr>
+                        <td>*9*9-999-99</td>
+                        <td>HES Code Name0</td>
+                        <td>Permanent</td>
+                    </tr>
+                    <tr>
+                        <td>*9*9-999-99</td>
+                        <td>HES Code Name1</td>
+                        <td>Permanent</td>
+                    </tr>
+                    <tr>
+                        <td>*9*9-999-99</td>
+                        <td>HES Code Name2</td>
+                        <td>Permanent</td>
+                    </tr>
+                    <tr>
+                        <td>*9*9-999-99</td>
+                        <td>HES Code Name3</td>
+                        <td>361</td>
+                    </tr>
+            </table>
+
+            <div class="container">
+                <!--ul><li><a href="#"> 
+                    <span class="item">Submit</span>
+                </a></li></ul-->
+                <ul><li><a href="AddHESCode.html"> 
+                    <span class="item">Add New HES Code</span>
+                </a> </li></ul>
+            </div>
+
+            <script type="text/javascript">
+
+              function addMoreRows() {
+
+                var rowsAdded = document.getElementById('user_id').value;
+
+                for(var x=0; x<rowsAdded; x++) {
+                  var newRow = document.getElementById('tbl_id').insertRow();
+
+                  var newCell = newRow.insertCell();
+                  newCell.innerHTML="<tr><td><input type='text' name='hes'></td></tr>";
+
+                  newCell = newRow.insertCell();
+                  newCell.innerHTML="<tr><td><input type='text' name='name'></td></tr>";
+
+                  newCell = newRow.insertCell();
+                  newCell.innerHTML="<tr><td><input type='text' name='dayleft'></td></tr>";
+
+                }
+
+              }
+                var accessInfo;
+                
+                accessInfo = document.getElementsByClassName('accessStatus');
+                for (var i = 0; i < accessInfo.length; i++) {
+                    if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
+                        accessInfo[i].style.color = "chartreuse";
+                    }
+                    else {
+                        accessInfo[i].style.color = "red";
+                    }
+                }
+            </script>
+            <div class="container">
+               <span style="padding-bottom:0%"> 
+            </div>
+        </form>
+    </body>
+    <style>
+    @font-face {
+    font-family:"graphie";
+    src:url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/769ffb/00000000000000007735c405/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+    font-display:auto;font-style:normal;font-weight:500;
+}
+
+ input[type=text], input[type=number] {     
+        height: 40px; 
+        margin-left: 30px; 
+        padding-right: 300px;       
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: inline-block;   
+        border: 2px #2e2d2d;   
+        box-sizing: border-box;  
+        text-align: left;
+        font-family: "graphie";
+        font-size: 15pt;
+        border: 3px solid #b9b9b9;
+    }  
+
+    table {
+        margin-left: 250px;
+        font-family: "graphie";
+        border-collapse: collapse;
+    }
+
+    th {
+        padding-left: 10px;
+        padding-right: 40px;
+        font-size: 20pt;
+        border: 1px solid darkgray;
+    }
+    td {
+        padding-left: 10px;
+        padding-right: 40px;
+        font-size: 16pt;
+        /*border: 1px solid darkgray;*/
+    }
+    tr:nth-child(even) {
+        background-color: lightgray;
+    }   
+
+ form {   
+       padding-top:90px;
+        border: 3px solid #a49c9c;  
+    }   
+    
+* {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.sidebar {
+    background-color: white;
+    border-right: 2px solid black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 225px;
+    height: 100%;
+    padding: 10px 0;
+}
+
+.sidebar .userProfile {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.sidebar .userProfile img {
+    margin-bottom: 5px;
+}
+
+.sidebar .userProfile p{
+    font-family: "graphie";
+    font-size: 18pt;
+}
+
+.sidebar .campusAccess {
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: "graphie";
+}
+
+.sidebar .campusAccess h4 {
+    font-size: 16pt;
+    line-height: 90%;
+}
+
+.sidebar .campusAccess p {
+    font-size: 14pt;
+    color: chartreuse;
+    line-height: 80%;
+}
+
+.sidebar ul li a {
+    position: relative;
+    display: block;
+    padding: 2px;
+    text-align: center;
+    border: 1px solid black;
+    background-color: gray;
+    margin: 10px 60px;
+    font-family: "graphie";
+    text-decoration: none;
+    color: black;
+}
+
+.sidebar ul li a:hover {
+    background-color: pink;
+}
+
+.topbar {
+    background-color: white;
+    border-bottom: 2px solid black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding: 10px 0;
+    margin-left: 225px;
+}
+
+.topbar h1{
+    margin-left: 20px;
+    font-size: 36pt;
+    font-family: "graphie";
+    font-style: italic;
+    font-weight: 200;
+}
+
+ .container {   
+       display: flex;
+       justify-content: left;
+       margin-left: 250px;
+        padding: 25px;   
+        background-color: white;  
+    }   
+
+.container h1{
+    font-size: 36pt;
+    font-family: "graphie";
+}
+
+.container ul li a {
+    position: relative;
+    display: block;
+    padding: 2px;
+    text-align: center;
+    border: 1px solid black;
+    background-color: gray;
+    margin: 10px 0px;
+    font-family: "graphie";
+    text-decoration: none;
+    color: black;
+    font-size: 20pt;
+}
+
+.container ul li a:hover {
+    background-color: pink;
+}
+    </style>
+</html>

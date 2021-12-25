@@ -3,7 +3,10 @@ package com.example.pandemikent.Controller;
 import java.util.Optional;
 
 import com.example.pandemikent.Model.UserLogin;
+import com.example.pandemikent.Model.UserProfile;
 import com.example.pandemikent.Repo.UserLoginRepository;
+import com.example.pandemikent.Service.UserProfileService;
+import com.example.pandemikent.Service.UserProfileAccessService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,26 +20,42 @@ public class UserLoginController {
     
   @Autowired
   private UserLoginRepository userRepository;
+  @Autowired
+  private UserProfileService userProfileService;
+  @Autowired
+  private UserProfileAccessService  accessService;
+
+  @GetMapping(path="/login")
+  public String login(){
+    return "login";
+  }
+
+  @GetMapping(path="/createAccount") 
+  public String createAccount () {    
+      return "signup";
+  }
 
   @PostMapping(path="/submit") 
-  public @ResponseBody String addNewUser (@RequestParam String name, @RequestParam String password,
-                                          @RequestParam String role) {    
+  public String addNewUser (@RequestParam String name, @RequestParam String password,
+                                          @RequestParam String role, @RequestParam String number, @RequestParam String email) {    
     Optional<UserLogin> s = userRepository.findById(name);
     System.out.print(s);
     if (s == null){
-      return "Access Denied";
+      return "Error";
     }
     
-    if (role != null && ( role.equals("INSTRUCTOR") || role.equals("STUDENT") ) )
+    if (role != null && ( role.equals("INSTRUCTOR") || role.equals("STUDENT") ) ) {
       userRepository.save( new UserLogin(name, password, role));
+      userProfileService.addUserProfile(new UserProfile(name, Integer.parseInt(number), email, true));
+    }
     else 
-      return "Failed to save";
+      return "Error";
 
-    return "Saved";
+    return "login";
   }
 
   @GetMapping(path="/all")
-  public @ResponseBody Iterable<UserLogin> getAllUsers() {
-    return userRepository.findAll();
+  public @ResponseBody String getAllUsers() {
+    return accessService.getCurrentUser();
   }
 }
