@@ -35,7 +35,6 @@ public class UserLoginController {
     if (s == null){
       return "Error";
     }
-    
     if (role != null && ( role.equals("INSTRUCTOR") || role.equals("STUDENT") ) )
       userRepository.save( new UserLogin(name, password, role));
     else 

@@ -62,5 +62,4 @@ public class CovidHistoryService {
 		
 		return q.getResultList();
 	}
-
 }
