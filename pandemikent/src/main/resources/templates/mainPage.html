@@ -27,7 +27,7 @@
                 <li><a href="#"> 
                     <span class="item">HES Code Tracker</span>
                 </a></li>
-                <li><a href="#"> 
+                <li><a th:href="@{displayVaccTracker(userID=${user.username})}"> 
                     <span class="item">Vaccine Tracker</span>
                 </a></li>
                 <li><a th:href="@{displayPCR(userID=${user.username})}"> 

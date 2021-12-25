@@ -48,14 +48,7 @@ public class CovidHistoryService {
 	}
 	
 	public List<Vaccine> getVaccineHistory(String name) {
-		Query q = entityManager.createNativeQuery("SELECT * FROM pandemikent.VACCINE WHERE patient_id = :pId;", Vaccine.class);
-		q.setParameter("pId", name);
-		List<Object> temp = q.getResultList();
-		ArrayList<Vaccine> vaccines = new ArrayList<>();
-		for (Object t : temp) {
-			vaccines.add((Vaccine)t);
-		}
-		return vaccines;
+		return vaccineRepository.getVaccineByPatientId(name);
 	}
 
 	public List<String> getCovidHistory(String userID) {
