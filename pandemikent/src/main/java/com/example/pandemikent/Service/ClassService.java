@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cache.CacheProperties.JCache;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -153,7 +154,6 @@ public class ClassService {
   	}
 	
   	public Student joinClass(Class joinClass, String userId) {
-		System.out.println("Hellooooooooofnakjl");
 		// find class
 		Optional<Class> c = classRepository.findById(joinClass.getName());
 		
@@ -169,15 +169,16 @@ public class ClassService {
 				return null;
 
 			Student student = t.get();
-			System.out.println("fkldafjka");
 			List<String> temp = (List<String>) student.getClasses();
-			if (temp.contains(joinClass))
+			if (temp.contains(joinClass.getName()))
 				return student;
 
 			temp.add(joinClass.getName());
 			students.add(userId);
 			updateStudent(student);
-			update(c.get());
+			Class jc = c.get();
+			jc.setStudents(students);
+			update(jc);
   			return student;
   		}
   	}

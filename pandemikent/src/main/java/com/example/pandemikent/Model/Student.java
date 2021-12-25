@@ -61,7 +61,11 @@ public class Student extends UserProfile {
     public Student() {
     }
 
-    public void setClasses(List<String> classes) {
-        this.classes = classes;
-    }
+	public void setClasses(List<String> classes) {
+		this.classes = classes;
+	}
+	
+	public String toString() {
+		return"name = " +getUsername() + "id= " + getId();
+	}
 }
