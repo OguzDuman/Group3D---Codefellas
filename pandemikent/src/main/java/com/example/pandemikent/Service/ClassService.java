@@ -51,8 +51,6 @@ public class ClassService {
   			Section newSection = new Section();
   			newSection.setInstructor(instr.getUsername());
   			newSection.setSectionNumber(sectionId);
-  			ArrayList<Section> sections = new ArrayList<Section>();
-  			sections.add(newSection);
 			ArrayList<String> t = new ArrayList<String>();
 			t.add(sectionId);
   			newClass.setSections(t);
@@ -75,9 +73,7 @@ public class ClassService {
   	  			newSection.setSectionNumber(sectionId);
 				sectionRepository.save(newSection);
 	  	  		List<String> sections = classRepository.getById(classId).getSections();
-				sectionRepository.save(newSection);
 	  			sections.add(sectionId);
-	  			classRepository.getById(classId).setSections(sections);
 				Class c = classRepository.findById(classId).get();
 				c.setSections(sections);
 	  			return update(c);
@@ -96,7 +92,7 @@ public class ClassService {
 			exit.setTimeSlots(entity.getTimeSlots() != null ? entity.getTimeSlots() : exit.getTimeSlots());
 			exit.setSections(entity.getSections() != null ? entity.getSections() : exit.getSections());
 			exit.setMakeUpExam(entity.getMakeUpExam() != null ? entity.getMakeUpExam() : exit.getMakeUpExam());
-		
+
 			return classRepository.save(exit);
 		}
   	}
@@ -113,7 +109,7 @@ public class ClassService {
 			exit.setHistory(entity.getHistory() != null ? entity.getHistory() : exit.getHistory());
 			exit.setId(entity.getId() != 0 ? entity.getId() : exit.getId());
 			exit.setUsername(entity.getUsername() != null ? entity.getUsername() : exit.getUsername());
-		
+			
 			return studentRepository.save(exit);
 		}
   	}
@@ -140,12 +136,12 @@ public class ClassService {
   		}
   		else
   			return "none";
-  	}
-	
+  	}  	
+  	
   	 public List<String> listUserSections(String userId, String classId) {
   	 	List<String> sections = classRepository.getById(classId).getSections();
   	 	for(String section: sections) {
-  	 		if(instructorRepository.findById(sectionRepository.findBySectionNumber(section).getInstructor()).get().getUsername() != userId) {
+  	 		if(sectionRepository.findBySectionNumber(section).getInstructor() != userId) {
   	 			sections.remove(section);
   	 		}
   	 	}
