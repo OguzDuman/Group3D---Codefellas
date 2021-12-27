@@ -120,7 +120,7 @@
             vaxData = document.getElementsByClassName('vaccination');
             for (var i = 0; i < vaxData.length; i++) {
                 if (vaxData[i].innerHTML === "Fully Vaccinated") {
-                    vaxData[i].style.color = "chartreuse";
+                    vaxData[i].style.color = "green";
                 }
                 else {
                     vaxData[i].style.color = "red";
@@ -131,7 +131,7 @@
             accessData = document.getElementsByClassName('access');
             for (var i = 0; i < accessData.length; i++) {
                 if (accessData[i].innerHTML === 'Allowed') {
-                    accessData[i].style.color = "chartreuse";
+                    accessData[i].style.color = "green";
                 }
                 else {
                     accessData[i].style.color = "red";
@@ -141,7 +141,7 @@
             accessInfo = document.getElementsByClassName('accessStatus');
             for (var i = 0; i < accessInfo.length; i++) {
                 if (accessInfo[i].innerHTML === 'You are allowed on campus.') {
-                    accessInfo[i].style.color = "chartreuse";
+                    accessInfo[i].style.color = "green";
                 }
                 else {
                     accessInfo[i].style.color = "red";
