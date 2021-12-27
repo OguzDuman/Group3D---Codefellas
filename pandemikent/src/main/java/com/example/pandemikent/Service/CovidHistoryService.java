@@ -53,7 +53,7 @@ public class CovidHistoryService {
 
 	public List<String> getCovidHistory(String userID) {
 		Optional<Student> s = studentRepository.findById(userID);
-		return s.get().getHistory();
+		return null;
 	}
 
 	public Boolean addCovidHistory(String userID, String history) {
